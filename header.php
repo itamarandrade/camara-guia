@@ -2,24 +2,61 @@
 <html <?php language_attributes(); ?>>
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?>>
+<body <?php body_class('site-body'); ?>>
+<?php wp_body_open(); ?>
 
-<header class="header">
-    <div class="container header-top">
-        <div class="logo-wrap">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/logo.png" class="logo" alt="Câmara Municipal de São Paulo">
+<header class="site-header">
+    <div class="top-bar">
+        <div class="container top-bar__inner">
+            <div class="top-bar__social" aria-label="<?php esc_attr_e('Redes sociais oficiais', 'camara-hotsite'); ?>">
+                <a class="social-link" data-icon="F" href="https://www.facebook.com/camarasaopaulo" target="_blank" rel="noreferrer" aria-label="Facebook da Câmara Municipal"><span aria-hidden="true">Facebook</span></a>
+                <a class="social-link" data-icon="T" href="https://twitter.com/camarasaopaulo" target="_blank" rel="noreferrer" aria-label="Twitter da Câmara Municipal"><span aria-hidden="true">Twitter</span></a>
+                <a class="social-link" data-icon="YT" href="https://www.youtube.com/camarasaopaulo" target="_blank" rel="noreferrer" aria-label="YouTube da Câmara Municipal"><span aria-hidden="true">YouTube</span></a>
+            </div>
+            <span class="top-bar__legend">Câmara Municipal de São Paulo</span>
+        </div>
+    </div>
+
+    <div class="container nav-wrapper">
+        <div class="logo-group">
+            <?php
+                $logo_src = '';
+                $logo_id  = get_theme_mod( 'custom_logo' );
+                if ( $logo_id ) {
+                    $logo_src = wp_get_attachment_image_url( $logo_id, 'full' );
+                }
+            ?>
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="logo-link">
+                <?php if ( $logo_src ) : ?>
+                    <img src="<?php echo esc_url( $logo_src ); ?>" class="logo" alt="<?php echo esc_attr( get_bloginfo('name') ); ?>">
+                <?php else : ?>
+                    <span class="logo-placeholder">CMSP</span>
+                <?php endif; ?>
+                <span class="logo-text">
+                    <strong><?php esc_html_e('Câmara Municipal', 'camara-hotsite'); ?></strong>
+                    <span><?php esc_html_e('de São Paulo', 'camara-hotsite'); ?></span>
+                </span>
             </a>
         </div>
-        <nav class="menu-principal" aria-label="<?php esc_attr_e('Menu principal', 'camara-hotsite'); ?>">
+
+        <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+            <span class="menu-toggle__label"><?php esc_html_e('Menu', 'camara-hotsite'); ?></span>
+            <span class="menu-toggle__icon" aria-hidden="true"><span></span></span>
+        </button>
+
+        <nav class="primary-nav" id="primary-menu" aria-label="<?php esc_attr_e('Menu principal', 'camara-hotsite'); ?>">
             <?php
                 wp_nav_menu([
                     'theme_location' => 'header_menu',
                     'container'      => false,
-                    'fallback_cb'    => false
+                    'menu_class'     => 'primary-nav__list',
+                    'fallback_cb'    => function () {
+                        echo '<ul class="primary-nav__list"><li><a href="#">' . esc_html__('Defina o Menu Superior em Aparência > Menus', 'camara-hotsite') . '</a></li></ul>';
+                    }
                 ]);
             ?>
         </nav>

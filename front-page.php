@@ -259,38 +259,35 @@
     </section>
 
     <section class="section contact-panel" id="contato">
-        <div class="container contact-panel__grid">
-            <div class="contact-panel__content">
-                <div class="contact-panel__ribbon"><?php esc_html_e('Fale com a Câmara!', 'camara-hotsite'); ?></div>
-                <p><?php esc_html_e('Bem-vindo ao canal “Fale Conosco” da Câmara Municipal de São Paulo. Esse canal ajuda você a enviar feedbacks, tirar dúvidas e acompanhar o seu atendimento.', 'camara-hotsite'); ?></p>
-                <p><?php esc_html_e('Central telefônica disponível das 10h às 19h pelo número (11) 3396-4000. Nosso time está pronto para oferecer um atendimento personalizado e seguro.', 'camara-hotsite'); ?></p>
-                <ul>
-                    <li><strong><?php esc_html_e('Nome'); ?>:</strong> <?php esc_html_e('Informe como deseja ser chamado para facilitar o contato.', 'camara-hotsite'); ?></li>
-                    <li><strong><?php esc_html_e('Telefone'); ?>:</strong> <?php esc_html_e('Use um número com WhatsApp para retornos rápidos.', 'camara-hotsite'); ?></li>
-                    <li><strong><?php esc_html_e('E-mail'); ?>:</strong> <?php esc_html_e('Receba a confirmação do seu atendimento diretamente na caixa de entrada.', 'camara-hotsite'); ?></li>
-                </ul>
-                <p class="lgpd"><?php esc_html_e('Seus dados estão protegidos com a LGPD. Utilize esse canal para enviar sugestões, críticas ou solicitações.', 'camara-hotsite'); ?></p>
+        <div class="container">
+            <div class="contact-panel__banner">
+                <span><?php esc_html_e('Fale com a Câmara!', 'camara-hotsite'); ?></span>
             </div>
+            <div class="contact-panel__grid">
+                <div class="contact-panel__text">
+                    <p><?php esc_html_e('Bem-vindo ao canal de comunicação “Fale Conosco” da Câmara Municipal de São Paulo. Esse canal o ajudará a dar seu feedback e a resolver suas dúvidas.', 'camara-hotsite'); ?></p>
+                    <p><strong><?php esc_html_e('Central Telefônica:', 'camara-hotsite'); ?></strong></p>
+                    <p><?php esc_html_e('Para um atendimento imediato e personalizado, nossa equipe da central telefônica está disponível das 10h às 19h pelo número (11) 3396-4000.', 'camara-hotsite'); ?></p>
+                </div>
 
-            <form class="contact-form" action="#" method="post">
-                <div class="form-row">
-                    <label for="contact-name"><?php esc_html_e('Nome', 'camara-hotsite'); ?></label>
-                    <input type="text" id="contact-name" name="nome" placeholder="<?php esc_attr_e('Seu nome completo', 'camara-hotsite'); ?>" required>
+                <div class="contact-panel__card">
+                    <form class="contact-form contact-form--compact" action="#" method="post">
+                        <div class="form-row">
+                            <label for="contact-name"><?php esc_html_e('Nome', 'camara-hotsite'); ?></label>
+                            <input type="text" id="contact-name" name="nome" required>
+                        </div>
+                        <div class="form-row">
+                            <label for="contact-phone"><?php esc_html_e('Telefone', 'camara-hotsite'); ?></label>
+                            <input type="tel" id="contact-phone" name="telefone">
+                        </div>
+                        <div class="form-row">
+                            <label for="contact-email"><?php esc_html_e('E-mail', 'camara-hotsite'); ?></label>
+                            <input type="email" id="contact-email" name="email" required>
+                        </div>
+                    </form>
+                    <p class="contact-panel__note"><?php esc_html_e('O seu contato é muito importante para nós! Seus dados estão seguros e protegidos com a', 'camara-hotsite'); ?> <strong><?php esc_html_e('LGPD', 'camara-hotsite'); ?></strong></p>
                 </div>
-                <div class="form-row">
-                    <label for="contact-phone"><?php esc_html_e('Telefone', 'camara-hotsite'); ?></label>
-                    <input type="tel" id="contact-phone" name="telefone" placeholder="(11) 0000-0000">
-                </div>
-                <div class="form-row">
-                    <label for="contact-email"><?php esc_html_e('E-mail', 'camara-hotsite'); ?></label>
-                    <input type="email" id="contact-email" name="email" placeholder="email@dominio.com" required>
-                </div>
-                <div class="form-row">
-                    <label for="contact-message"><?php esc_html_e('Mensagem', 'camara-hotsite'); ?></label>
-                    <textarea id="contact-message" name="mensagem" rows="4" placeholder="<?php esc_attr_e('Digite sua mensagem', 'camara-hotsite'); ?>" required></textarea>
-                </div>
-                <button class="btn" type="submit"><?php esc_html_e('Enviar mensagem', 'camara-hotsite'); ?></button>
-            </form>
+            </div>
         </div>
     </section>
 

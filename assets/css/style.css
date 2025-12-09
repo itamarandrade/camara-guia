@@ -15,7 +15,6 @@ body {
     margin: 0;
     font-family: 'Barlow', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     color: #202025;
-    background: #fafafa;
     line-height: 1.6;
 }
 
@@ -729,28 +728,20 @@ body.external-links-panel-open {
     z-index: 3;
 }
 
-/* Virtual tour */
-.virtual-tour {
-    background: #f4f5fb;
-}
-
 .virtual-tour__grid {
-    background: #fff;
-    border-radius: 36px;
-    padding: 40px;
+    
     display: grid;
     grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-    gap: 40px;
+    gap: 10px;
     align-items: center;
-    box-shadow: 0 30px 60px rgba(15, 23, 42, 0.15);
     overflow: hidden;
 }
 
 .virtual-tour__media {
     position: relative;
-    border-radius: 32px;
+    border-radius: 0 100px;
     overflow: hidden;
-    background: #0d111e;
+    
 }
 
 .tour-slider {
@@ -760,8 +751,9 @@ body.external-links-panel-open {
 .tour-slider__stage {
     position: relative;
     padding-top: 56%;
-    border-radius: 32px;
+    border-radius: 0 100px;
     overflow: hidden;
+    height: 540px;
 }
 
 .tour-slider__slide {
@@ -891,118 +883,159 @@ body.external-links-panel-open {
 .virtual-tour__eyebrow {
     margin: 0 0 12px;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: #55596a;
+    color: #000;
     font-weight: 700;
+    font-size: 30px;
 }
 
 .virtual-tour__title {
     margin: 0 0 18px;
-    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-size: clamp(2rem, 4vw, 3rem);
     text-transform: uppercase;
     color: var(--color-red);
     line-height: 1.1;
+    letter-spacing: 0;
 }
 
 .virtual-tour__content p {
     margin: 0 0 12px;
-    font-size: 1.05rem;
+    font-size: 2rem;
     max-width: 420px;
+    color: #000;
 }
 
 .virtual-tour__button {
-    margin-top: 24px;
+    margin-top: 0px;
+    border-radius: 0;
+    background: #e74848;
+    font-weight: 700;
+
 }
 
 /* Contact panel */
 .contact-panel {
-    background: linear-gradient(180deg, #f7f7f9, #eceef5);
+    background: #e1e4e7;
+}
+
+.contact-panel__banner {
+    position: relative;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 26px;
+}
+
+.contact-panel__banner::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: var(--color-red);
+    transform: translateY(-50%);
+}
+
+.contact-panel__banner span {
+    position: relative;
+    display: inline-block;
+    background: #111;
+    color: #fff;
+    padding: 10px 40px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+    border-radius: 4px;
 }
 
 .contact-panel__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 40px;
-    align-items: stretch;
-}
-
-.contact-panel__content {
-    background: #fff;
-    border-radius: 24px;
-    padding: 30px;
-    box-shadow: 0 20px 30px rgba(15, 23, 42, 0.08);
-    position: relative;
-}
-
-.contact-panel__ribbon {
-    display: inline-block;
-    background: var(--color-dark);
-    color: var(--color-light);
-    padding: 12px 22px;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    border-radius: 8px;
-    margin-bottom: 18px;
-    border-top: 6px solid var(--color-red);
-}
-
-.contact-panel__content ul {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0;
-}
-
-.contact-panel__content li {
-    margin-bottom: 12px;
-}
-
-.contact-panel .lgpd {
-    font-size: 0.85rem;
-    font-weight: 600;
-}
-
-.contact-form {
-    background: var(--color-dark);
-    color: var(--color-light);
+    background: #eff1f3;
+    border: 1px solid #cbd2d8;
+    border-radius: 6px;
     padding: 32px;
-    border-radius: 24px;
-    box-shadow: 0 35px 60px rgba(0, 0, 0, 0.2);
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 40px;
+    box-shadow: inset 0 0 0 6px #fff;
 }
 
-.contact-form .form-row {
+.contact-panel__text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #111214;
+}
+
+.contact-panel__text strong {
+    text-transform: uppercase;
+}
+
+.contact-panel__card {
+    background: #d9dddf;
+    border-radius: 4px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-panel__card::before,
+.contact-panel__card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.35), transparent 70%);
+    transform: skewX(-20deg);
+    pointer-events: none;
+}
+
+.contact-panel__card::after {
+    transform: skewX(20deg);
+    opacity: 0.4;
+}
+
+.contact-form--compact {
+    position: relative;
+    z-index: 1;
+    padding: 0;
+    margin: 0;
+}
+
+.contact-form--compact .form-row {
     display: flex;
     flex-direction: column;
+    gap: 6px;
     margin-bottom: 18px;
 }
 
-.contact-form label {
+.contact-form--compact label {
+    font-weight: 700;
     text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.3em;
-    margin-bottom: 6px;
+    letter-spacing: 0.08em;
+    color: #151515;
 }
 
-.contact-form input,
-.contact-form textarea {
-    padding: 12px;
-    border-radius: 10px;
+.contact-form--compact input {
     border: none;
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
+    background: #f3f4f5;
+    border-radius: 4px;
+    height: 42px;
+    padding: 0 14px;
     font-size: 1rem;
+    letter-spacing: 0.03em;
 }
 
-.contact-form textarea {
-    min-height: 120px;
+.contact-form--compact input:focus {
+    outline: 2px solid var(--color-red);
+    outline-offset: 2px;
 }
 
-.contact-form input::placeholder,
-.contact-form textarea::placeholder {
-    color: rgba(255,255,255,0.6);
-}
-
-.contact-form .btn {
-    width: 100%;
+.contact-panel__note {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    font-weight: 600;
+    color: #0f1114;
+    line-height: 1.6;
 }
 
 /* Footer */
@@ -1120,6 +1153,11 @@ body.external-links-panel-open {
     .discover__visual {
         flex-direction: column;
     }
+
+    .contact-panel__grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
 }
 
 @media (max-width: 640px) {
@@ -1179,7 +1217,11 @@ body.external-links-panel-open {
         font-size: 0.95rem;
     }
 
-    .contact-form {
-        padding: 24px;
+    .contact-panel__grid {
+        padding: 20px;
+    }
+
+    .contact-panel__card {
+        padding: 22px;
     }
 }

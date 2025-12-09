@@ -723,9 +723,9 @@ body.external-links-panel-open {
 
 .discover__hex--floating {
     position: absolute;
-    top: -50px;
+    top: 0px;
     right: clamp(-20px, 5vw, 50px);
-    width: 40%;
+    width: 50%;
     z-index: 3;
 }
 

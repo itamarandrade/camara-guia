@@ -596,26 +596,12 @@ body.external-links-panel-open {
     border-radius: 28px;
     padding: 22px 30px;
     position: relative;
-    box-shadow: 0 18px 35px rgba(6, 7, 16, 0.08);
     font-size: 1.05rem;
     line-height: 1.8;
     padding-right: 430px;
 }
 
-.discover__message::after {
-    content: '';
-    position: absolute;
-    right: -60px;
-    top: 50%;
-    width: 140px;
-    height: 70%;
-    background: #eff2f6;
-    border-top-right-radius: 40px;
-    border-bottom-right-radius: 40px;
-    transform: translateY(-50%);
-    opacity: 0.7;
-    z-index: -1;
-}
+
 
 .discover__cta {
     text-transform: uppercase;
@@ -930,9 +916,7 @@ body.external-links-panel-open {
         width: 100%;
     }
 
-    .discover__message::after {
-        display: none;
-    }
+   
 
     .discover__headline,
     .discover__cta {

@@ -917,6 +917,7 @@ body.external-links-panel-open {
 .contact-panel__banner {
     position: relative;
     height: 50px;
+    bottom: -30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -948,16 +949,20 @@ body.external-links-panel-open {
 }
 
 .contact-panel__grid {
-    background: #eff1f3;
+    background: #d9dddf;
     display: grid;
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
     gap: 40px;
+    padding: 20px;
 }
 
 .contact-panel__text {
-    font-size: 1.05rem;
+    font-size: 1.3rem;
     line-height: 1.7;
     color: #111214;
+}
+.contact-panel__text p{
+    margin: 0;
 }
 
 .contact-panel__text strong {
@@ -970,16 +975,6 @@ body.external-links-panel-open {
     padding: 28px;
     position: relative;
     overflow: hidden;
-}
-
-.contact-panel__card::before,
-.contact-panel__card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.35), transparent 70%);
-    transform: skewX(-20deg);
-    pointer-events: none;
 }
 
 .contact-panel__card::after {

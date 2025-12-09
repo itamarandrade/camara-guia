@@ -11,48 +11,60 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const externalToggle = document.querySelector('.external-links-toggle');
-    const externalMenu = document.querySelector('#external-links-menu');
+    const externalPanel = document.querySelector('#external-links-panel');
 
-    if (externalToggle && externalMenu) {
-        const closeExternalMenu = () => {
+    if (externalToggle && externalPanel) {
+        const closeButtons = externalPanel.querySelectorAll('[data-panel-close]');
+        const menuLinks = externalPanel.querySelectorAll('.external-links-menu a');
+
+        const closeExternalPanel = (options = { focusToggle: true }) => {
             externalToggle.setAttribute('aria-expanded', 'false');
-            externalMenu.classList.remove('is-open');
+            externalPanel.classList.remove('is-open');
+            externalPanel.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('external-links-panel-open');
+
+            if (options.focusToggle) {
+                externalToggle.focus();
+            }
         };
 
-        const openExternalMenu = () => {
+        const openExternalPanel = () => {
             externalToggle.setAttribute('aria-expanded', 'true');
-            externalMenu.classList.add('is-open');
+            externalPanel.classList.add('is-open');
+            externalPanel.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('external-links-panel-open');
+
+            const focusTarget = externalPanel.querySelector('.external-links-panel__close');
+            if (focusTarget) {
+                focusTarget.focus();
+            }
         };
 
         externalToggle.addEventListener('click', () => {
             const expanded = externalToggle.getAttribute('aria-expanded') === 'true';
             if (expanded) {
-                closeExternalMenu();
+                closeExternalPanel();
             } else {
-                openExternalMenu();
+                openExternalPanel();
             }
         });
 
-        document.addEventListener('click', (event) => {
-            if (
-                externalMenu.classList.contains('is-open') &&
-                !externalMenu.contains(event.target) &&
-                !externalToggle.contains(event.target)
-            ) {
-                closeExternalMenu();
-            }
+        closeButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                closeExternalPanel();
+            });
         });
 
-        externalMenu.addEventListener('click', (event) => {
-            if (event.target.closest('a')) {
-                closeExternalMenu();
-            }
+        menuLinks.forEach((link) => {
+            link.addEventListener('click', () => {
+                closeExternalPanel({ focusToggle: false });
+            });
         });
 
-        externalMenu.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') {
-                closeExternalMenu();
-                externalToggle.focus();
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && externalPanel.classList.contains('is-open')) {
+                event.preventDefault();
+                closeExternalPanel();
             }
         });
     }

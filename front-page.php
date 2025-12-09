@@ -1,24 +1,49 @@
 <?php
     get_header();
 
-    $hero_sources    = [
-        camara_get_theme_image('hero_image'),
-        camara_get_theme_image('hero_image_two'),
-        camara_get_theme_image('hero_image_three'),
-    ];
     $hero_slides     = [];
+    $hero_slider_ids = camara_get_theme_option( 'hero_slider_images', [] );
     $calendar_image  = camara_get_theme_image('calendar_image');
     $gallery_one     = camara_get_theme_image('gallery_image_one');
     $gallery_two     = camara_get_theme_image('gallery_image_two');
     $gallery_three   = camara_get_theme_image('gallery_image_three');
     $tour_image      = camara_get_theme_image('tour_image');
+    $discover_hex_id = camara_get_theme_option( 'discover_hex_image' );
+    $discover_hex_image = $discover_hex_id ? wp_get_attachment_image_url( absint( $discover_hex_id ), 'full' ) : '';
 
-    foreach ( $hero_sources as $index => $source ) {
-        $placeholder_label = sprintf( __( 'Destaque %d', 'camara-hotsite' ), $index + 1 );
-        $hero_slides[] = [
-            'image' => $source ?: camara_placeholder_image( $placeholder_label ),
-            'label' => sprintf( esc_html__( 'Slide %d', 'camara-hotsite' ), $index + 1 ),
+    if ( ! empty( $hero_slider_ids ) && is_array( $hero_slider_ids ) ) {
+        foreach ( $hero_slider_ids as $index => $attachment_id ) {
+            $attachment_id = absint( $attachment_id );
+            if ( ! $attachment_id ) {
+                continue;
+            }
+
+            $image_url = wp_get_attachment_image_url( $attachment_id, 'full' );
+            if ( ! $image_url ) {
+                continue;
+            }
+
+            $hero_slides[] = [
+                'image' => $image_url,
+                'label' => sprintf( esc_html__( 'Slide %d', 'camara-hotsite' ), $index + 1 ),
+            ];
+        }
+    }
+
+    if ( empty( $hero_slides ) ) {
+        $hero_sources = [
+            camara_get_theme_image('hero_image'),
+            camara_get_theme_image('hero_image_two'),
+            camara_get_theme_image('hero_image_three'),
         ];
+
+        foreach ( $hero_sources as $index => $source ) {
+            $placeholder_label = sprintf( __( 'Destaque %d', 'camara-hotsite' ), $index + 1 );
+            $hero_slides[] = [
+                'image' => $source ?: camara_placeholder_image( $placeholder_label ),
+                'label' => sprintf( esc_html__( 'Slide %d', 'camara-hotsite' ), $index + 1 ),
+            ];
+        }
     }
 
     $hero_badge          = camara_get_theme_option( 'hero_badge_text', __( 'Guia do Visitante', 'camara-hotsite' ) );
@@ -69,35 +94,26 @@
     </section>
 
     <section class="section discover">
-        <div class="container discover__grid">
-            <div class="discover__content">
-                <p class="section-eyebrow"><?php esc_html_e('Venha conhecer a Câmara Municipal de São Paulo', 'camara-hotsite'); ?></p>
-                <div class="discover__card">
+        <div class="container discover__layout">
+            <div class="discover__intro">
+                <p class="discover__headline"><?php esc_html_e('Venha conhecer a Câmara Municipal de São Paulo', 'camara-hotsite'); ?></p>
+                <div class="discover__message">
                     <p><?php esc_html_e('O Palácio Anchieta convida você para uma viagem no tempo! Arquitetura única, obras de arte e uma aula sobre o passado político, social e cultural de São Paulo.', 'camara-hotsite'); ?></p>
-                </div>
-                <div class="discover__invite">
-                    <p class="section-eyebrow"><?php esc_html_e('Você é nosso convidado especial!', 'camara-hotsite'); ?></p>
-                    <h2><?php esc_html_e('Agende a sua visita', 'camara-hotsite'); ?></h2>
-                    <p><?php esc_html_e('Escolha o melhor dia para viver essa experiência. Nossa equipe está pronta para receber grupos, escolas e visitantes individuais com roteiros personalizados.', 'camara-hotsite'); ?></p>
-                    <a class="btn" href="#contato"><?php esc_html_e('Agendar agora', 'camara-hotsite'); ?></a>
                 </div>
             </div>
 
-            <div class="discover__media">
-                <figure class="calendar-card">
+            <div class="discover__cta">
+                <p class="discover__cta-eyebrow"><?php esc_html_e('Você é nosso convidado especial!', 'camara-hotsite'); ?></p>
+                <p class="discover__cta-main"><?php esc_html_e('Agende a sua visita', 'camara-hotsite'); ?></p>
+            </div>
+
+            <div class="discover__visual">
+                <figure class="calendar-card discover__calendar">
                     <img src="<?php echo esc_url( $calendar_image ?: camara_placeholder_image('Calendário') ); ?>" alt="<?php esc_attr_e('Calendário de visitas', 'camara-hotsite'); ?>">
                 </figure>
-                <div class="discover__gallery">
-                    <figure class="gallery-hex">
-                        <img src="<?php echo esc_url( $gallery_one ?: camara_placeholder_image('Arquitetura') ); ?>" alt="<?php esc_attr_e('Detalhes arquitetônicos da Câmara', 'camara-hotsite'); ?>">
-                    </figure>
-                    <figure class="gallery-hex">
-                        <img src="<?php echo esc_url( $gallery_two ?: camara_placeholder_image('Memória') ); ?>" alt="<?php esc_attr_e('Galeria de ex-presidentes', 'camara-hotsite'); ?>">
-                    </figure>
-                    <figure class="gallery-hex">
-                        <img src="<?php echo esc_url( $gallery_three ?: camara_placeholder_image('Arte') ); ?>" alt="<?php esc_attr_e('Obras em exposição no Palácio', 'camara-hotsite'); ?>">
-                    </figure>
-                </div>
+                <figure class="discover__hex">
+                    <img src="<?php echo esc_url( $discover_hex_image ?: camara_placeholder_image( __( 'Hexágonos', 'camara-hotsite' ) ) ); ?>" alt="<?php esc_attr_e('Composição de imagens em formato de hexágono da Câmara Municipal', 'camara-hotsite'); ?>">
+                </figure>
             </div>
         </div>
     </section>

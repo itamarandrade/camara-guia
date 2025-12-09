@@ -94,10 +94,12 @@ function camara_get_theme_option( $key, $default = '' ) {
 function camara_sanitize_theme_settings( $input ) {
     $output = [];
     $fields = [
-        'hero_badge_text'      => 'text',
-        'hero_title_primary'   => 'text',
-        'hero_title_secondary' => 'text',
-        'hero_description'     => 'textarea',
+        'hero_badge_text'       => 'text',
+        'hero_title_primary'    => 'text',
+        'hero_title_secondary'  => 'text',
+        'hero_description'      => 'textarea',
+        'hero_slider_images'    => 'images',
+        'discover_hex_image'    => 'image',
     ];
 
     foreach ( $fields as $field => $type ) {
@@ -105,10 +107,33 @@ function camara_sanitize_theme_settings( $input ) {
             continue;
         }
 
-        if ( 'textarea' === $type ) {
-            $output[ $field ] = sanitize_textarea_field( $input[ $field ] );
-        } else {
-            $output[ $field ] = sanitize_text_field( $input[ $field ] );
+        $value = $input[ $field ];
+
+        switch ( $type ) {
+            case 'textarea':
+                $output[ $field ] = sanitize_textarea_field( $value );
+                break;
+            case 'images':
+                if ( is_string( $value ) ) {
+                    $value = array_filter( array_map( 'trim', explode( ',', $value ) ) );
+                }
+
+                $images = [];
+                if ( is_array( $value ) ) {
+                    foreach ( $value as $image_id ) {
+                        $image_id = absint( $image_id );
+                        if ( $image_id ) {
+                            $images[] = $image_id;
+                        }
+                    }
+                }
+                $output[ $field ] = $images;
+                break;
+            case 'image':
+                $output[ $field ] = absint( $value );
+                break;
+            default:
+                $output[ $field ] = sanitize_text_field( $value );
         }
     }
 
@@ -182,6 +207,29 @@ function camara_register_theme_settings() {
             'description' => __( 'Texto exibido abaixo do título.', 'camara-hotsite' ),
         ]
     );
+
+    add_settings_field(
+        'camara_hero_slider_images',
+        __( 'Imagens do slider', 'camara-hotsite' ),
+        'camara_theme_settings_slider_field',
+        'camara_theme_settings',
+        'camara_theme_settings_hero',
+        [
+            'id' => 'hero_slider_images',
+        ]
+    );
+
+    add_settings_field(
+        'camara_discover_hex_image',
+        __( 'Imagem dos hexágonos', 'camara-hotsite' ),
+        'camara_theme_settings_image_field',
+        'camara_theme_settings',
+        'camara_theme_settings_hero',
+        [
+            'id'          => 'discover_hex_image',
+            'description'=> __( 'Imagem única que representa o conjunto de hexágonos exibido na seção “Agende a sua visita”.', 'camara-hotsite' ),
+        ]
+    );
 }
 add_action( 'admin_init', 'camara_register_theme_settings' );
 
@@ -208,6 +256,101 @@ function camara_theme_settings_text_field( $args ) {
     if ( $description ) {
         printf( '<p class="description">%s</p>', esc_html( $description ) );
     }
+}
+
+function camara_theme_settings_slider_field( $args ) {
+    $options = get_option( 'camara_theme_settings', [] );
+    $value   = [];
+
+    if ( isset( $options[ $args['id'] ] ) ) {
+        if ( is_array( $options[ $args['id'] ] ) ) {
+            $value = array_map( 'absint', $options[ $args['id'] ] );
+        } elseif ( is_string( $options[ $args['id'] ] ) ) {
+            $value = array_map( 'absint', explode( ',', $options[ $args['id'] ] ) );
+        }
+    }
+
+    $value = array_values( array_filter( $value ) );
+    $field_id = esc_attr( $args['id'] );
+    $serialized_value = implode( ',', $value );
+    $media_title = esc_attr__( 'Selecionar imagens do slider', 'camara-hotsite' );
+    $media_button = esc_attr__( 'Adicionar ao slider', 'camara-hotsite' );
+    $remove_label = esc_attr__( 'Remover imagem', 'camara-hotsite' );
+    $empty_label  = esc_html__( 'Nenhuma imagem selecionada ainda.', 'camara-hotsite' );
+    ?>
+    <div
+        class="camara-slider-field"
+        data-slider-field
+        data-media-title="<?php echo $media_title; ?>"
+        data-media-button="<?php echo $media_button; ?>"
+        data-remove-label="<?php echo $remove_label; ?>"
+    >
+        <input type="hidden" id="<?php echo $field_id; ?>" name="camara_theme_settings[<?php echo $field_id; ?>]" value="<?php echo esc_attr( $serialized_value ); ?>" data-slider-input>
+        <div class="camara-slider-toolbar">
+            <button type="button" class="button button-secondary" data-slider-select><?php esc_html_e( 'Selecionar imagens', 'camara-hotsite' ); ?></button>
+            <button type="button" class="button-link" data-slider-clear><?php esc_html_e( 'Limpar todas', 'camara-hotsite' ); ?></button>
+        </div>
+        <p class="description"><?php esc_html_e( 'Escolha as imagens para o slider e arraste para definir a ordem.', 'camara-hotsite' ); ?></p>
+        <ul class="camara-slider-list" data-slider-list>
+            <?php if ( $value ) : ?>
+                <?php foreach ( $value as $attachment_id ) : ?>
+                    <?php
+                        $thumb = wp_get_attachment_image_url( $attachment_id, 'thumbnail' );
+                        if ( ! $thumb ) {
+                            $thumb = camara_placeholder_image( __( 'Slide', 'camara-hotsite' ) );
+                        }
+                    ?>
+                    <li class="camara-slider-item" data-id="<?php echo esc_attr( $attachment_id ); ?>" draggable="true">
+                        <span class="camara-slider-item__preview">
+                            <img src="<?php echo esc_url( $thumb ); ?>" alt="">
+                        </span>
+                        <button type="button" class="button-link camara-slider-item__remove" aria-label="<?php echo $remove_label; ?>">&times;</button>
+                    </li>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </ul>
+        <p class="camara-slider-empty" data-slider-empty <?php echo $value ? 'hidden' : ''; ?>>
+            <?php echo $empty_label; ?>
+        </p>
+    </div>
+    <?php
+}
+
+function camara_theme_settings_image_field( $args ) {
+    $options = get_option( 'camara_theme_settings', [] );
+    $value   = isset( $options[ $args['id'] ] ) ? absint( $options[ $args['id'] ] ) : 0;
+    $field_id = esc_attr( $args['id'] );
+    $description = isset( $args['description'] ) ? $args['description'] : '';
+    $button_label = isset( $args['button_label'] ) ? $args['button_label'] : __( 'Selecionar imagem', 'camara-hotsite' );
+    $remove_text  = isset( $args['remove_label'] ) ? $args['remove_label'] : __( 'Remover imagem', 'camara-hotsite' );
+    $placeholder  = __( 'Nenhuma imagem selecionada.', 'camara-hotsite' );
+    $media_title  = __( 'Selecionar imagem', 'camara-hotsite' );
+    $media_button = __( 'Usar imagem', 'camara-hotsite' );
+    $image_url    = $value ? wp_get_attachment_image_url( $value, 'large' ) : '';
+    ?>
+    <div
+        class="camara-image-field"
+        data-image-field
+        data-media-title="<?php echo esc_attr( $media_title ); ?>"
+        data-media-button="<?php echo esc_attr( $media_button ); ?>"
+    >
+        <input type="hidden" name="camara_theme_settings[<?php echo $field_id; ?>]" value="<?php echo esc_attr( $value ); ?>" data-image-input>
+        <div class="camara-image-preview" data-image-preview data-placeholder="<?php echo esc_attr( $placeholder ); ?>">
+            <?php if ( $image_url ) : ?>
+                <img src="<?php echo esc_url( $image_url ); ?>" alt="">
+            <?php else : ?>
+                <span><?php echo esc_html( $placeholder ); ?></span>
+            <?php endif; ?>
+        </div>
+        <div class="camara-image-actions">
+            <button type="button" class="button button-secondary" data-image-select><?php echo esc_html( $button_label ); ?></button>
+            <button type="button" class="button-link" data-image-remove <?php disabled( ! $value ); ?>><?php echo esc_html( $remove_text ); ?></button>
+        </div>
+        <?php if ( $description ) : ?>
+            <p class="description"><?php echo esc_html( $description ); ?></p>
+        <?php endif; ?>
+    </div>
+    <?php
 }
 
 function camara_add_theme_settings_page() {
@@ -238,5 +381,28 @@ function camara_render_theme_settings_page() {
     </div>
     <?php
 }
+
+function camara_admin_settings_assets( $hook ) {
+    if ( 'appearance_page_camara-theme-settings' !== $hook ) {
+        return;
+    }
+
+    $version = wp_get_theme()->get( 'Version' );
+    wp_enqueue_media();
+    wp_enqueue_style(
+        'camara-admin-settings',
+        get_template_directory_uri() . '/assets/css/admin-settings.css',
+        [],
+        $version
+    );
+    wp_enqueue_script(
+        'camara-admin-settings',
+        get_template_directory_uri() . '/assets/js/admin-settings.js',
+        [],
+        $version,
+        true
+    );
+}
+add_action( 'admin_enqueue_scripts', 'camara_admin_settings_assets' );
 
 ?>

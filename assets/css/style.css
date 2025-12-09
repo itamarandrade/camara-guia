@@ -921,7 +921,6 @@ body.external-links-panel-open {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 26px;
 }
 
 .contact-panel__banner::before {
@@ -937,7 +936,7 @@ body.external-links-panel-open {
 
 .contact-panel__banner span {
     position: relative;
-    bottom: -20px;
+    
     display: inline-block;
     background: #111;
     color: #fff;
@@ -953,7 +952,7 @@ body.external-links-panel-open {
     display: grid;
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
     gap: 40px;
-    padding: 20px;
+    padding: 50px;
 }
 
 .contact-panel__text {
@@ -970,7 +969,7 @@ body.external-links-panel-open {
 }
 
 .contact-panel__card {
-    background: #d9dddf;
+    
     border-radius: 4px;
     padding: 28px;
     position: relative;

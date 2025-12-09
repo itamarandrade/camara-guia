@@ -100,6 +100,13 @@ function camara_sanitize_theme_settings( $input ) {
         'hero_description'      => 'textarea',
         'hero_slider_images'    => 'images',
         'discover_hex_image'    => 'image',
+        'tour_media_type'       => 'choice',
+        'tour_media_gallery'    => 'images',
+        'tour_video_url'        => 'text',
+    ];
+
+    $choice_options = [
+        'tour_media_type' => [ 'gallery', 'video' ],
     ];
 
     foreach ( $fields as $field => $type ) {
@@ -131,6 +138,15 @@ function camara_sanitize_theme_settings( $input ) {
                 break;
             case 'image':
                 $output[ $field ] = absint( $value );
+                break;
+            case 'choice':
+                $value = sanitize_text_field( $value );
+                $allowed = isset( $choice_options[ $field ] ) ? (array) $choice_options[ $field ] : [];
+                if ( $allowed && in_array( $value, $allowed, true ) ) {
+                    $output[ $field ] = $value;
+                } elseif ( $allowed ) {
+                    $output[ $field ] = reset( $allowed );
+                }
                 break;
             default:
                 $output[ $field ] = sanitize_text_field( $value );
@@ -230,6 +246,55 @@ function camara_register_theme_settings() {
             'description'=> __( 'Imagem única que representa o conjunto de hexágonos exibido na seção “Agende a sua visita”.', 'camara-hotsite' ),
         ]
     );
+
+    add_settings_section(
+        'camara_theme_settings_tour',
+        __( 'Seção Tour Virtual', 'camara-hotsite' ),
+        function() {
+            echo '<p>' . esc_html__( 'Defina se a área do tour exibe um slide de imagens ou um vídeo e envie o conteúdo correspondente.', 'camara-hotsite' ) . '</p>';
+        },
+        'camara_theme_settings'
+    );
+
+    add_settings_field(
+        'camara_tour_media_type',
+        __( 'Tipo de mídia', 'camara-hotsite' ),
+        'camara_theme_settings_select_field',
+        'camara_theme_settings',
+        'camara_theme_settings_tour',
+        [
+            'id'          => 'tour_media_type',
+            'choices'     => [
+                'gallery' => __( 'Slide de imagens', 'camara-hotsite' ),
+                'video'   => __( 'Vídeo incorporado', 'camara-hotsite' ),
+            ],
+            'description' => __( 'Escolha se o painel mostrará várias imagens ou um vídeo do tour.', 'camara-hotsite' ),
+        ]
+    );
+
+    add_settings_field(
+        'camara_tour_media_gallery',
+        __( 'Galeria do tour', 'camara-hotsite' ),
+        'camara_theme_settings_slider_field',
+        'camara_theme_settings',
+        'camara_theme_settings_tour',
+        [
+            'id' => 'tour_media_gallery',
+        ]
+    );
+
+    add_settings_field(
+        'camara_tour_video_url',
+        __( 'URL do vídeo', 'camara-hotsite' ),
+        'camara_theme_settings_text_field',
+        'camara_theme_settings',
+        'camara_theme_settings_tour',
+        [
+            'id'          => 'tour_video_url',
+            'type'        => 'text',
+            'description' => __( 'Cole a URL de um vídeo (YouTube, Vimeo ou arquivo MP4) que será exibido quando o tipo for Vídeo.', 'camara-hotsite' ),
+        ]
+    );
 }
 add_action( 'admin_init', 'camara_register_theme_settings' );
 
@@ -252,6 +317,29 @@ function camara_theme_settings_text_field( $args ) {
             esc_attr( $value )
         );
     }
+
+    if ( $description ) {
+        printf( '<p class="description">%s</p>', esc_html( $description ) );
+    }
+}
+
+function camara_theme_settings_select_field( $args ) {
+    $options     = get_option( 'camara_theme_settings', [] );
+    $value       = isset( $options[ $args['id'] ] ) ? $options[ $args['id'] ] : '';
+    $field_id    = esc_attr( $args['id'] );
+    $choices     = isset( $args['choices'] ) && is_array( $args['choices'] ) ? $args['choices'] : [];
+    $description = isset( $args['description'] ) ? $args['description'] : '';
+
+    echo '<select id="' . $field_id . '" name="camara_theme_settings[' . $field_id . ']">';
+    foreach ( $choices as $choice_value => $label ) {
+        printf(
+            '<option value="%1$s" %2$s>%3$s</option>',
+            esc_attr( $choice_value ),
+            selected( $value, $choice_value, false ),
+            esc_html( $label )
+        );
+    }
+    echo '</select>';
 
     if ( $description ) {
         printf( '<p class="description">%s</p>', esc_html( $description ) );

@@ -147,4 +147,70 @@ document.addEventListener('DOMContentLoaded', () => {
         setActiveSlide(activeIndex);
         startAutoplay();
     }
+
+    const tourSliders = document.querySelectorAll('[data-tour-slider]');
+
+    tourSliders.forEach((slider) => {
+        const slides = Array.from(slider.querySelectorAll('[data-tour-slide]'));
+        if (!slides.length) {
+            return;
+        }
+
+        const thumbs = Array.from(slider.querySelectorAll('[data-tour-thumb]'));
+        const prevButton = slider.querySelector('[data-tour-nav="prev"]');
+        const nextButton = slider.querySelector('[data-tour-nav="next"]');
+        let activeIndex = slides.findIndex((slide) => slide.classList.contains('is-active'));
+
+        if (activeIndex < 0) {
+            activeIndex = 0;
+        }
+
+        const setActiveSlide = (index) => {
+            slides.forEach((slide, slideIndex) => {
+                slide.classList.toggle('is-active', slideIndex === index);
+            });
+
+            thumbs.forEach((thumb, thumbIndex) => {
+                const isActive = thumbIndex === index;
+                thumb.classList.toggle('is-active', isActive);
+                thumb.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+
+            activeIndex = index;
+        };
+
+        const moveSlide = (offset) => {
+            const total = slides.length;
+            if (total <= 1) {
+                return;
+            }
+
+            const nextIndex = (activeIndex + offset + total) % total;
+            setActiveSlide(nextIndex);
+        };
+
+        if (prevButton) {
+            prevButton.addEventListener('click', () => {
+                moveSlide(-1);
+            });
+        }
+
+        if (nextButton) {
+            nextButton.addEventListener('click', () => {
+                moveSlide(1);
+            });
+        }
+
+        thumbs.forEach((thumb) => {
+            thumb.addEventListener('click', () => {
+                const targetIndex = Number(thumb.getAttribute('data-tour-thumb'));
+                if (Number.isNaN(targetIndex) || targetIndex === activeIndex) {
+                    return;
+                }
+                setActiveSlide(targetIndex);
+            });
+        });
+
+        setActiveSlide(activeIndex);
+    });
 });

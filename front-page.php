@@ -3,13 +3,12 @@
 
     $hero_slides     = [];
     $hero_slider_ids = camara_get_theme_option( 'hero_slider_images', [] );
-    $calendar_image  = camara_get_theme_image('calendar_image');
-    $gallery_one     = camara_get_theme_image('gallery_image_one');
-    $gallery_two     = camara_get_theme_image('gallery_image_two');
-    $gallery_three   = camara_get_theme_image('gallery_image_three');
     $tour_image      = camara_get_theme_image('tour_image');
     $discover_hex_id = camara_get_theme_option( 'discover_hex_image' );
     $discover_hex_image = $discover_hex_id ? wp_get_attachment_image_url( absint( $discover_hex_id ), 'full' ) : '';
+    $tour_media_type  = camara_get_theme_option( 'tour_media_type', 'gallery' );
+    $tour_gallery_ids = camara_get_theme_option( 'tour_media_gallery', [] );
+    $tour_video_url   = camara_get_theme_option( 'tour_video_url', '' );
 
     $calendar_labels = [
         __( 'Dom', 'camara-hotsite' ),
@@ -80,9 +79,55 @@
     $hero_title_secondary= camara_get_theme_option( 'hero_title_secondary', __( 'Palácio Anchieta', 'camara-hotsite' ) );
     $hero_description    = camara_get_theme_option( 'hero_description', __( 'Conheça cada detalhe do Legislativo paulistano com roteiros guiados e experiências completas.', 'camara-hotsite' ) );
 
-    $tour_style = $tour_image
-        ? 'style="background-image: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15)), url(' . esc_url( $tour_image ) . ');"'
-        : '';
+    $tour_gallery_ids = is_array( $tour_gallery_ids ) ? array_filter( array_map( 'absint', $tour_gallery_ids ) ) : [];
+    $tour_slides      = [];
+
+    if ( $tour_gallery_ids ) {
+        foreach ( $tour_gallery_ids as $index => $attachment_id ) {
+            $image_large = wp_get_attachment_image_url( $attachment_id, 'large' );
+            if ( ! $image_large ) {
+                continue;
+            }
+
+            $image_thumb = wp_get_attachment_image_url( $attachment_id, 'medium' ) ?: $image_large;
+            $alt_text    = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
+            $tour_slides[] = [
+                'image' => $image_large,
+                'thumb' => $image_thumb,
+                'alt'   => $alt_text ?: sprintf( esc_html__( 'Slide %d do tour', 'camara-hotsite' ), $index + 1 ),
+            ];
+        }
+    }
+
+    if ( empty( $tour_slides ) ) {
+        $fallback_image = $tour_image ?: camara_placeholder_image( __( 'Tour virtual', 'camara-hotsite' ) );
+        $tour_slides[]  = [
+            'image' => $fallback_image,
+            'thumb' => $fallback_image,
+            'alt'   => __( 'Tour virtual', 'camara-hotsite' ),
+        ];
+    }
+
+    $tour_video_embed = '';
+    if ( 'video' === $tour_media_type && ! empty( $tour_video_url ) ) {
+        $tour_video_embed = wp_oembed_get( $tour_video_url );
+
+        if ( ! $tour_video_embed ) {
+            $video_url_data = wp_parse_url( $tour_video_url );
+            $extension      = isset( $video_url_data['path'] ) ? strtolower( pathinfo( $video_url_data['path'], PATHINFO_EXTENSION ) ) : '';
+            $supported_ext  = [ 'mp4', 'm4v', 'webm', 'ogv', 'flv' ];
+
+            if ( $extension && in_array( $extension, $supported_ext, true ) ) {
+                $tour_video_embed = wp_video_shortcode( [ 'src' => esc_url( $tour_video_url ) ] );
+            }
+        }
+    }
+
+    if ( 'video' === $tour_media_type && empty( $tour_video_embed ) ) {
+        $tour_media_type = 'gallery';
+    }
+
+    $tour_has_multiple_slides = count( $tour_slides ) > 1;
 ?>
 
 <main id="primary" class="site-main">
@@ -164,14 +209,51 @@
 
     <section class="section virtual-tour">
         <div class="container virtual-tour__grid">
-            <div class="virtual-tour__media" <?php echo $tour_style; ?>>
-                <span class="sr-only"><?php esc_html_e('Auditório da Câmara Municipal', 'camara-hotsite'); ?></span>
+            <div class="virtual-tour__media">
+                <?php if ( 'video' === $tour_media_type ) : ?>
+                    <div class="tour-video">
+                        <?php echo wp_kses_post( $tour_video_embed ); ?>
+                    </div>
+                <?php else : ?>
+                    <div class="tour-slider" data-tour-slider>
+                        <div class="tour-slider__stage">
+                            <?php foreach ( $tour_slides as $index => $slide ) : ?>
+                                <figure class="tour-slider__slide <?php echo 0 === $index ? 'is-active' : ''; ?>" data-tour-slide>
+                                    <img src="<?php echo esc_url( $slide['image'] ); ?>" alt="<?php echo esc_attr( $slide['alt'] ); ?>">
+                                </figure>
+                            <?php endforeach; ?>
+                        </div>
+                        <?php if ( $tour_has_multiple_slides ) : ?>
+                            <div class="tour-slider__thumbs" role="tablist">
+                                <?php foreach ( $tour_slides as $index => $slide ) : ?>
+                                    <button
+                                        type="button"
+                                        class="tour-slider__thumb <?php echo 0 === $index ? 'is-active' : ''; ?>"
+                                        data-tour-thumb="<?php echo esc_attr( $index ); ?>"
+                                        role="tab"
+                                        aria-selected="<?php echo 0 === $index ? 'true' : 'false'; ?>"
+                                        aria-label="<?php printf( esc_attr__( 'Ver imagem %d do tour', 'camara-hotsite' ), $index + 1 ); ?>"
+                                    >
+                                        <img src="<?php echo esc_url( $slide['thumb'] ); ?>" alt="">
+                                    </button>
+                                <?php endforeach; ?>
+                            </div>
+                            <button type="button" class="tour-slider__control tour-slider__control--prev" data-tour-nav="prev">
+                                <span class="sr-only"><?php esc_html_e('Slide anterior', 'camara-hotsite'); ?></span>
+                            </button>
+                            <button type="button" class="tour-slider__control tour-slider__control--next" data-tour-nav="next">
+                                <span class="sr-only"><?php esc_html_e('Próximo slide', 'camara-hotsite'); ?></span>
+                            </button>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
             </div>
             <div class="virtual-tour__content">
-                <p class="section-eyebrow"><?php esc_html_e('Não conseguiu agendar?', 'camara-hotsite'); ?></p>
-                <h2><?php esc_html_e('Faça um tour virtual', 'camara-hotsite'); ?></h2>
-                <p><?php esc_html_e('Está longe da cidade ou sem tempo para visitar o Palácio Anchieta pessoalmente? Explore cada ambiente através do nosso tour virtual e viva a experiência de conhecer o Legislativo paulistano onde estiver.', 'camara-hotsite'); ?></p>
-                <a class="btn" href="#" target="_blank" rel="noreferrer"><?php esc_html_e('Tour virtual', 'camara-hotsite'); ?></a>
+                <p class="virtual-tour__eyebrow"><?php esc_html_e('Não conseguiu agendar?', 'camara-hotsite'); ?></p>
+                <h2 class="virtual-tour__title"><?php esc_html_e('Faça um tour virtual', 'camara-hotsite'); ?></h2>
+                <p><?php esc_html_e('Está longe da cidade? Não tem tempo de visitar o Palácio Anchieta pessoalmente?', 'camara-hotsite'); ?></p>
+                <p><?php esc_html_e('Vamos fazer o Tour Virtual!', 'camara-hotsite'); ?></p>
+                <a class="btn virtual-tour__button" href="#" target="_blank" rel="noreferrer"><?php esc_html_e('Tour virtual', 'camara-hotsite'); ?></a>
             </div>
         </div>
     </section>

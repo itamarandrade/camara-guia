@@ -640,11 +640,77 @@ body.external-links-panel-open {
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(15, 23, 42, 0.15);
     border: 6px solid #000;
+    background: #fff;
 }
 
 .calendar-card img {
     width: 100%;
     display: block;
+}
+
+.calendar {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.calendar__labels,
+.calendar__week {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.calendar__labels {
+    background: #050505;
+    color: #fff;
+    border-radius: 16px;
+    padding: 12px 20px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.calendar__labels span {
+    text-align: center;
+}
+
+.calendar__day {
+    background: #f5f7fb;
+    border-radius: 16px;
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #0f172a;
+    box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.05);
+}
+
+.calendar__day.is-empty {
+    background: transparent;
+    box-shadow: none;
+}
+
+.calendar__day.is-purple {
+    background: #8b5cf6;
+    color: #fff;
+}
+
+.calendar__day.is-green {
+    background: #1ea04a;
+    color: #fff;
+}
+
+.calendar__day.is-gold {
+    background: #d3b400;
+    color: #000;
+}
+
+.calendar__day.is-blue {
+    background: #347dff;
+    color: #fff;
 }
 
 
@@ -925,6 +991,20 @@ body.external-links-panel-open {
 
     .discover__visual {
         gap: 20px;
+    }
+
+    .calendar {
+        padding: 18px;
+    }
+
+    .calendar__labels,
+    .calendar__week {
+        gap: 8px;
+    }
+
+    .calendar__day {
+        min-height: 44px;
+        font-size: 0.95rem;
     }
 
     .contact-form {

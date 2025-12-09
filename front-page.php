@@ -11,6 +11,35 @@
     $discover_hex_id = camara_get_theme_option( 'discover_hex_image' );
     $discover_hex_image = $discover_hex_id ? wp_get_attachment_image_url( absint( $discover_hex_id ), 'full' ) : '';
 
+    $calendar_labels = [
+        __( 'Dom', 'camara-hotsite' ),
+        __( 'Seg', 'camara-hotsite' ),
+        __( 'Ter', 'camara-hotsite' ),
+        __( 'Qua', 'camara-hotsite' ),
+        __( 'Qui', 'camara-hotsite' ),
+        __( 'Sex', 'camara-hotsite' ),
+        __( 'Sáb', 'camara-hotsite' ),
+    ];
+
+    $calendar_weeks = [
+        [ '', 1, 2, 3, 4, 5, 6 ],
+        [ 7, 8, 9, 10, 11, 12, 13 ],
+        [ 14, 15, 16, 17, 18, 19, 20 ],
+        [ 21, 22, 23, 24, 25, 26, 27 ],
+        [ 28, 29, 30, 31, '', '', '' ],
+    ];
+
+    $calendar_highlights = [
+        4  => 'is-gold',
+        5  => 'is-blue',
+        6  => 'is-green',
+        7  => 'is-purple',
+        11 => 'is-gold',
+        12 => 'is-blue',
+        13 => 'is-green',
+        14 => 'is-green',
+    ];
+
     if ( ! empty( $hero_slider_ids ) && is_array( $hero_slider_ids ) ) {
         foreach ( $hero_slider_ids as $index => $attachment_id ) {
             $attachment_id = absint( $attachment_id );
@@ -103,9 +132,32 @@
             </div>
 
             <div class="discover__visual">
-                <figure class="calendar-card discover__calendar">
-                    <img src="<?php echo esc_url( $calendar_image ?: camara_placeholder_image('Calendário') ); ?>" alt="<?php esc_attr_e('Calendário de visitas', 'camara-hotsite'); ?>">
-                </figure>
+                <div class="calendar-card discover__calendar" aria-label="<?php esc_attr_e('Calendário de visitas', 'camara-hotsite'); ?>">
+                    <div class="calendar" role="grid">
+                        <div class="calendar__labels" role="row">
+                            <?php foreach ( $calendar_labels as $label ) : ?>
+                                <span role="columnheader"><?php echo esc_html( $label ); ?></span>
+                            <?php endforeach; ?>
+                        </div>
+                        <?php foreach ( $calendar_weeks as $week ) : ?>
+                            <div class="calendar__week" role="row">
+                                <?php foreach ( $week as $day ) :
+                                    $day_value = $day ? absint( $day ) : '';
+                                    $day_classes = ['calendar__day'];
+                                    if ( '' === $day ) {
+                                        $day_classes[] = 'is-empty';
+                                    } elseif ( isset( $calendar_highlights[ $day_value ] ) ) {
+                                        $day_classes[] = $calendar_highlights[ $day_value ];
+                                    }
+                                ?>
+                                    <span class="<?php echo esc_attr( implode( ' ', $day_classes ) ); ?>" role="gridcell">
+                                        <?php echo '' !== $day ? esc_html( $day ) : ''; ?>
+                                    </span>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

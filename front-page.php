@@ -64,32 +64,23 @@
                 <div
                     class="hero__slide <?php echo 0 === $index ? 'is-active' : ''; ?>"
                     data-hero-slide
-                    style="background-image: linear-gradient(120deg, rgba(5,5,10,0.95), rgba(5,5,10,0.4)), url('<?php echo esc_url( $slide['image'] ); ?>');"
+                    style="background-image: url('<?php echo esc_url( $slide['image'] ); ?>');"
                 >
                     <span class="sr-only"><?php echo esc_html( $slide['label'] ); ?></span>
                 </div>
             <?php endforeach; ?>
         </div>
-        <div class="hero__wave" aria-hidden="true"></div>
-        <div class="container hero__content">
-            <span class="hero__badge"><?php echo esc_html( $hero_badge ); ?></span>
-            <h1>
-                <strong><?php echo esc_html( $hero_title_primary ); ?></strong>
-                <span><?php echo esc_html( $hero_title_secondary ); ?></span>
-            </h1>
-            <p><?php echo esc_html( $hero_description ); ?></p>
-            <div class="hero__dots" role="tablist" data-hero-dots aria-label="<?php esc_attr_e('Controle do destaque principal', 'camara-hotsite'); ?>">
-                <?php foreach ( $hero_slides as $index => $slide ) : ?>
-                    <button
-                        type="button"
-                        class="<?php echo 0 === $index ? 'is-active' : ''; ?>"
-                        data-hero-dot="<?php echo esc_attr( $index ); ?>"
-                        aria-selected="<?php echo 0 === $index ? 'true' : 'false'; ?>"
-                        aria-label="<?php printf( esc_attr__( 'Ir para o slide %d', 'camara-hotsite' ), $index + 1 ); ?>"
-                        role="tab"
-                    ></button>
-                <?php endforeach; ?>
-            </div>
+        <div class="hero__dots" role="tablist" data-hero-dots aria-label="<?php esc_attr_e('Controle do destaque principal', 'camara-hotsite'); ?>">
+            <?php foreach ( $hero_slides as $index => $slide ) : ?>
+                <button
+                    type="button"
+                    class="<?php echo 0 === $index ? 'is-active' : ''; ?>"
+                    data-hero-dot="<?php echo esc_attr( $index ); ?>"
+                    aria-selected="<?php echo 0 === $index ? 'true' : 'false'; ?>"
+                    aria-label="<?php printf( esc_attr__( 'Ir para o slide %d', 'camara-hotsite' ), $index + 1 ); ?>"
+                    role="tab"
+                ></button>
+            <?php endforeach; ?>
         </div>
     </section>
 

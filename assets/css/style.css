@@ -537,9 +537,14 @@ body.external-links-panel-open {
 }
 
 .hero__dots {
+    position: absolute;
+    left: 50%;
+    bottom: 25px;
+    transform: translateX(-50%);
     display: flex;
     gap: 12px;
-    margin-top: 30px;
+    justify-content: center;
+    z-index: 2;
 }
 
 .hero__dots button {

@@ -588,6 +588,7 @@ body.external-links-panel-open {
     font-size: clamp(1.8rem, 4vw, 2.6rem);
     font-weight: 800;
     letter-spacing: 0.08em;
+    width: 800px;
 }
 
 .discover__message {

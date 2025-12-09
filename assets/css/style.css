@@ -988,11 +988,13 @@ body.external-links-panel-open {
     margin: 0;
 }
 
+
 .contact-form--compact .form-row {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 18px;
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
 }
 
 .contact-form--compact label {
@@ -1000,6 +1002,7 @@ body.external-links-panel-open {
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: #151515;
+    text-align: right;
 }
 
 .contact-form--compact input {
@@ -1010,6 +1013,7 @@ body.external-links-panel-open {
     padding: 0 14px;
     font-size: 1rem;
     letter-spacing: 0.03em;
+    width: 100%;
 }
 
 .contact-form--compact input:focus {

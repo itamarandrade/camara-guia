@@ -17,7 +17,27 @@
                 <a class="social-link" data-icon="T" href="https://twitter.com/camarasaopaulo" target="_blank" rel="noreferrer" aria-label="Twitter da Câmara Municipal"><span aria-hidden="true">Twitter</span></a>
                 <a class="social-link" data-icon="YT" href="https://www.youtube.com/camarasaopaulo" target="_blank" rel="noreferrer" aria-label="YouTube da Câmara Municipal"><span aria-hidden="true">YouTube</span></a>
             </div>
-            <span class="top-bar__legend">Câmara Municipal de São Paulo</span>
+            <div class="top-bar__external">
+                <button class="external-links-toggle" type="button" aria-controls="external-links-menu" aria-expanded="false">
+                    <span class="sr-only"><?php esc_html_e('Abrir menu de links externos', 'camara-hotsite'); ?></span>
+                    <span class="external-links-toggle__icon" aria-hidden="true"><span></span></span>
+                    <span class="external-links-toggle__label"><?php esc_html_e('Links externos', 'camara-hotsite'); ?></span>
+                </button>
+                <nav class="external-links-menu" id="external-links-menu" aria-label="<?php esc_attr_e('Links externos', 'camara-hotsite'); ?>">
+                    <?php
+                        if ( has_nav_menu( 'external_links_menu' ) ) {
+                            wp_nav_menu([
+                                'theme_location' => 'external_links_menu',
+                                'container'      => false,
+                                'menu_class'     => 'external-links-menu__list',
+                                'depth'          => 1,
+                            ]);
+                        } else {
+                            echo '<ul class="external-links-menu__list"><li class="external-links-menu__notice">' . esc_html__( 'Cadastre os links externos em Aparência > Menus', 'camara-hotsite' ) . '</li></ul>';
+                        }
+                    ?>
+                </nav>
+            </div>
         </div>
     </div>
 

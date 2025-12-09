@@ -12,8 +12,9 @@ function camara_setup() {
     ]);
 
     register_nav_menus([
-        'header_menu' => __('Menu Superior', 'camara-hotsite'),
-        'footer_menu' => __('Menu Rodapé', 'camara-hotsite')
+        'header_menu'        => __('Menu Superior', 'camara-hotsite'),
+        'footer_menu'        => __('Menu Rodapé', 'camara-hotsite'),
+        'external_links_menu'=> __('Links externos', 'camara-hotsite'),
     ]);
 }
 add_action('after_setup_theme', 'camara_setup');

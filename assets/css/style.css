@@ -902,6 +902,7 @@ body.external-links-panel-open {
     font-size: 2rem;
     max-width: 420px;
     color: #000;
+    line-height: 1.35;
 }
 
 .virtual-tour__button {

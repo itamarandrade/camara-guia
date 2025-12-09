@@ -1025,7 +1025,7 @@ body.external-links-panel-open {
     position: relative;
     z-index: 1;
     margin: 0;
-    font-weight: 600;
+    
     color: #0f1114;
     line-height: 1.6;
 }

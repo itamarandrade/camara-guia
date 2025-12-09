@@ -93,6 +93,10 @@
                 </div>
             </div>
 
+            <figure class="discover__hex discover__hex--floating">
+                <img src="<?php echo esc_url( $discover_hex_image ?: camara_placeholder_image( __( 'Hexágonos', 'camara-hotsite' ) ) ); ?>" alt="<?php esc_attr_e('Composição de imagens em formato de hexágono da Câmara Municipal', 'camara-hotsite'); ?>">
+            </figure>
+
             <div class="discover__cta">
                 <p class="discover__cta-eyebrow"><?php esc_html_e('Você é nosso convidado especial!', 'camara-hotsite'); ?></p>
                 <p class="discover__cta-main"><?php esc_html_e('Agende a sua visita', 'camara-hotsite'); ?></p>
@@ -101,9 +105,6 @@
             <div class="discover__visual">
                 <figure class="calendar-card discover__calendar">
                     <img src="<?php echo esc_url( $calendar_image ?: camara_placeholder_image('Calendário') ); ?>" alt="<?php esc_attr_e('Calendário de visitas', 'camara-hotsite'); ?>">
-                </figure>
-                <figure class="discover__hex">
-                    <img src="<?php echo esc_url( $discover_hex_image ?: camara_placeholder_image( __( 'Hexágonos', 'camara-hotsite' ) ) ); ?>" alt="<?php esc_attr_e('Composição de imagens em formato de hexágono da Câmara Municipal', 'camara-hotsite'); ?>">
                 </figure>
             </div>
         </div>

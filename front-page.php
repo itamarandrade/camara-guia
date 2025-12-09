@@ -1,16 +1,31 @@
 <?php
     get_header();
 
-    $hero_image      = camara_get_theme_image('hero_image');
+    $hero_sources    = [
+        camara_get_theme_image('hero_image'),
+        camara_get_theme_image('hero_image_two'),
+        camara_get_theme_image('hero_image_three'),
+    ];
+    $hero_slides     = [];
     $calendar_image  = camara_get_theme_image('calendar_image');
     $gallery_one     = camara_get_theme_image('gallery_image_one');
     $gallery_two     = camara_get_theme_image('gallery_image_two');
     $gallery_three   = camara_get_theme_image('gallery_image_three');
     $tour_image      = camara_get_theme_image('tour_image');
 
-    $hero_style = $hero_image
-        ? 'style="background-image: linear-gradient(120deg, rgba(5,5,10,0.95), rgba(5,5,10,0.4)), url(' . esc_url( $hero_image ) . ');"'
-        : '';
+    foreach ( $hero_sources as $index => $source ) {
+        $placeholder_label = sprintf( __( 'Destaque %d', 'camara-hotsite' ), $index + 1 );
+        $hero_slides[] = [
+            'image' => $source ?: camara_placeholder_image( $placeholder_label ),
+            'label' => sprintf( esc_html__( 'Slide %d', 'camara-hotsite' ), $index + 1 ),
+        ];
+    }
+
+    $hero_badge          = camara_get_theme_option( 'hero_badge_text', __( 'Guia do Visitante', 'camara-hotsite' ) );
+    $hero_title_primary  = camara_get_theme_option( 'hero_title_primary', __( 'Guia do Visitante', 'camara-hotsite' ) );
+    $hero_title_secondary= camara_get_theme_option( 'hero_title_secondary', __( 'Palácio Anchieta', 'camara-hotsite' ) );
+    $hero_description    = camara_get_theme_option( 'hero_description', __( 'Conheça cada detalhe do Legislativo paulistano com roteiros guiados e experiências completas.', 'camara-hotsite' ) );
+
     $tour_style = $tour_image
         ? 'style="background-image: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15)), url(' . esc_url( $tour_image ) . ');"'
         : '';
@@ -18,19 +33,37 @@
 
 <main id="primary" class="site-main">
 
-    <section class="hero" <?php echo $hero_style; ?>>
+    <section class="hero" data-hero>
+        <div class="hero__slider" data-hero-slider>
+            <?php foreach ( $hero_slides as $index => $slide ) : ?>
+                <div
+                    class="hero__slide <?php echo 0 === $index ? 'is-active' : ''; ?>"
+                    data-hero-slide
+                    style="background-image: linear-gradient(120deg, rgba(5,5,10,0.95), rgba(5,5,10,0.4)), url('<?php echo esc_url( $slide['image'] ); ?>');"
+                >
+                    <span class="sr-only"><?php echo esc_html( $slide['label'] ); ?></span>
+                </div>
+            <?php endforeach; ?>
+        </div>
         <div class="hero__wave" aria-hidden="true"></div>
         <div class="container hero__content">
-            <span class="hero__badge"><?php esc_html_e('Guia do Visitante', 'camara-hotsite'); ?></span>
+            <span class="hero__badge"><?php echo esc_html( $hero_badge ); ?></span>
             <h1>
-                <strong><?php esc_html_e('Guia do Visitante', 'camara-hotsite'); ?></strong>
-                <span><?php esc_html_e('Palácio Anchieta', 'camara-hotsite'); ?></span>
+                <strong><?php echo esc_html( $hero_title_primary ); ?></strong>
+                <span><?php echo esc_html( $hero_title_secondary ); ?></span>
             </h1>
-            <p><?php esc_html_e('Conheça cada detalhe do Legislativo paulistano com roteiros guiados e experiências completas.', 'camara-hotsite'); ?></p>
-            <div class="hero__dots" role="presentation">
-                <span class="is-active"></span>
-                <span></span>
-                <span></span>
+            <p><?php echo esc_html( $hero_description ); ?></p>
+            <div class="hero__dots" role="tablist" data-hero-dots aria-label="<?php esc_attr_e('Controle do destaque principal', 'camara-hotsite'); ?>">
+                <?php foreach ( $hero_slides as $index => $slide ) : ?>
+                    <button
+                        type="button"
+                        class="<?php echo 0 === $index ? 'is-active' : ''; ?>"
+                        data-hero-dot="<?php echo esc_attr( $index ); ?>"
+                        aria-selected="<?php echo 0 === $index ? 'true' : 'false'; ?>"
+                        aria-label="<?php printf( esc_attr__( 'Ir para o slide %d', 'camara-hotsite' ), $index + 1 ); ?>"
+                        role="tab"
+                    ></button>
+                <?php endforeach; ?>
             </div>
         </div>
     </section>

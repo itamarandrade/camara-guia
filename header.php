@@ -21,7 +21,6 @@
                 <button class="external-links-toggle" type="button" aria-controls="external-links-panel" aria-expanded="false">
                     <span class="sr-only"><?php esc_html_e('Abrir menu de links externos', 'camara-hotsite'); ?></span>
                     <span class="external-links-toggle__icon" aria-hidden="true"><span></span></span>
-                    <span class="external-links-toggle__label"><?php esc_html_e('Links externos', 'camara-hotsite'); ?></span>
                 </button>
             </div>
         </div>

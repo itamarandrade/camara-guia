@@ -68,4 +68,83 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    const heroSection = document.querySelector('[data-hero]');
+    const heroSlider = heroSection ? heroSection.querySelector('[data-hero-slider]') : null;
+    const heroDotsContainer = heroSection ? heroSection.querySelector('[data-hero-dots]') : null;
+
+    if (heroSlider) {
+        const slides = Array.from(heroSlider.querySelectorAll('[data-hero-slide]'));
+        const dots = heroDotsContainer
+            ? Array.from(heroDotsContainer.querySelectorAll('[data-hero-dot]'))
+            : [];
+        const totalSlides = slides.length;
+        const AUTOPLAY_DELAY = 7000;
+        let activeIndex = slides.findIndex((slide) => slide.classList.contains('is-active'));
+        let autoplayId = null;
+
+        if (activeIndex < 0) {
+            activeIndex = 0;
+        }
+
+        const setActiveSlide = (index) => {
+            slides.forEach((slide, slideIndex) => {
+                slide.classList.toggle('is-active', slideIndex === index);
+            });
+
+            dots.forEach((dot, dotIndex) => {
+                const isActive = dotIndex === index;
+                dot.classList.toggle('is-active', isActive);
+                dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+
+            activeIndex = index;
+        };
+
+        const goToNextSlide = () => {
+            const nextIndex = (activeIndex + 1) % totalSlides;
+            setActiveSlide(nextIndex);
+        };
+
+        const stopAutoplay = () => {
+            if (autoplayId) {
+                window.clearInterval(autoplayId);
+                autoplayId = null;
+            }
+        };
+
+        const startAutoplay = () => {
+            if (totalSlides <= 1) {
+                return;
+            }
+            stopAutoplay();
+            autoplayId = window.setInterval(goToNextSlide, AUTOPLAY_DELAY);
+        };
+
+        dots.forEach((dot) => {
+            dot.addEventListener('click', () => {
+                const targetIndex = Number(dot.getAttribute('data-hero-dot'));
+                if (Number.isNaN(targetIndex) || targetIndex === activeIndex) {
+                    return;
+                }
+                setActiveSlide(targetIndex);
+                startAutoplay();
+            });
+        });
+
+        const interactiveArea = heroSection || heroSlider;
+
+        if (interactiveArea) {
+            interactiveArea.addEventListener('mouseenter', stopAutoplay);
+            interactiveArea.addEventListener('mouseleave', startAutoplay);
+        }
+
+        if (heroDotsContainer) {
+            heroDotsContainer.addEventListener('focusin', stopAutoplay);
+            heroDotsContainer.addEventListener('focusout', startAutoplay);
+        }
+
+        setActiveSlide(activeIndex);
+        startAutoplay();
+    }
 });

@@ -70,7 +70,7 @@ a:hover {
 }
 
 .section {
-    padding: 70px 0;
+    padding: 20px 0;
 }
 
 .section-eyebrow {
@@ -638,7 +638,7 @@ body.external-links-panel-open {
     border-radius: 24px;
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(15, 23, 42, 0.15);
-    border: 6px solid #000;
+    border: 1px solid #000;
     background: #fff;
 }
 
@@ -658,7 +658,7 @@ body.external-links-panel-open {
 .calendar__week {
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
-    gap: 12px;
+    gap: 5px;
 }
 
 .calendar__labels {
@@ -678,7 +678,7 @@ body.external-links-panel-open {
 .calendar__day {
     background: #f5f7fb;
     border-radius: 16px;
-    min-height: 58px;
+    min-height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;

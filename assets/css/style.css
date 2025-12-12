@@ -13,7 +13,7 @@
 
 body {
     margin: 0;
-    font-family: Montserrat;
+    font-family: Montserrat ,sans-serif;
     color: #202025;
     line-height: 1.6;
 }

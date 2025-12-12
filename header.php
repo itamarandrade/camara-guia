@@ -19,7 +19,7 @@
             </div>
             <div class="top-bar__external">
                 <button class="external-links-toggle" type="button" aria-controls="external-links-panel" aria-expanded="false">
-                    <span class="sr-only"><?php esc_html_e('Abrir menu de links externos', 'camara-hotsite'); ?></span>
+                    <span class="sr-only"><?php esc_html_e('Abrir menu de menu', 'camara-hotsite'); ?></span>
                     <span class="external-links-toggle__icon" aria-hidden="true"><span></span></span>
                 </button>
             </div>
@@ -31,9 +31,9 @@
         <aside class="external-links-panel__content" aria-label="<?php esc_attr_e('Menu', 'camara-hotsite'); ?>">
             <button class="external-links-panel__close" type="button" data-panel-close>
                 <span aria-hidden="true"></span>
-                <span class="sr-only"><?php esc_html_e('Fechar menu de links externos', 'camara-hotsite'); ?></span>
+                <span class="sr-only"><?php esc_html_e('Fechar menu de menu', 'camara-hotsite'); ?></span>
             </button>
-            <strong class="external-links-panel__title"><?php esc_html_e('Links externos', 'camara-hotsite'); ?></strong>
+            <strong class="external-links-panel__title"><?php esc_html_e('Menu', 'camara-hotsite'); ?></strong>
             <nav class="external-links-menu">
                 <?php
                     if ( has_nav_menu( 'external_links_menu' ) ) {

@@ -10,6 +10,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const visitasSidebar = document.querySelector('[data-visitas-sidebar]');
+    const visitasToggle = document.querySelector('[data-visitas-sidebar-toggle]');
+    const visitasClosers = document.querySelectorAll('[data-visitas-sidebar-close]');
+
+    if (visitasSidebar && visitasToggle) {
+        const setSidebarState = (shouldOpen) => {
+            visitasSidebar.classList.toggle('is-open', shouldOpen);
+            visitasToggle.setAttribute('aria-expanded', shouldOpen.toString());
+            document.body.classList.toggle('visitas-sidebar-open', shouldOpen);
+        };
+
+        visitasToggle.addEventListener('click', () => {
+            const isOpen = visitasSidebar.classList.contains('is-open');
+            setSidebarState(!isOpen);
+        });
+
+        visitasClosers.forEach((closer) => {
+            closer.addEventListener('click', () => {
+                setSidebarState(false);
+            });
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && visitasSidebar.classList.contains('is-open')) {
+                event.preventDefault();
+                setSidebarState(false);
+            }
+        });
+    }
+
     const externalToggle = document.querySelector('.external-links-toggle');
     const externalPanel = document.querySelector('#external-links-panel');
 

@@ -8,25 +8,23 @@
 
         <div class="site-footer__links">
             <?php
-                if ( has_nav_menu( 'footer_menu' ) ) {
-                    wp_nav_menu([
-                        'theme_location' => 'footer_menu',
-                        'container'      => false,
-                        'menu_class'     => 'footer-links',
-                        'depth'          => 1
-                    ]);
-                } else {
-                    echo '<ul class="footer-links">'
-                        . '<li>' . esc_html__( 'Visitas', 'camara-hotsite' ) . '</li>'
-                        . '<li>' . esc_html__( 'Audiências públicas', 'camara-hotsite' ) . '</li>'
-                        . '<li>' . esc_html__( 'Galeria do Plenário 1º de Maio', 'camara-hotsite' ) . '</li>'
-                        . '<li>' . esc_html__( 'Rede Câmara SP', 'camara-hotsite' ) . '</li>'
-                        . '<li>' . esc_html__( 'Centro de Memória', 'camara-hotsite' ) . '</li>'
-                        . '<li>' . esc_html__( 'Biblioteca e documentação', 'camara-hotsite' ) . '</li>'
-                        . '<li>' . esc_html__( 'SPLegis', 'camara-hotsite' ) . '</li>'
-                        . '</ul>';
-                }
+                $camara_side_links = camara_get_side_menu_links();
+                if ( ! empty( $camara_side_links ) ) :
             ?>
+                <ul class="footer-links footer-links--grid" aria-label="<?php esc_attr_e( 'Links úteis', 'camara-hotsite' ); ?>">
+                    <?php foreach ( $camara_side_links as $link ) :
+                        $is_external = ! empty( $link['external'] );
+                        $target      = $is_external ? '_blank' : '_self';
+                        $rel         = $is_external ? 'noreferrer noopener' : '';
+                    ?>
+                        <li>
+                            <a href="<?php echo esc_url( $link['url'] ); ?>" target="<?php echo esc_attr( $target ); ?>" <?php echo $rel ? 'rel="' . esc_attr( $rel ) . '"' : ''; ?>>
+                                <?php echo esc_html( $link['label'] ); ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
         </div>
     </div>
     <div class="site-footer__bottom">

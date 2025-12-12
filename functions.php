@@ -91,6 +91,70 @@ function camara_get_theme_option( $key, $default = '' ) {
     return $default;
 }
 
+function camara_get_side_menu_links() {
+    $links = [
+        [
+            'label'    => __( 'Visitas', 'camara-hotsite' ),
+            'slug'     => 'visitas',
+            'url'      => home_url( '/visitas/' ),
+            'external' => false,
+            'target'   => '_self',
+        ],
+    ];
+
+    $external_base  = 'https://www.saopaulo.sp.leg.br/';
+    $external_items = [
+        'Visitas Guiadas'                           => '',
+        'Visitas Institucionais'                    => '',
+        'Visitas Técnicas'                          => '',
+        'Acompanhe'                                 => '',
+        'Galeria do Plenário 1o de Maio'            => '',
+        'Audiências Públicas'                       => '',
+        'Atendimento ao cidadão'                    => '',
+        'Horário'                                   => '',
+        'Procedimentos de Segurança e Identificação'=> '',
+        'Ouvidoria'                                 => '',
+        'Acesso à biblioteca'                       => '',
+        'Espaços culturais e exposições temporárias'=> '',
+        'Fotografias e vídeos'                      => '',
+        'Acessibilidade'                            => '',
+        'Contato'                                   => '',
+        'Deixe sua manifestação'                    => '',
+        'Entre em Contato'                          => '',
+        'Visita Virtual'                            => '',
+        'Galeria de vídeos'                         => '',
+        'Rede Câmara SP'                            => '',
+        'Centro de Memória'                         => '',
+        'Portal da Biblioteca e Documentação'       => '',
+        'Portal da Legislação Paulistana'           => '',
+        'SPLegis'                                   => '',
+        'Publicações Institucionais'                => '',
+        'Revista Apartes'                           => '',
+        'Revista da Procuradoria'                   => '',
+        'Revista Parlamento e Sociedade'            => '',
+    ];
+
+    foreach ( $external_items as $label => $slug ) {
+        $slug = $slug ?: sanitize_title( $label );
+
+        if ( preg_match( '#^https?://#i', $slug ) ) {
+            $url = esc_url_raw( $slug );
+        } else {
+            $url = trailingslashit( $external_base . ltrim( $slug, '/' ) );
+        }
+
+        $links[] = [
+            'label'    => $label,
+            'slug'     => sanitize_title( $label ),
+            'url'      => esc_url_raw( $url ),
+            'external' => true,
+            'target'   => '_blank',
+        ];
+    }
+
+    return apply_filters( 'camara_side_menu_links', $links );
+}
+
 function camara_sanitize_theme_settings( $input ) {
     $output = [];
     $fields = [

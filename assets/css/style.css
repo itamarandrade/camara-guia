@@ -696,22 +696,22 @@ body.external-links-panel-open {
 
 .calendar__day.is-purple {
     background: #f5f7fbd7;
-    color: #fff;
+    
 }
 
 .calendar__day.is-green {
     background: #f5f7fbad;
-    color: #fff;
+    
 }
 
 .calendar__day.is-gold {
     background: #f5f7fb8a;
-    color: #000;
+    
 }
 
 .calendar__day.is-blue {
     background: #f5f7fb6e;
-    color: #fff;
+    
 }
 
 
@@ -1101,7 +1101,7 @@ body.external-links-panel-open {
     color: #fff;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    font-size: 0.85rem;
+    font-size: 1.2rem;
     padding: 12px 18px;
     font-weight: 800;
 }

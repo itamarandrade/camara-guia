@@ -82,6 +82,27 @@ function camara_placeholder_image( $text = 'Imagem' ) {
     return 'data:image/svg+xml;utf8,' . rawurlencode( $svg );
 }
 
+function camara_render_embed( $html ) {
+    if ( empty( $html ) ) {
+        return '';
+    }
+
+    $allowed = wp_kses_allowed_html( 'post' );
+    $allowed['iframe'] = [
+        'src'             => true,
+        'width'           => true,
+        'height'          => true,
+        'frameborder'     => true,
+        'allow'           => true,
+        'allowfullscreen' => true,
+        'loading'         => true,
+        'referrerpolicy'  => true,
+        'title'           => true,
+    ];
+
+    return wp_kses( $html, $allowed );
+}
+
 function camara_get_theme_option( $key, $default = '' ) {
     $options = get_option( 'camara_theme_settings', [] );
     if ( isset( $options[ $key ] ) && '' !== $options[ $key ] ) {

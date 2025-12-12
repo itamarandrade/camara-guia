@@ -111,14 +111,39 @@
     $tour_video_embed = '';
     if ( 'video' === $tour_media_type && ! empty( $tour_video_url ) ) {
         $tour_video_embed = wp_oembed_get( $tour_video_url );
+        $video_url_data   = wp_parse_url( $tour_video_url );
 
-        if ( ! $tour_video_embed ) {
-            $video_url_data = wp_parse_url( $tour_video_url );
-            $extension      = isset( $video_url_data['path'] ) ? strtolower( pathinfo( $video_url_data['path'], PATHINFO_EXTENSION ) ) : '';
-            $supported_ext  = [ 'mp4', 'm4v', 'webm', 'ogv', 'flv' ];
+        if ( ! $tour_video_embed && $video_url_data ) {
+            $extension     = isset( $video_url_data['path'] ) ? strtolower( pathinfo( $video_url_data['path'], PATHINFO_EXTENSION ) ) : '';
+            $supported_ext = [ 'mp4', 'm4v', 'webm', 'ogv', 'flv' ];
 
             if ( $extension && in_array( $extension, $supported_ext, true ) ) {
                 $tour_video_embed = wp_video_shortcode( [ 'src' => esc_url( $tour_video_url ) ] );
+            }
+        }
+
+        if ( ! $tour_video_embed && ! empty( $video_url_data['host'] ) && false !== stripos( $video_url_data['host'], 'vimeo.com' ) ) {
+            $video_src = '';
+
+            if ( 'player.vimeo.com' === strtolower( $video_url_data['host'] ) ) {
+                $video_src = $tour_video_url;
+            } else {
+                $path = isset( $video_url_data['path'] ) ? trim( $video_url_data['path'], '/' ) : '';
+                if ( $path ) {
+                    $segments = explode( '/', $path );
+                    $candidate = reset( $segments );
+                    if ( ctype_digit( $candidate ) ) {
+                        $video_src = sprintf( 'https://player.vimeo.com/video/%s', $candidate );
+                    }
+                }
+            }
+
+            if ( $video_src ) {
+                $tour_video_embed = sprintf(
+                    '<iframe src="%s" allow="autoplay; fullscreen; picture-in-picture" loading="lazy" allowfullscreen title="%s"></iframe>',
+                    esc_url( $video_src ),
+                    esc_attr__( 'Tour virtual', 'camara-hotsite' )
+                );
             }
         }
     }
@@ -212,7 +237,7 @@
             <div class="virtual-tour__media">
                 <?php if ( 'video' === $tour_media_type ) : ?>
                     <div class="tour-video">
-                        <?php echo wp_kses_post( $tour_video_embed ); ?>
+                        <?php echo camara_render_embed( $tour_video_embed ); ?>
                     </div>
                 <?php else : ?>
                     <div class="tour-slider" data-tour-slider>

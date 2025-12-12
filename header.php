@@ -28,7 +28,7 @@
 
     <div class="external-links-panel" id="external-links-panel" aria-hidden="true">
         <div class="external-links-panel__overlay" data-panel-close></div>
-        <aside class="external-links-panel__content" aria-label="<?php esc_attr_e('Links externos', 'camara-hotsite'); ?>">
+        <aside class="external-links-panel__content" aria-label="<?php esc_attr_e('Menu', 'camara-hotsite'); ?>">
             <button class="external-links-panel__close" type="button" data-panel-close>
                 <span aria-hidden="true"></span>
                 <span class="sr-only"><?php esc_html_e('Fechar menu de links externos', 'camara-hotsite'); ?></span>

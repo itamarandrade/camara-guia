@@ -588,7 +588,7 @@ body.external-links-panel-open {
     font-weight: 800;
     letter-spacing: 0.08em;
     width: 800px;
-    line-height: 1.3;
+    line-height: 1;
 }
 
 .discover__message {

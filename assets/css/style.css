@@ -1031,179 +1031,13 @@ body.external-links-panel-open {
 }
 
 /* Visitas */
-.visitas-sidebar-open {
-    overflow: hidden;
-}
-
 .visitas-page {
     background: #f1f1f3;
 }
 
-.visitas-hero {
-    position: relative;
-    min-height: 320px;
-    color: #fff;
-    display: flex;
-    align-items: flex-end;
-    background-size: cover;
-    background-position: center;
-    isolation: isolate;
-}
-
-.visitas-hero__overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
-    z-index: 0;
-}
-
-.visitas-hero__content {
-    position: relative;
-    padding: 60px 0 40px;
-    z-index: 1;
-    text-transform: uppercase;
-}
-
-.visitas-hero__eyebrow {
-    display: inline-flex;
-    letter-spacing: 0.3em;
-    font-size: 0.85rem;
-    border: 1px solid rgba(255,255,255,0.6);
-    padding: 6px 18px;
-    border-radius: 999px;
-    margin-bottom: 12px;
-}
-
 .visitas-layout {
-    display: grid;
-    grid-template-columns: 320px minmax(0, 1fr);
-    gap: 40px;
     padding: 50px 0 80px;
     position: relative;
-}
-
-.visitas-sidebar__toggle {
-    display: none;
-    align-items: center;
-    gap: 12px;
-    background: #111;
-    color: #fff;
-    border: none;
-    padding: 14px 20px;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    font-weight: 700;
-    border-radius: 4px;
-}
-
-.visitas-sidebar__toggle span:first-child {
-    width: 24px;
-    height: 2px;
-    background: currentColor;
-    position: relative;
-}
-
-.visitas-sidebar__toggle span:first-child::before,
-.visitas-sidebar__toggle span:first-child::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: currentColor;
-}
-
-.visitas-sidebar__toggle span:first-child::before {
-    top: -6px;
-}
-
-.visitas-sidebar__toggle span:first-child::after {
-    bottom: -6px;
-}
-
-.visitas-sidebar {
-    background: #111114;
-    color: #fff;
-    padding: 30px 28px;
-    border-radius: 8px;
-    position: sticky;
-    top: 30px;
-    align-self: flex-start;
-    min-height: 400px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-    transition: transform .3s ease;
-    z-index: 5;
-}
-
-.visitas-sidebar__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-transform: uppercase;
-    letter-spacing: 0.25em;
-    font-size: 0.85rem;
-    margin-bottom: 20px;
-}
-
-.visitas-sidebar__close {
-    background: transparent;
-    border: none;
-    width: 28px;
-    height: 28px;
-    position: relative;
-    cursor: pointer;
-    opacity: 0.7;
-}
-
-.visitas-sidebar__close span::before,
-.visitas-sidebar__close span::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: #fff;
-    width: 2px;
-    height: 100%;
-    margin: auto;
-    transform-origin: center;
-}
-
-.visitas-sidebar__close span::before {
-    transform: rotate(45deg);
-}
-
-.visitas-sidebar__close span::after {
-    transform: rotate(-45deg);
-}
-
-.visitas-sidebar__close:hover {
-    opacity: 1;
-}
-
-.visitas-sidebar__nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.visitas-sidebar__nav a {
-    color: rgba(255,255,255,0.85);
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    font-size: 0.78rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.visitas-sidebar__nav li.is-active a {
-    color: var(--color-red);
-}
-
-.visitas-sidebar__overlay {
-    display: none;
 }
 
 .visitas-content {
@@ -1451,49 +1285,7 @@ body.external-links-panel-open {
     margin-top: 0;
 }
 
-@media (max-width: 1100px) {
-    .visitas-layout {
-        grid-template-columns: 280px minmax(0, 1fr);
-    }
-}
-
 @media (max-width: 960px) {
-    .visitas-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .visitas-sidebar__toggle {
-        display: inline-flex;
-        margin-bottom: 20px;
-    }
-
-    .visitas-sidebar {
-        position: fixed;
-        inset: 0 auto 0 0;
-        max-width: 320px;
-        width: 85%;
-        transform: translateX(-100%);
-        border-radius: 0;
-        height: 100vh;
-        overflow-y: auto;
-    }
-
-    .visitas-sidebar.is-open {
-        transform: translateX(0);
-    }
-
-    .visitas-sidebar__overlay {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.65);
-        z-index: 4;
-    }
-
-    .visitas-sidebar.is-open ~ .visitas-sidebar__overlay {
-        display: block;
-    }
-
     .visitas-content {
         padding: 30px 24px;
     }
@@ -1504,10 +1296,6 @@ body.external-links-panel-open {
 }
 
 @media (max-width: 640px) {
-    .visitas-hero__content {
-        text-align: center;
-    }
-
     .visitas-modes {
         grid-template-columns: 1fr;
     }

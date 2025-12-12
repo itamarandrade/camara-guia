@@ -1,11 +1,5 @@
 <footer class="site-footer">
     <div class="container site-footer__inner">
-        <div class="site-footer__about">
-            <h4><?php esc_html_e('Visite o Palácio Anchieta', 'camara-hotsite'); ?></h4>
-            <p><?php esc_html_e('Praça da Sé, s/nº — Centro Histórico, São Paulo - SP', 'camara-hotsite'); ?></p>
-            <p><?php esc_html_e('Central telefônica: (11) 3396-4000', 'camara-hotsite'); ?></p>
-        </div>
-
         <div class="site-footer__links">
             <?php
                 $camara_side_links = camara_get_side_menu_links();

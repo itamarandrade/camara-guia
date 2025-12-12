@@ -11,20 +11,42 @@ if ( have_posts() ) {
     the_post();
 }
 
-$sidebar_links = camara_get_side_menu_links();
-$page_id       = get_the_ID();
-$hero_image    = '';
+$hero_slides     = [];
+$hero_slider_ids = camara_get_theme_option( 'hero_slider_images', [] );
 
-if ( has_post_thumbnail( $page_id ) ) {
-    $hero_image = get_the_post_thumbnail_url( $page_id, 'full' );
+if ( ! empty( $hero_slider_ids ) && is_array( $hero_slider_ids ) ) {
+    foreach ( $hero_slider_ids as $index => $attachment_id ) {
+        $attachment_id = absint( $attachment_id );
+        if ( ! $attachment_id ) {
+            continue;
+        }
+
+        $image_url = wp_get_attachment_image_url( $attachment_id, 'full' );
+        if ( ! $image_url ) {
+            continue;
+        }
+
+        $hero_slides[] = [
+            'image' => $image_url,
+            'label' => sprintf( esc_html__( 'Slide %d', 'camara-hotsite' ), $index + 1 ),
+        ];
+    }
 }
 
-if ( ! $hero_image ) {
-    $hero_image = camara_get_theme_image( 'hero_image' );
-}
+if ( empty( $hero_slides ) ) {
+    $hero_sources = [
+        camara_get_theme_image('hero_image'),
+        camara_get_theme_image('hero_image_two'),
+        camara_get_theme_image('hero_image_three'),
+    ];
 
-if ( ! $hero_image ) {
-    $hero_image = camara_placeholder_image( __( 'Visitas', 'camara-hotsite' ) );
+    foreach ( $hero_sources as $index => $source ) {
+        $placeholder_label = sprintf( __( 'Destaque %d', 'camara-hotsite' ), $index + 1 );
+        $hero_slides[] = [
+            'image' => $source ?: camara_placeholder_image( $placeholder_label ),
+            'label' => sprintf( esc_html__( 'Slide %d', 'camara-hotsite' ), $index + 1 ),
+        ];
+    }
 }
 
 $visit_modes = [
@@ -113,48 +135,33 @@ $modalidades = [
 ?>
 
 <main class="visitas-page">
-    <section class="visitas-hero" style="background-image: url('<?php echo esc_url( $hero_image ); ?>');">
-        <div class="visitas-hero__overlay"></div>
-        <div class="container">
-            <div class="visitas-hero__content">
-                <span class="visitas-hero__eyebrow"><?php esc_html_e( 'Guia do Visitante', 'camara-hotsite' ); ?></span>
-                <h1><?php esc_html_e( 'Palácio Anchieta', 'camara-hotsite' ); ?></h1>
-            </div>
+    <section class="hero" data-hero>
+        <div class="hero__slider" data-hero-slider>
+            <?php foreach ( $hero_slides as $index => $slide ) : ?>
+                <div
+                    class="hero__slide <?php echo 0 === $index ? 'is-active' : ''; ?>"
+                    data-hero-slide
+                    style="background-image: url('<?php echo esc_url( $slide['image'] ); ?>');"
+                >
+                    <span class="sr-only"><?php echo esc_html( $slide['label'] ); ?></span>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <div class="hero__dots" role="tablist" data-hero-dots aria-label="<?php esc_attr_e('Controle do destaque principal', 'camara-hotsite'); ?>">
+            <?php foreach ( $hero_slides as $index => $slide ) : ?>
+                <button
+                    type="button"
+                    class="<?php echo 0 === $index ? 'is-active' : ''; ?>"
+                    data-hero-dot="<?php echo esc_attr( $index ); ?>"
+                    aria-selected="<?php echo 0 === $index ? 'true' : 'false'; ?>"
+                    aria-label="<?php printf( esc_attr__( 'Ir para o slide %d', 'camara-hotsite' ), $index + 1 ); ?>"
+                    role="tab"
+                ></button>
+            <?php endforeach; ?>
         </div>
     </section>
 
     <div class="container visitas-layout">
-        <button class="visitas-sidebar__toggle" type="button" data-visitas-sidebar-toggle aria-controls="visitas-sidebar" aria-expanded="false">
-            <span></span>
-            <strong><?php esc_html_e( 'Menu Hambúrguer', 'camara-hotsite' ); ?></strong>
-        </button>
-
-        <aside class="visitas-sidebar" id="visitas-sidebar" data-visitas-sidebar>
-            <div class="visitas-sidebar__header">
-                <p><?php esc_html_e( 'Menu Hambúrguer', 'camara-hotsite' ); ?></p>
-                <button class="visitas-sidebar__close" type="button" data-visitas-sidebar-close>
-                    <span aria-hidden="true"></span>
-                    <span class="sr-only"><?php esc_html_e( 'Fechar menu lateral', 'camara-hotsite' ); ?></span>
-                </button>
-            </div>
-            <nav class="visitas-sidebar__nav" aria-label="<?php esc_attr_e( 'Menu lateral', 'camara-hotsite' ); ?>">
-                <ul>
-                    <?php foreach ( $sidebar_links as $link ) :
-                        $is_active = 'visitas' === $link['slug'];
-                        $is_external = ! empty( $link['external'] );
-                        $rel = $is_external ? 'noreferrer noopener' : '';
-                    ?>
-                        <li class="<?php echo $is_active ? 'is-active' : ''; ?>">
-                            <a href="<?php echo esc_url( $link['url'] ); ?>" target="<?php echo esc_attr( $link['target'] ); ?>" <?php echo $rel ? 'rel="' . esc_attr( $rel ) . '"' : ''; ?>>
-                                <?php echo esc_html( $link['label'] ); ?>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </nav>
-        </aside>
-        <div class="visitas-sidebar__overlay" data-visitas-sidebar-close></div>
-
         <article class="visitas-content">
             <section class="visitas-intro">
                 <header>

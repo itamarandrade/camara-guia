@@ -66,10 +66,6 @@
                 <?php else : ?>
                     <span class="logo-placeholder">CMSP</span>
                 <?php endif; ?>
-                <span class="logo-text">
-                    <strong><?php esc_html_e('Câmara Municipal', 'camara-hotsite'); ?></strong>
-                    <span><?php esc_html_e('de São Paulo', 'camara-hotsite'); ?></span>
-                </span>
             </a>
         </div>
 

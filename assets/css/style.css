@@ -464,7 +464,7 @@ body.external-links-panel-open {
 /* Hero */
 .hero {
     position: relative;
-    min-height: 620px;
+    min-height: 385px;
     display: flex;
     align-items: flex-end;
     color: var(--color-light);
@@ -481,7 +481,8 @@ body.external-links-panel-open {
 .hero__slide {
     position: absolute;
     inset: 0;
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     background-position: center;
     opacity: 0;
     transform: scale(1.05);
@@ -587,12 +588,13 @@ body.external-links-panel-open {
     font-weight: 800;
     letter-spacing: 0.08em;
     width: 800px;
+    line-height: 1.3;
 }
 
 .discover__message {
     background: #eff2f6;
     border-radius: 28px;
-    padding: 22px 30px;
+    padding: 4px 30px;
     position: relative;
     font-size: 1.05rem;
     line-height: 1.8;
@@ -610,7 +612,7 @@ body.external-links-panel-open {
 
 .discover__cta-eyebrow {
     margin: 0;
-    font-size: 1rem;
+    font-size: 1.3rem;
 }
 
 .discover__cta-main {
@@ -618,6 +620,7 @@ body.external-links-panel-open {
     font-size: clamp(1.8rem, 4vw, 2.7rem);
     color: var(--color-red);
     font-weight: 800;
+    line-height: 1;
 }
 
 .discover__visual {
@@ -692,22 +695,22 @@ body.external-links-panel-open {
 }
 
 .calendar__day.is-purple {
-    background: #8b5cf6;
+    background: #f5f7fbd7;
     color: #fff;
 }
 
 .calendar__day.is-green {
-    background: #1ea04a;
+    background: #f5f7fbad;
     color: #fff;
 }
 
 .calendar__day.is-gold {
-    background: #d3b400;
+    background: #f5f7fb8a;
     color: #000;
 }
 
 .calendar__day.is-blue {
-    background: #347dff;
+    background: #f5f7fb6e;
     color: #fff;
 }
 
@@ -1059,8 +1062,7 @@ body.external-links-panel-open {
 }
 
 .visitas-modes {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    display: block;
     gap: 16px;
     margin-top: 30px;
 }
@@ -1070,6 +1072,7 @@ body.external-links-panel-open {
     border-radius: 6px;
     padding: 18px 20px;
     border-left: 6px solid var(--color-red);
+    margin: 10px;
 }
 
 .visitas-card h3 {
@@ -1100,6 +1103,7 @@ body.external-links-panel-open {
     letter-spacing: 0.2em;
     font-size: 0.85rem;
     padding: 12px 18px;
+    font-weight: 800;
 }
 
 .visitas-section__title::before,
@@ -1226,7 +1230,7 @@ body.external-links-panel-open {
 .visitas-calendar__legend i.is-purple { background: #a855f7; }
 
 .visitas-section__content--cards {
-    display: grid;
+    display: block;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 16px;
 }

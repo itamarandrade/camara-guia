@@ -866,7 +866,7 @@ body.external-links-panel-open {
     padding-top: 56%;
     border-radius: 32px;
     overflow: hidden;
-    background: #000;
+    background: transparent;
 }
 
 .tour-video iframe,
@@ -876,6 +876,9 @@ body.external-links-panel-open {
     width: 100%;
     height: 100%;
     border: 0;
+    display: block;
+    border-radius: inherit;
+    object-fit: cover;
 }
 
 .virtual-tour__content {

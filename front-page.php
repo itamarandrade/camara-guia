@@ -140,6 +140,8 @@
                         'controls'   => 0,
                         'background' => 1,
                         'playsinline'=> 1,
+                        'loop'       => 1,
+                        'autopause'  => 0,
                         'dnt'        => 1,
                     ],
                     $video_src

@@ -110,19 +110,10 @@
 
     $tour_video_embed = '';
     if ( 'video' === $tour_media_type && ! empty( $tour_video_url ) ) {
-        $tour_video_embed = wp_oembed_get( $tour_video_url );
-        $video_url_data   = wp_parse_url( $tour_video_url );
+        $video_url_data = wp_parse_url( $tour_video_url );
+        $is_vimeo       = $video_url_data && ! empty( $video_url_data['host'] ) && false !== stripos( $video_url_data['host'], 'vimeo.com' );
 
-        if ( ! $tour_video_embed && $video_url_data ) {
-            $extension     = isset( $video_url_data['path'] ) ? strtolower( pathinfo( $video_url_data['path'], PATHINFO_EXTENSION ) ) : '';
-            $supported_ext = [ 'mp4', 'm4v', 'webm', 'ogv', 'flv' ];
-
-            if ( $extension && in_array( $extension, $supported_ext, true ) ) {
-                $tour_video_embed = wp_video_shortcode( [ 'src' => esc_url( $tour_video_url ) ] );
-            }
-        }
-
-        if ( ! $tour_video_embed && ! empty( $video_url_data['host'] ) && false !== stripos( $video_url_data['host'], 'vimeo.com' ) ) {
+        if ( $is_vimeo ) {
             $video_src = '';
 
             if ( 'player.vimeo.com' === strtolower( $video_url_data['host'] ) ) {
@@ -139,11 +130,37 @@
             }
 
             if ( $video_src ) {
+                $video_src = add_query_arg(
+                    [
+                        'autoplay'   => 1,
+                        'muted'      => 1,
+                        'title'      => 0,
+                        'byline'     => 0,
+                        'portrait'   => 0,
+                        'controls'   => 0,
+                        'background' => 1,
+                        'playsinline'=> 1,
+                        'dnt'        => 1,
+                    ],
+                    $video_src
+                );
+
                 $tour_video_embed = sprintf(
                     '<iframe src="%s" allow="autoplay; fullscreen; picture-in-picture" loading="lazy" allowfullscreen title="%s"></iframe>',
                     esc_url( $video_src ),
                     esc_attr__( 'Tour virtual', 'camara-hotsite' )
                 );
+            }
+        } else {
+            $tour_video_embed = wp_oembed_get( $tour_video_url );
+
+            if ( ! $tour_video_embed && $video_url_data ) {
+                $extension     = isset( $video_url_data['path'] ) ? strtolower( pathinfo( $video_url_data['path'], PATHINFO_EXTENSION ) ) : '';
+                $supported_ext = [ 'mp4', 'm4v', 'webm', 'ogv', 'flv' ];
+
+                if ( $extension && in_array( $extension, $supported_ext, true ) ) {
+                    $tour_video_embed = wp_video_shortcode( [ 'src' => esc_url( $tour_video_url ) ] );
+                }
             }
         }
     }

@@ -464,7 +464,7 @@ body.external-links-panel-open {
 /* Hero */
 .hero {
     position: relative;
-    min-height: 385px;
+    min-height: 520px;
     display: flex;
     align-items: flex-end;
     color: var(--color-light);
@@ -481,7 +481,7 @@ body.external-links-panel-open {
 .hero__slide {
     position: absolute;
     inset: 0;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     opacity: 0;

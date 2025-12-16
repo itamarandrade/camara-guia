@@ -1458,9 +1458,7 @@ body.external-links-panel-open {
         align-items: flex-start;
     }
 
-    .discover__visual {
-        flex-direction: column;
-    }
+    
 
     .contact-panel__grid {
         grid-template-columns: 1fr;

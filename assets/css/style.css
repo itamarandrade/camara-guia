@@ -729,6 +729,16 @@ body.external-links-panel-open {
     z-index: 3;
 }
 
+.discover__button {
+    position: absolute;
+    top: 420px;
+    right: clamp(60px, 10vw, 180px);
+    z-index: 4;
+    border-radius: 0;
+    background: #e74848;
+    font-weight: 700;
+}
+
 .virtual-tour__grid {
     
     display: grid;
@@ -1417,6 +1427,13 @@ body.external-links-panel-open {
         width: min(260px, 100%);
     }
 
+    .discover__button {
+        position: static;
+        display: block;
+        margin: 20px auto 0;
+        width: fit-content;
+    }
+
     .discover__message {
         padding-right: 30px;
     }
@@ -1428,6 +1445,12 @@ body.external-links-panel-open {
     .virtual-tour__grid {
         grid-template-columns: 1fr;
         padding: 32px;
+    }
+
+    .virtual-tour__button {
+        margin: 0 auto;
+        display: block;
+        width: fit-content;
     }
 
     .tour-slider__thumbs {
@@ -1519,6 +1542,12 @@ body.external-links-panel-open {
 
     .discover__visual {
         gap: 20px;
+        flex-direction: column;
+    }
+
+    .discover__button {
+        order: 2;
+        margin-top: 20px;
     }
 
     .calendar {

@@ -733,9 +733,10 @@ body.external-links-panel-open {
     
     display: grid;
     grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-    gap: 10px;
+    gap: clamp(24px, 4vw, 48px);
     align-items: center;
     overflow: hidden;
+    padding: 0;
 }
 
 .virtual-tour__media {
@@ -1322,7 +1323,7 @@ body.external-links-panel-open {
 .site-footer {
     background: #101013;
     color: rgba(255,255,255,0.8);
-    margin-top: 40px;
+    
 }
 
 .site-footer__inner {

@@ -148,7 +148,7 @@
                 );
 
                 $tour_video_embed = sprintf(
-                    '<iframe src="%s" allow="autoplay; fullscreen; picture-in-picture" loading="lazy" allowfullscreen title="%s"></iframe>',
+                    '<iframe width="640" height="360" src="%s" allow="autoplay; fullscreen; picture-in-picture" loading="lazy" allowfullscreen title="%s"></iframe>',
                     esc_url( $video_src ),
                     esc_attr__( 'Tour virtual', 'camara-hotsite' )
                 );

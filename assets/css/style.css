@@ -1463,6 +1463,10 @@ body.external-links-panel-open {
 }
 
 @media (max-width: 640px) {
+    .container {
+        padding: 0 16px;
+    }
+
     .top-bar__inner {
         flex-direction: column;
         gap: 8px;
@@ -1499,6 +1503,8 @@ body.external-links-panel-open {
     .discover__headline,
     .discover__cta {
         text-align: center;
+        width: 100%;
+        font-size: 1em;
     }
 
     .discover__visual {
@@ -1525,5 +1531,14 @@ body.external-links-panel-open {
 
     .contact-panel__card {
         padding: 22px;
+    }
+
+    .contact-form--compact .form-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .contact-form--compact label {
+        text-align: left;
     }
 }

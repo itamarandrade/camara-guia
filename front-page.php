@@ -202,9 +202,10 @@
         </div>
     </section>
 
-    <section class="section discover">
-        <div class="container discover__layout">
-            <div class="discover__intro">
+    <div class="home-body">
+        <section class="section discover">
+            <div class="container discover__layout">
+                <div class="discover__intro">
                 <p class="discover__headline"><?php esc_html_e('Venha conhecer a Câmara Municipal de São Paulo', 'camara-hotsite'); ?></p>
                 <div class="discover__message">
                     <p><?php esc_html_e('O Palácio Anchieta convida você para uma viagem no tempo! Arquitetura única, obras de arte e uma aula sobre o passado político, social e cultural de São Paulo.', 'camara-hotsite'); ?></p>
@@ -251,89 +252,90 @@
         </div>
     </section>
 
-    <section class="section virtual-tour">
-        <div class="container virtual-tour__grid">
-            <div class="virtual-tour__media">
-                <?php if ( 'video' === $tour_media_type ) : ?>
-                    <div class="tour-video">
-                        <?php echo camara_render_embed( $tour_video_embed ); ?>
-                    </div>
-                <?php else : ?>
-                    <div class="tour-slider" data-tour-slider>
-                        <div class="tour-slider__stage">
-                            <?php foreach ( $tour_slides as $index => $slide ) : ?>
-                                <figure class="tour-slider__slide <?php echo 0 === $index ? 'is-active' : ''; ?>" data-tour-slide>
-                                    <img src="<?php echo esc_url( $slide['image'] ); ?>" alt="<?php echo esc_attr( $slide['alt'] ); ?>">
-                                </figure>
-                            <?php endforeach; ?>
+        <section class="section virtual-tour">
+            <div class="container virtual-tour__grid">
+                <div class="virtual-tour__media">
+                    <?php if ( 'video' === $tour_media_type ) : ?>
+                        <div class="tour-video">
+                            <?php echo camara_render_embed( $tour_video_embed ); ?>
                         </div>
-                        <?php if ( $tour_has_multiple_slides ) : ?>
-                            <div class="tour-slider__thumbs" role="tablist">
+                    <?php else : ?>
+                        <div class="tour-slider" data-tour-slider>
+                            <div class="tour-slider__stage">
                                 <?php foreach ( $tour_slides as $index => $slide ) : ?>
-                                    <button
-                                        type="button"
-                                        class="tour-slider__thumb <?php echo 0 === $index ? 'is-active' : ''; ?>"
-                                        data-tour-thumb="<?php echo esc_attr( $index ); ?>"
-                                        role="tab"
-                                        aria-selected="<?php echo 0 === $index ? 'true' : 'false'; ?>"
-                                        aria-label="<?php printf( esc_attr__( 'Ver imagem %d do tour', 'camara-hotsite' ), $index + 1 ); ?>"
-                                    >
-                                        <img src="<?php echo esc_url( $slide['thumb'] ); ?>" alt="">
-                                    </button>
+                                    <figure class="tour-slider__slide <?php echo 0 === $index ? 'is-active' : ''; ?>" data-tour-slide>
+                                        <img src="<?php echo esc_url( $slide['image'] ); ?>" alt="<?php echo esc_attr( $slide['alt'] ); ?>">
+                                    </figure>
                                 <?php endforeach; ?>
                             </div>
-                            <button type="button" class="tour-slider__control tour-slider__control--prev" data-tour-nav="prev">
-                                <span class="sr-only"><?php esc_html_e('Slide anterior', 'camara-hotsite'); ?></span>
-                            </button>
-                            <button type="button" class="tour-slider__control tour-slider__control--next" data-tour-nav="next">
-                                <span class="sr-only"><?php esc_html_e('Próximo slide', 'camara-hotsite'); ?></span>
-                            </button>
-                        <?php endif; ?>
+                            <?php if ( $tour_has_multiple_slides ) : ?>
+                                <div class="tour-slider__thumbs" role="tablist">
+                                    <?php foreach ( $tour_slides as $index => $slide ) : ?>
+                                        <button
+                                            type="button"
+                                            class="tour-slider__thumb <?php echo 0 === $index ? 'is-active' : ''; ?>"
+                                            data-tour-thumb="<?php echo esc_attr( $index ); ?>"
+                                            role="tab"
+                                            aria-selected="<?php echo 0 === $index ? 'true' : 'false'; ?>"
+                                            aria-label="<?php printf( esc_attr__( 'Ver imagem %d do tour', 'camara-hotsite' ), $index + 1 ); ?>"
+                                        >
+                                            <img src="<?php echo esc_url( $slide['thumb'] ); ?>" alt="">
+                                        </button>
+                                    <?php endforeach; ?>
+                                </div>
+                                <button type="button" class="tour-slider__control tour-slider__control--prev" data-tour-nav="prev">
+                                    <span class="sr-only"><?php esc_html_e('Slide anterior', 'camara-hotsite'); ?></span>
+                                </button>
+                                <button type="button" class="tour-slider__control tour-slider__control--next" data-tour-nav="next">
+                                    <span class="sr-only"><?php esc_html_e('Próximo slide', 'camara-hotsite'); ?></span>
+                                </button>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <div class="virtual-tour__content">
+                    <p class="virtual-tour__eyebrow"><?php esc_html_e('Não conseguiu agendar?', 'camara-hotsite'); ?></p>
+                    <h2 class="virtual-tour__title"><?php esc_html_e('Faça um tour virtual', 'camara-hotsite'); ?></h2>
+                    <p><?php esc_html_e('Está longe da cidade? Não tem tempo de visitar o Palácio Anchieta pessoalmente?', 'camara-hotsite'); ?></p>
+                    <p><?php esc_html_e('Vamos fazer o Tour Virtual!', 'camara-hotsite'); ?></p>
+                    <a class="btn virtual-tour__button" href="#" target="_blank" rel="noreferrer"><?php esc_html_e('Tour virtual', 'camara-hotsite'); ?></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section contact-panel" id="contato">
+            <div class="container">
+                <div class="contact-panel__banner">
+                    <span><?php esc_html_e('Fale com a Câmara!', 'camara-hotsite'); ?></span>
+                </div>
+                <div class="contact-panel__grid">
+                    <div class="contact-panel__text">
+                        <p><?php esc_html_e('Bem-vindo ao canal de comunicação “Fale Conosco” da Câmara Municipal de São Paulo. Esse canal o ajudará a dar seu feedback e a resolver suas dúvidas.', 'camara-hotsite'); ?></p>
+                        <p><strong><?php esc_html_e('Central Telefônica:', 'camara-hotsite'); ?></strong></p>
+                        <p><?php esc_html_e('Para um atendimento imediato e personalizado, nossa equipe da central telefônica está disponível das 10h às 19h pelo número (11) 3396-4000.', 'camara-hotsite'); ?></p>
                     </div>
-                <?php endif; ?>
-            </div>
-            <div class="virtual-tour__content">
-                <p class="virtual-tour__eyebrow"><?php esc_html_e('Não conseguiu agendar?', 'camara-hotsite'); ?></p>
-                <h2 class="virtual-tour__title"><?php esc_html_e('Faça um tour virtual', 'camara-hotsite'); ?></h2>
-                <p><?php esc_html_e('Está longe da cidade? Não tem tempo de visitar o Palácio Anchieta pessoalmente?', 'camara-hotsite'); ?></p>
-                <p><?php esc_html_e('Vamos fazer o Tour Virtual!', 'camara-hotsite'); ?></p>
-                <a class="btn virtual-tour__button" href="#" target="_blank" rel="noreferrer"><?php esc_html_e('Tour virtual', 'camara-hotsite'); ?></a>
-            </div>
-        </div>
-    </section>
 
-    <section class="section contact-panel" id="contato">
-        <div class="container">
-            <div class="contact-panel__banner">
-                <span><?php esc_html_e('Fale com a Câmara!', 'camara-hotsite'); ?></span>
-            </div>
-            <div class="contact-panel__grid">
-                <div class="contact-panel__text">
-                    <p><?php esc_html_e('Bem-vindo ao canal de comunicação “Fale Conosco” da Câmara Municipal de São Paulo. Esse canal o ajudará a dar seu feedback e a resolver suas dúvidas.', 'camara-hotsite'); ?></p>
-                    <p><strong><?php esc_html_e('Central Telefônica:', 'camara-hotsite'); ?></strong></p>
-                    <p><?php esc_html_e('Para um atendimento imediato e personalizado, nossa equipe da central telefônica está disponível das 10h às 19h pelo número (11) 3396-4000.', 'camara-hotsite'); ?></p>
-                </div>
-
-                <div class="contact-panel__card">
-                    <form class="contact-form contact-form--compact" action="#" method="post">
-                        <div class="form-row">
-                            <label for="contact-name"><?php esc_html_e('Nome', 'camara-hotsite'); ?></label>
-                            <input type="text" id="contact-name" name="nome" required>
-                        </div>
-                        <div class="form-row">
-                            <label for="contact-phone"><?php esc_html_e('Telefone', 'camara-hotsite'); ?></label>
-                            <input type="tel" id="contact-phone" name="telefone">
-                        </div>
-                        <div class="form-row">
-                            <label for="contact-email"><?php esc_html_e('E-mail', 'camara-hotsite'); ?></label>
-                            <input type="email" id="contact-email" name="email" required>
-                        </div>
-                    </form>
-                    <p class="contact-panel__note"><?php esc_html_e('O seu contato é muito importante para nós! Seus dados estão seguros e protegidos com a', 'camara-hotsite'); ?> <strong><?php esc_html_e('LGPD', 'camara-hotsite'); ?></strong></p>
+                    <div class="contact-panel__card">
+                        <form class="contact-form contact-form--compact" action="#" method="post">
+                            <div class="form-row">
+                                <label for="contact-name"><?php esc_html_e('Nome', 'camara-hotsite'); ?></label>
+                                <input type="text" id="contact-name" name="nome" required>
+                            </div>
+                            <div class="form-row">
+                                <label for="contact-phone"><?php esc_html_e('Telefone', 'camara-hotsite'); ?></label>
+                                <input type="tel" id="contact-phone" name="telefone">
+                            </div>
+                            <div class="form-row">
+                                <label for="contact-email"><?php esc_html_e('E-mail', 'camara-hotsite'); ?></label>
+                                <input type="email" id="contact-email" name="email" required>
+                            </div>
+                        </form>
+                        <p class="contact-panel__note"><?php esc_html_e('O seu contato é muito importante para nós! Seus dados estão seguros e protegidos com a', 'camara-hotsite'); ?> <strong><?php esc_html_e('LGPD', 'camara-hotsite'); ?></strong></p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
 </main>
 

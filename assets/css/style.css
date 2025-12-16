@@ -1306,6 +1306,9 @@ body.external-links-panel-open {
     .site-footer__links{
         margin: 20px 0 0;
     }
+    .footer-links--grid {
+        columns: 1;
+    }
 }
 
 @media (max-width: 640px) {
@@ -1411,7 +1414,7 @@ body.external-links-panel-open {
         position: static;
         transform: none;
         margin: 10px auto 0;
-        width: min(260px, 70%);
+        width: min(260px, 100%);
     }
 
     .discover__message {
@@ -1469,6 +1472,9 @@ body.external-links-panel-open {
 @media (max-width: 640px) {
     .container {
         padding: 0 16px;
+    }
+    .discover__layout{
+        gap: 5px;
     }
 
     .top-bar__inner {

@@ -1294,11 +1294,17 @@ body.external-links-panel-open {
 
 @media (max-width: 960px) {
     .visitas-content {
-        padding: 30px 24px;
+        padding: 30px 0px;
     }
 
     .visitas-contact {
         grid-template-columns: 1fr;
+    }
+    .contact-panel__banner{
+        bottom: 0;
+    }
+    .site-footer__links{
+        margin: 20px 0 0;
     }
 }
 
@@ -1515,9 +1521,26 @@ body.external-links-panel-open {
         padding: 18px;
     }
 
+    .calendar__labels {
+        padding: 12px 10px;
+        font-size: 0.75rem;
+    }
+
+    .calendar__labels span {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: clip;
+        white-space: nowrap;
+        font-size: 0;
+    }
+
+    .calendar__labels span::first-letter {
+        font-size: 0.75rem;
+    }
+
     .calendar__labels,
     .calendar__week {
-        gap: 8px;
+        gap: 4px;
     }
 
     .calendar__day {
@@ -1530,7 +1553,7 @@ body.external-links-panel-open {
     }
 
     .contact-panel__card {
-        padding: 22px;
+        padding: 0px;
     }
 
     .contact-form--compact .form-row {

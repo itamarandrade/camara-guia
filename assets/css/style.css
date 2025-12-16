@@ -864,7 +864,6 @@ body.external-links-panel-open {
 .tour-video {
     position: relative;
     padding-top: 56%;
-    border-radius: 32px;
     overflow: hidden;
     background: transparent;
 }

@@ -217,8 +217,6 @@
                         <img src="<?php echo esc_url( $discover_hex_image ?: camara_placeholder_image( __( 'Hexágonos', 'camara-hotsite' ) ) ); ?>" alt="<?php esc_attr_e('Composição de imagens em formato de hexágono da Câmara Municipal', 'camara-hotsite'); ?>">
                     </figure>
 
-                    <a class="btn discover__button" href="https://www.saopaulo.sp.leg.br/camaraaberta/agenda/" target="_blank" rel="noreferrer"><?php esc_html_e('Agende sua visita', 'camara-hotsite'); ?></a>
-
                     <div class="discover__cta">
                         <p class="discover__cta-eyebrow"><?php esc_html_e('Você é nosso convidado especial!', 'camara-hotsite'); ?></p>
                         <p class="discover__cta-main"><?php esc_html_e('Agende a sua visita', 'camara-hotsite'); ?></p>
@@ -250,6 +248,9 @@
                                     </div>
                                 <?php endforeach; ?>
                             </div>
+                        </div>
+                        <div class="discover__action">
+                            <a class="btn discover__button" href="https://www.saopaulo.sp.leg.br/camaraaberta/agenda/" target="_blank" rel="noreferrer"><?php esc_html_e('Agende sua visita', 'camara-hotsite'); ?></a>
                         </div>
                     </div>
                 </div>

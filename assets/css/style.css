@@ -624,7 +624,7 @@ body.external-links-panel-open {
 
 .discover__visual {
     display: flex;
-    align-items: flex-start;
+    align-items: flex-end;
     gap: 40px;
     flex-wrap: wrap;
 }
@@ -632,6 +632,13 @@ body.external-links-panel-open {
 .discover__calendar {
     flex: 1 1 340px;
     max-width: 520px;
+}
+
+.discover__action {
+    flex: 1 1 220px;
+    max-width: 320px;
+    display: flex;
+    align-items: flex-end;
 }
 
 .calendar-card {
@@ -730,10 +737,7 @@ body.external-links-panel-open {
 }
 
 .discover__button {
-    position: absolute;
-    top: 420px;
-    right: clamp(60px, 10vw, 180px);
-    z-index: 4;
+    width: 100%;
     border-radius: 0;
     background: #e74848;
     font-weight: 700;
@@ -1427,10 +1431,14 @@ body.external-links-panel-open {
         width: min(260px, 100%);
     }
 
+    .discover__action {
+        flex: 1 1 100%;
+        max-width: none;
+        justify-content: center;
+        align-items: center;
+    }
+
     .discover__button {
-        position: static;
-        display: block;
-        margin: 20px auto 0;
         width: fit-content;
     }
 
@@ -1545,9 +1553,9 @@ body.external-links-panel-open {
         flex-direction: column;
     }
 
-    .discover__button {
-        order: 2;
-        margin-top: 20px;
+    .discover__action {
+        width: 100%;
+        align-items: center;
     }
 
     .calendar {

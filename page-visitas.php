@@ -132,9 +132,11 @@ $modalidades = [
         ],
     ],
 ];
+
+$visitas_status = isset( $_GET['visitas-status'] ) ? sanitize_text_field( wp_unslash( $_GET['visitas-status'] ) ) : '';
 ?>
 
-<main class="visitas-page">
+<main id="primary" class="visitas-page" tabindex="-1">
     <section class="hero" data-hero>
         <div class="hero__slider" data-hero-slider>
             <?php foreach ( $hero_slides as $index => $slide ) : ?>
@@ -287,18 +289,33 @@ $modalidades = [
                         <p><?php esc_html_e( 'Em caso de dúvidas e informações adicionais, escreva para visitas@saopaulo.sp.leg.br ou ligue para (11) 3396-4692.', 'camara-hotsite' ); ?></p>
                         <p><?php esc_html_e( 'Estamos ansiosos para receber você!', 'camara-hotsite' ); ?></p>
                     </div>
-                    <form class="visitas-form" action="#" method="post">
+                    <form class="visitas-form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
+                        <?php if ( 'success' === $visitas_status ) : ?>
+                            <div class="form-alert form-alert--success" role="status" aria-live="polite">
+                                <?php esc_html_e( 'Recebemos sua mensagem. Nossa equipe retornará em breve.', 'camara-hotsite' ); ?>
+                            </div>
+                        <?php elseif ( 'error' === $visitas_status ) : ?>
+                            <div class="form-alert form-alert--error" role="alert" aria-live="assertive">
+                                <?php esc_html_e( 'Não conseguimos enviar sua mensagem. Por favor, tente novamente.', 'camara-hotsite' ); ?>
+                            </div>
+                        <?php endif; ?>
+                        <?php wp_nonce_field( 'camara_contact_form', 'camara_contact_form_nonce' ); ?>
+                        <input type="hidden" name="action" value="camara_contact_form">
+                        <input type="hidden" name="camara_form_id" value="visitas-contato">
+                        <input type="hidden" name="camara_form_context" value="<?php esc_attr_e( 'Contato sobre visitas', 'camara-hotsite' ); ?>">
+                        <input type="hidden" name="camara_status_param" value="visitas-status">
+                        <input type="hidden" name="camara_redirect_to" value="<?php echo esc_url( get_permalink() ); ?>">
                         <label>
                             <span><?php esc_html_e( 'Nome', 'camara-hotsite' ); ?></span>
-                            <input type="text" name="visitas-nome" required>
+                            <input type="text" name="nome" required>
                         </label>
                         <label>
                             <span><?php esc_html_e( 'Telefone', 'camara-hotsite' ); ?></span>
-                            <input type="tel" name="visitas-telefone">
+                            <input type="tel" name="telefone">
                         </label>
                         <label>
                             <span><?php esc_html_e( 'E-mail', 'camara-hotsite' ); ?></span>
-                            <input type="email" name="visitas-email" required>
+                            <input type="email" name="email" required>
                         </label>
                         <button type="submit" class="btn"><?php esc_html_e( 'Enviar', 'camara-hotsite' ); ?></button>
                     </form>

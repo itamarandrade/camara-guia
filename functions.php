@@ -579,4 +579,85 @@ function camara_admin_settings_assets( $hook ) {
 }
 add_action( 'admin_enqueue_scripts', 'camara_admin_settings_assets' );
 
+
+function camara_contact_form_redirect( $status ) {
+    $param = isset( $_POST['camara_status_param'] ) ? sanitize_key( wp_unslash( $_POST['camara_status_param'] ) ) : 'form-status';
+    $redirect = isset( $_POST['camara_redirect_to'] ) ? esc_url_raw( wp_unslash( $_POST['camara_redirect_to'] ) ) : '';
+
+    if ( empty( $redirect ) ) {
+        $redirect = wp_get_referer();
+    }
+
+    if ( empty( $redirect ) ) {
+        $redirect = home_url( '/' );
+    }
+
+    if ( empty( $param ) ) {
+        $param = 'form-status';
+    }
+
+    wp_safe_redirect( add_query_arg( $param, $status, $redirect ) );
+    exit;
+}
+
+function camara_handle_contact_form() {
+    if ( empty( $_POST['camara_contact_form_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['camara_contact_form_nonce'] ), 'camara_contact_form' ) ) {
+        camara_contact_form_redirect( 'error' );
+    }
+
+    $form_id      = isset( $_POST['camara_form_id'] ) ? sanitize_key( wp_unslash( $_POST['camara_form_id'] ) ) : 'formulario';
+    $form_context = isset( $_POST['camara_form_context'] ) ? sanitize_text_field( wp_unslash( $_POST['camara_form_context'] ) ) : __( 'Contato', 'camara-hotsite' );
+
+    $name_field   = isset( $_POST['nome'] ) ? $_POST['nome'] : ( isset( $_POST['visitas-nome'] ) ? $_POST['visitas-nome'] : '' );
+    $phone_field  = isset( $_POST['telefone'] ) ? $_POST['telefone'] : ( isset( $_POST['visitas-telefone'] ) ? $_POST['visitas-telefone'] : '' );
+    $email_field  = isset( $_POST['email'] ) ? $_POST['email'] : ( isset( $_POST['visitas-email'] ) ? $_POST['visitas-email'] : '' );
+    $message_field = isset( $_POST['mensagem'] ) ? $_POST['mensagem'] : '';
+
+    $name    = $name_field ? sanitize_text_field( wp_unslash( $name_field ) ) : '';
+    $phone   = $phone_field ? sanitize_text_field( wp_unslash( $phone_field ) ) : '';
+    $email   = $email_field ? sanitize_email( wp_unslash( $email_field ) ) : '';
+    $message = $message_field ? sanitize_textarea_field( wp_unslash( $message_field ) ) : '';
+
+    $consent  = isset( $_POST['lgpd_consent'] ) ? __( 'Sim', 'camara-hotsite' ) : __( 'Não informado', 'camara-hotsite' );
+    $recipient = apply_filters( 'camara_contact_form_recipient', 'comunicacaoexterna@saopaulo.sp.leg.br', $form_id );
+
+    $email_lines = [
+        sprintf( __( 'Formulário: %s', 'camara-hotsite' ), $form_context ),
+    ];
+
+    if ( $name ) {
+        $email_lines[] = sprintf( __( 'Nome: %s', 'camara-hotsite' ), $name );
+    }
+
+    if ( $phone ) {
+        $email_lines[] = sprintf( __( 'Telefone: %s', 'camara-hotsite' ), $phone );
+    }
+
+    if ( $email ) {
+        $email_lines[] = sprintf( __( 'E-mail: %s', 'camara-hotsite' ), $email );
+    }
+
+    if ( $message ) {
+        $email_lines[] = '';
+        $email_lines[] = __( 'Mensagem:', 'camara-hotsite' );
+        $email_lines[] = $message;
+    }
+
+    $email_lines[] = '';
+    $email_lines[] = sprintf( __( 'Consentimento LGPD: %s', 'camara-hotsite' ), $consent );
+
+    $subject = sprintf( __( '[Guia do Visitante] Novo contato (%s)', 'camara-hotsite' ), $form_context );
+    $headers = [ 'Content-Type: text/plain; charset=UTF-8' ];
+
+    if ( $email ) {
+        $headers[] = 'Reply-To: ' . $email;
+    }
+
+    $sent = wp_mail( $recipient, $subject, implode( "\n", $email_lines ), $headers );
+
+    camara_contact_form_redirect( $sent ? 'success' : 'error' );
+}
+add_action( 'admin_post_camara_contact_form', 'camara_handle_contact_form' );
+add_action( 'admin_post_nopriv_camara_contact_form', 'camara_handle_contact_form' );
+
 ?>

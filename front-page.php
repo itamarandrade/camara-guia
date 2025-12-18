@@ -172,9 +172,10 @@
     }
 
     $tour_has_multiple_slides = count( $tour_slides ) > 1;
+    $contact_status = isset( $_GET['contact-status'] ) ? sanitize_text_field( wp_unslash( $_GET['contact-status'] ) ) : '';
 ?>
 
-<main id="primary" class="site-main visitas-page">
+<main id="primary" class="site-main visitas-page" tabindex="-1">
 
     <section class="hero" data-hero>
         <div class="hero__slider" data-hero-slider>
@@ -218,7 +219,7 @@
                     </figure>
 
                     <div class="discover__cta">
-                        <p class="discover__cta-eyebrow"><?php esc_html_e('Você é nosso convidado especial!', 'camara-hotsite'); ?></p>
+                        <p class="discover__cta-eyebrow"><?php esc_html_e('Que bom que você esta aqui!', 'camara-hotsite'); ?></p>
                         <p class="discover__cta-main"><?php esc_html_e('Agende a sua visita', 'camara-hotsite'); ?></p>
                     </div>
 
@@ -314,13 +315,28 @@
                     </div>
                     <div class="contact-panel__grid">
                         <div class="contact-panel__text">
-                            <p><?php esc_html_e('Bem-vindo ao canal de comunicação “Fale Conosco” da Câmara Municipal de São Paulo. Esse canal o ajudará a dar seu feedback e a resolver suas dúvidas.', 'camara-hotsite'); ?></p>
+                            <p><?php esc_html_e('Esse é o canal de comunicação “Fale Conosco” da Câmara Municipal de São Paulo. Esse canal o ajudará a dar seu feedback e a resolver suas dúvidas.', 'camara-hotsite'); ?></p>
                             <p><strong><?php esc_html_e('Central Telefônica:', 'camara-hotsite'); ?></strong></p>
                             <p><?php esc_html_e('Para um atendimento imediato e personalizado, nossa equipe da central telefônica está disponível das 10h às 19h pelo número (11) 3396-4000.', 'camara-hotsite'); ?></p>
                         </div>
 
                         <div class="contact-panel__card">
-                            <form class="contact-form contact-form--compact" action="#" method="post">
+                            <?php if ( 'success' === $contact_status ) : ?>
+                                <div class="form-alert form-alert--success" role="status" aria-live="polite">
+                                    <?php esc_html_e( 'Recebemos sua mensagem! Em breve retornaremos o contato.', 'camara-hotsite' ); ?>
+                                </div>
+                            <?php elseif ( 'error' === $contact_status ) : ?>
+                                <div class="form-alert form-alert--error" role="alert" aria-live="assertive">
+                                    <?php esc_html_e( 'Não foi possível enviar sua mensagem. Tente novamente em instantes.', 'camara-hotsite' ); ?>
+                                </div>
+                            <?php endif; ?>
+                            <form class="contact-form contact-form--compact" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
+                                <?php wp_nonce_field( 'camara_contact_form', 'camara_contact_form_nonce' ); ?>
+                                <input type="hidden" name="action" value="camara_contact_form">
+                                <input type="hidden" name="camara_form_id" value="contato-home">
+                                <input type="hidden" name="camara_form_context" value="<?php esc_attr_e( 'Contato geral', 'camara-hotsite' ); ?>">
+                                <input type="hidden" name="camara_status_param" value="contact-status">
+                                <input type="hidden" name="camara_redirect_to" value="<?php echo esc_url( home_url( '/' ) ); ?>">
                                 <div class="form-row">
                                     <label for="contact-name"><?php esc_html_e('Nome', 'camara-hotsite'); ?></label>
                                     <input type="text" id="contact-name" name="nome" required>
@@ -332,6 +348,17 @@
                                 <div class="form-row">
                                     <label for="contact-email"><?php esc_html_e('E-mail', 'camara-hotsite'); ?></label>
                                     <input type="email" id="contact-email" name="email" required>
+                                </div>
+                                <div class="form-row form-row--checkbox">
+                                    <input type="checkbox" id="contact-lgpd" name="lgpd_consent" value="1" required>
+                                    <label for="contact-lgpd">
+                                        <?php esc_html_e('Autorizo o uso dos meus dados para receber retorno da Câmara, conforme a LGPD.', 'camara-hotsite'); ?>
+                                    </label>
+                                </div>
+                                <div class="form-row form-row--button">
+                                    <button type="submit" class="btn contact-form__submit">
+                                        <?php esc_html_e( 'Enviar mensagem', 'camara-hotsite' ); ?>
+                                    </button>
                                 </div>
                             </form>
                             <p class="contact-panel__note"><?php esc_html_e('O seu contato é muito importante para nós! Seus dados estão seguros e protegidos com a', 'camara-hotsite'); ?> <strong><?php esc_html_e('LGPD', 'camara-hotsite'); ?></strong></p>

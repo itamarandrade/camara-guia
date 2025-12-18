@@ -9,6 +9,8 @@
 <body <?php body_class('site-body'); ?>>
 <?php wp_body_open(); ?>
 
+<a class="skip-link" href="#primary"><?php esc_html_e( 'Pular para o conteúdo principal', 'camara-hotsite' ); ?></a>
+
 <header class="site-header">
     <div class="top-bar">
         <div class="container top-bar__inner">

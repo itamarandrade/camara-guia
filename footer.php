@@ -28,6 +28,94 @@
     </div>
 </footer>
 
+<?php
+    $lgpd_cookie         = isset( $_COOKIE['camaraLgpdConsent'] ) ? sanitize_text_field( wp_unslash( $_COOKIE['camaraLgpdConsent'] ) ) : '';
+    $lgpd_should_display = '1' !== $lgpd_cookie;
+?>
+
+<div
+    class="lgpd-banner <?php echo $lgpd_should_display ? 'is-visible' : ''; ?>"
+    id="lgpd-banner"
+    role="dialog"
+    aria-live="polite"
+    aria-modal="true"
+    aria-label="<?php esc_attr_e( 'Aviso de privacidade e LGPD', 'camara-hotsite' ); ?>"
+    aria-describedby="lgpd-banner-text"
+    aria-hidden="<?php echo $lgpd_should_display ? 'false' : 'true'; ?>"
+    tabindex="-1"
+>
+    <div class="lgpd-banner__text" id="lgpd-banner-text">
+        <p>
+            <?php
+                $lgpd_message = sprintf(
+                    __( 'Utilizamos cookies e guardamos seus dados apenas para melhorar sua experiência e responder seus contatos. Leia nossa %s para saber mais.', 'camara-hotsite' ),
+                    '<a class="lgpd-banner__link" href="https://www.saopaulo.sp.leg.br/institucional/lei-geral-de-protecao-de-dados-lgpd/" target="_blank" rel="noreferrer noopener">' . esc_html__( 'Política de Privacidade', 'camara-hotsite' ) . '</a>'
+                );
+
+                echo wp_kses(
+                    $lgpd_message,
+                    [
+                        'a' => [
+                            'href'   => [],
+                            'target' => [],
+                            'rel'    => [],
+                            'class'  => [],
+                        ],
+                    ]
+                );
+            ?>
+        </p>
+    </div>
+    <div class="lgpd-banner__actions">
+        <button type="button" class="btn lgpd-banner__button" data-lgpd-accept>
+            <?php esc_html_e( 'Aceitar e continuar', 'camara-hotsite' ); ?>
+        </button>
+    </div>
+</div>
+
+<script>
+(function () {
+    var banner = document.getElementById('lgpd-banner');
+    if (!banner) {
+        return;
+    }
+
+    var acceptButton = banner.querySelector('[data-lgpd-accept]');
+    if (!acceptButton) {
+        return;
+    }
+
+    var cookieName = 'camaraLgpdConsent';
+    var cookieValue = '1';
+    var cookieDays = 365;
+
+    function setConsentCookie() {
+        var expires = new Date();
+        expires.setDate(expires.getDate() + cookieDays);
+        document.cookie = cookieName + '=' + cookieValue + ';expires=' + expires.toUTCString() + ';path=/;SameSite=Lax';
+    }
+
+    function hideBanner() {
+        banner.classList.remove('is-visible');
+        banner.setAttribute('aria-hidden', 'true');
+    }
+
+    function focusBanner() {
+        banner.focus();
+    }
+
+    if (banner.classList.contains('is-visible') && banner.getAttribute('aria-hidden') === 'false') {
+        window.setTimeout(focusBanner, 50);
+    }
+
+    acceptButton.addEventListener('click', function () {
+        setConsentCookie();
+        hideBanner();
+        acceptButton.blur();
+    });
+})();
+</script>
+
 <?php wp_footer(); ?>
 </body>
 </html>

@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const prefersReducedMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+    const isReducedMotion = () => (prefersReducedMotion ? prefersReducedMotion.matches : false);
+
     const mainToggle = document.querySelector('.menu-toggle');
     const mainNav = document.querySelector('.primary-nav');
 
@@ -114,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const startAutoplay = () => {
-            if (totalSlides <= 1) {
+            if (totalSlides <= 1 || isReducedMotion()) {
                 return;
             }
             stopAutoplay();
@@ -144,8 +147,24 @@ document.addEventListener('DOMContentLoaded', () => {
             heroDotsContainer.addEventListener('focusout', startAutoplay);
         }
 
+        const handleMotionPreference = () => {
+            if (isReducedMotion()) {
+                stopAutoplay();
+            } else {
+                startAutoplay();
+            }
+        };
+
+        if (prefersReducedMotion) {
+            if (typeof prefersReducedMotion.addEventListener === 'function') {
+                prefersReducedMotion.addEventListener('change', handleMotionPreference);
+            } else if (typeof prefersReducedMotion.addListener === 'function') {
+                prefersReducedMotion.addListener(handleMotionPreference);
+            }
+        }
+
         setActiveSlide(activeIndex);
-        startAutoplay();
+        handleMotionPreference();
     }
 
     const tourSliders = document.querySelectorAll('[data-tour-slider]');

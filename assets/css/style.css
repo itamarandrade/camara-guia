@@ -87,7 +87,6 @@ textarea:focus-visible {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    border-radius: 999px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;

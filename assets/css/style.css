@@ -83,27 +83,13 @@ textarea:focus-visible {
 }
 
 .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    border-radius: 999px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 12px 32px;
-    border: none;
-    background: linear-gradient(90deg, var(--color-red), var(--color-red-dark));
-    color: var(--color-light);
-    cursor: pointer;
-    transition: transform .2s ease, box-shadow .2s ease;
+    margin-top: 0px;
+    border-radius: 0;
+    background: #e74848;
+    font-weight: 700;
+    
 }
 
-.btn:hover {
-    text-decoration: none;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(199, 0, 0, 0.3);
-}
 
 .section {
     padding: 20px 0;
@@ -1110,6 +1096,7 @@ body.external-links-panel-open {
 
 .contact-form__submit {
     min-width: 180px;
+
 }
 
 .contact-panel__note {

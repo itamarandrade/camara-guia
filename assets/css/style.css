@@ -1446,7 +1446,8 @@ body.external-links-panel-open {
     font-size: 0.8rem;
 }
 
-.visitas-form input {
+.visitas-form input,
+.visitas-form textarea {
     height: 42px;
     border-radius: 4px;
     border: none;
@@ -1454,9 +1455,37 @@ body.external-links-panel-open {
     font-size: 1rem;
 }
 
+.visitas-form textarea {
+    resize: vertical;
+    min-height: 120px;
+    padding: 12px;
+}
+
 .visitas-form .btn {
     border-radius: 0;
     justify-self: flex-start;
+}
+
+.visitas-form__consent {
+    display: grid;
+    grid-template-columns: 20px minmax(0, 1fr);
+    gap: 12px;
+    align-items: flex-start;
+    color: #fff;
+    font-size: 0.85rem;
+}
+
+.visitas-form__consent input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-top: 4px;
+}
+
+.visitas-form__consent label {
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.95rem;
+    color: #fff;
 }
 
 .visitas-section--calendar .visitas-section__content p {

@@ -59,8 +59,8 @@ $visit_modes = [
         'content' => __( 'Programa "Câmara Aberta". Verifique o site da Câmara Municipal para o link de inscrição. O agendamento acontece em plataformas como o Sympla e o link fica disponível na página inicial do site.', 'camara-hotsite' ),
     ],
     [
-        'title'   => __( 'Visitas online', 'camara-hotsite' ),
-        'content' => __( 'Nossa visita online é guiada para que você receba a mesma experiência das visitas presenciais.', 'camara-hotsite' ),
+        'title'   => __( 'Tour Virtual', 'camara-hotsite' ),
+        'content' => __( 'Nossa Tour Virtual é guiada para que você receba a mesma experiência das visitas presenciais.', 'camara-hotsite' ),
     ],
 ];
 
@@ -317,6 +317,16 @@ $visitas_status = isset( $_GET['visitas-status'] ) ? sanitize_text_field( wp_uns
                             <span><?php esc_html_e( 'E-mail', 'camara-hotsite' ); ?></span>
                             <input type="email" name="email" required>
                         </label>
+                        <label>
+                            <span><?php esc_html_e( 'Mensagem', 'camara-hotsite' ); ?></span>
+                            <textarea name="mensagem" rows="4"></textarea>
+                        </label>
+                        <div class="visitas-form__consent">
+                            <input type="checkbox" id="visitas-lgpd" name="lgpd_consent" value="1" required>
+                            <label for="visitas-lgpd">
+                                <?php esc_html_e( 'Autorizo o uso dos meus dados para receber retorno da Câmara, conforme a LGPD.', 'camara-hotsite' ); ?>
+                            </label>
+                        </div>
                         <button type="submit" class="btn"><?php esc_html_e( 'Enviar', 'camara-hotsite' ); ?></button>
                     </form>
                 </div>

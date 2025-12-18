@@ -34,7 +34,7 @@
 ?>
 
 <div
-    class="lgpd-banner <?php echo $lgpd_should_display ? 'is-visible' : ''; ?>"
+    class="lgpd-banner <?php echo $lgpd_should_display ? 'is-visible' : 'is-hidden'; ?>"
     id="lgpd-banner"
     role="dialog"
     aria-live="polite"
@@ -88,6 +88,7 @@
     var cookieName = 'camaraLgpdConsent';
     var cookieValue = '1';
     var cookieDays = 365;
+    var hideTimeout = null;
 
     function setConsentCookie() {
         var expires = new Date();
@@ -98,6 +99,12 @@
     function hideBanner() {
         banner.classList.remove('is-visible');
         banner.setAttribute('aria-hidden', 'true');
+        if (hideTimeout) {
+            window.clearTimeout(hideTimeout);
+        }
+        hideTimeout = window.setTimeout(function () {
+            banner.classList.add('is-hidden');
+        }, 400);
     }
 
     function focusBanner() {

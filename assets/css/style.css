@@ -51,12 +51,19 @@ a:hover {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     z-index: 9999;
-    transition: top 0.2s ease;
+    opacity: 0;
+    transition: top 0.2s ease, opacity 0.2s ease;
 }
 
 .skip-link:focus,
 .skip-link:focus-visible {
     top: 12px;
+    opacity: 1;
+}
+
+body.accessibility-mode .skip-link {
+    top: 12px;
+    opacity: 1;
 }
 
 a:focus-visible,
@@ -1138,10 +1145,10 @@ body.external-links-panel-open {
 
 .lgpd-banner {
     position: fixed;
-    left: 50%;
-    bottom: 24px;
-    transform: translate(-50%, 120%);
-    width: min(640px, calc(100% - 32px));
+    right: 32px;
+    bottom: 32px;
+    transform: translateY(120%);
+    width: min(420px, calc(100% - 32px));
     background: rgba(12, 13, 17, 0.96);
     color: #fff;
     border-radius: 12px;
@@ -1160,9 +1167,13 @@ body.external-links-panel-open {
 }
 
 .lgpd-banner.is-visible {
-    transform: translate(-50%, 0);
+    transform: translateY(0);
     opacity: 1;
     pointer-events: auto;
+}
+
+.lgpd-banner.is-hidden {
+    display: none;
 }
 
 .lgpd-banner__text {
@@ -1195,6 +1206,13 @@ body.external-links-panel-open {
         flex-direction: column;
         align-items: stretch;
         padding: 18px;
+        right: 50%;
+        transform: translate(50%, 120%);
+        width: calc(100% - 32px);
+    }
+
+    .lgpd-banner.is-visible {
+        transform: translate(50%, 0);
     }
 
     .lgpd-banner__actions {
@@ -1790,6 +1808,10 @@ body.external-links-panel-open {
 
     .contact-form--compact label {
         text-align: left;
+    }
+    #contact-lgpd{
+        font-size: 0.5em;
+        height: 18px;
     }
 
     .contact-form--compact .form-row--checkbox {

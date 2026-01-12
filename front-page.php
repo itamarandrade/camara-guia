@@ -210,7 +210,8 @@
                     <div class="discover__intro">
                         <p class="discover__headline"><?php esc_html_e('Venha conhecer a Câmara Municipal de São Paulo', 'camara-hotsite'); ?></p>
                         <div class="discover__message">
-                            <p><?php esc_html_e('O Palácio Anchieta convida você para uma viagem no tempo! Arquitetura única, obras de arte e uma aula sobre o passado político, social e cultural de São Paulo.', 'camara-hotsite'); ?></p>
+                            <p><?php esc_html_e('O prédio que abriga a Câmara Municipal de São Paulo é um marco arquitetônico do centro da capital paulista e está de portas abertas para receber visitantes interessados em conhecer um pouco mais sobre o Poder Legislativo municipal.', 'camara-hotsite'); ?></p>
+                            <p><?php esc_html_e('Aqui, vereadoras e vereadores, representantes do povo, dedicam-se a discutir e elaborar leis, a fiscalizar e controlar os atos do Poder Executivo, a aprovar o Orçamento da Cidade, entre outras atribuições de fundiamental importância para a cidade de São Paulo.', 'camara-hotsite'); ?></p>
                         </div>
                     </div>
 

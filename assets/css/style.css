@@ -322,6 +322,8 @@ body.external-links-panel-open {
 
 .external-links-menu {
     flex: 1;
+    min-height: 0;
+    overflow-y: auto;
 }
 
 .external-links-menu__list {

@@ -52,7 +52,20 @@ if ( empty( $hero_slides ) ) {
 $visit_modes = [
     [
         'title'   => __( 'Visitas institucionais', 'camara-hotsite' ),
-        'content' => __( 'Ligue para o Cerimonial no número (11) 3396-4696 e confirme o agendamento por e-mail para agenda@saopaulo.sp.leg.br.', 'camara-hotsite' ),
+        'content' => __( 'A Câmara promove o Programa de Visita Institucional de caráter educativo, conduzido pela Equipe de Eventos da Câmara Municipal de São Paulo, composto de:
+• Palestra sobre a história da cidade, da Câmara Municipal e sobre o processo legislativo.
+• Visita à galeria do Plenário 1º de Maio.
+
+
+Podem participar grupos organizados, com 15 a 40 pessoas, a partir de 10 anos, de escolas, universidades, associações de bairro, organizações, institutos, entre outros. É recomendável que os grupos sejam acompanhados por dois responsáveis.
+
+
+As visitas ocorrem de 3ª, 4ª e 5ª, das 14h às 16h.
+
+
+Todos os grupos recebem um exemplar da Lei Orgânica do Município, um exemplar do Regimento Interno e folder a respeito dos prêmios institucionais.
+Observação: Não fornecemos transporte.
+', 'camara-hotsite' ),
     ],
     [
         'title'   => __( 'Visitas guiadas', 'camara-hotsite' ),
@@ -61,6 +74,10 @@ $visit_modes = [
     [
         'title'   => __( 'Tour Virtual', 'camara-hotsite' ),
         'content' => __( 'Nossa Tour Virtual é guiada para que você receba a mesma experiência das visitas presenciais.', 'camara-hotsite' ),
+    ],
+    [
+        'title'   => __( 'Visitas Técnicas', 'camara-hotsite' ),
+        'content' => __( 'Para visitas às Equipes Técnicas da Câmara Municipal de São Paulo, como: Rede Câmara São Paulo, Biblioteca, Ouvidoria do Parlamento, Equipe de Eventos, entre outras, agende por meio da Equipe do Cerimonial - cerimonial@saopaulo.sp.leg.br ', 'camara-hotsite' ),
     ],
 ];
 

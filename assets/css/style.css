@@ -333,6 +333,15 @@ body.external-links-panel-open {
     gap: 6px;
 }
 
+.external-links-menu__list .sub-menu {
+    list-style: none;
+    margin: 6px 0 0;
+    padding: 0 0 0 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
 .external-links-menu__list > li > a {
     display: flex;
     justify-content: space-between;
@@ -356,6 +365,20 @@ body.external-links-panel-open {
 
 .external-links-menu__list > li > a:hover,
 .external-links-menu__list > li > a:focus-visible {
+    color: var(--color-red);
+}
+
+.external-links-menu__list .sub-menu a {
+    display: block;
+    padding: 8px 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(5, 5, 10, 0.75);
+}
+
+.external-links-menu__list .sub-menu a:hover,
+.external-links-menu__list .sub-menu a:focus-visible {
     color: var(--color-red);
 }
 

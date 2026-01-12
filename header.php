@@ -43,7 +43,7 @@
                             'theme_location' => 'external_links_menu',
                             'container'      => false,
                             'menu_class'     => 'external-links-menu__list',
-                            'depth'          => 1,
+                            'depth'          => 2,
                         ]);
                     } else {
                         echo '<ul class="external-links-menu__list"><li class="external-links-menu__notice">' . esc_html__( 'Cadastre os links externos em Aparência > Menus', 'camara-hotsite' ) . '</li></ul>';

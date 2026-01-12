@@ -56,7 +56,7 @@ $visit_modes = [
     ],
     [
         'title'   => __( 'Visitas guiadas', 'camara-hotsite' ),
-        'content' => __( 'Programa "Câmara Aberta". Verifique o site da Câmara Municipal para o link de inscrição. O agendamento acontece em plataformas como o Sympla e o link fica disponível na página inicial do site.', 'camara-hotsite' ),
+        'content' => __( 'A Câmara Municipal de São Paulo possui o projeto “Câmara Aberta”. A proposta é abrir o legislativo paulistano, suas obras de arte, arquitetura e história para quem visita o Palácio Anchieta. As visitas podem acontecer às sextas, sábados e domingos. São gratuitas e livres para qualquer faixa etária. O projeto é em parceria com o time do “Vai de Roteiro” e os ingressos podem ser reservados pelo Sympla. Acesse o site dedicado, confira as próximas datas, o roteiro completo e reserve a sua vaga.<br> O projeto “Câmara Aberta” conta, ainda, com um espaço infantil dedicado ao lazer e à convivência das crianças. No térreo do Palácio Anchieta, o Pátio Papa Francisco recebe um playground especialmente preparado para o público infantil, disponível durante o evento. Para garantir a segurança, as crianças devem estar sempre acompanhadas por um responsável.', 'camara-hotsite' ),
     ],
     [
         'title'   => __( 'Tour Virtual', 'camara-hotsite' ),
@@ -168,9 +168,12 @@ $visitas_status = isset( $_GET['visitas-status'] ) ? sanitize_text_field( wp_uns
             <section class="visitas-intro">
                 <header>
                     <h2><?php esc_html_e( 'Guia do visitante', 'camara-hotsite' ); ?></h2>
-                    <p><?php esc_html_e( 'Seja bem-vindo ao Palácio Anchieta, sede da Câmara Municipal de São Paulo! Aqui você mergulha na história do Parlamento paulistano, cujo marco remonta a 1560. Além dos andares expositivos, o Legislativo possui ambientes grandiosos, como a Galeria dos Presidentes e o Plenário 1º de Maio.', 'camara-hotsite' ); ?></p>
-                    <p><?php esc_html_e( 'O Palácio Anchieta fica aberto das 9h às 17h, em fins de semana selecionados, com uma programação dedicada ao público.', 'camara-hotsite' ); ?></p>
-                    <p><?php esc_html_e( 'Dispomos de visitas online, guiadas e institucionais. Consulte a nossa agenda e venha conhecer a Câmara Municipal de São Paulo!', 'camara-hotsite' ); ?></p>
+                    <p><?php esc_html_e( 'Boas-vindas ao Palácio Anchieta, sede da Câmara Municipal de São Paulo!', 'camara-hotsite' ); ?></p>
+                    <p><?php esc_html_e( 'O prédio que abriga a Câmara Municipal de São Paulo é um marco arquitetônico do centro da capital paulista e está de portas abertas para receber visitantes interessados em conhecer um pouco mais sobre o Poder Legislativo municipal.', 'camara-hotsite' ); ?></p>
+                    <p><?php esc_html_e( 'Aqui, vereadoras e vereadores, representantes do povo, dedicam-se a discutir e elaborar leis, a fiscalizar e controlar os atos do Poder Executivo, a aprovar o Orçamento da Cidade, entre outras atribuições de fundiamental importância para a cidade de São Paulo.', 'camara-hotsite' ); ?></p>
+                    <p><?php esc_html_e( 'Esperamos que a visita à Câmara Municipal de São Paulo amplie a compreensão sobre a história e o papel da Instituição', 'camara-hotsite' ); ?></p>
+                    <p><?php esc_html_e( 'Nosso endereço é: Viaduto Jacareí, 100 - CEP: 01319-900 - Bela Vista, no centro de São Paulo. Estamos próximos ao Metrô Anhangabaú (Linha Vermelha do Metrô) e Terminal Bandeira de Ônibus.', 'camara-hotsite' ); ?></p>
+                    <p><?php esc_html_e( 'Para que você aproveite ao máximo a visita à Câmara Municipal, observe estas orientações:', 'camara-hotsite' ); ?></p>
                 </header>
 
                 <div class="visitas-modes">

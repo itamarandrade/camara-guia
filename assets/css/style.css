@@ -527,6 +527,10 @@ body.external-links-panel-open {
     overflow: hidden;
 }
 
+.hero--visitas {
+    height: 520px;
+}
+
 .hero__slider {
     position: absolute;
     inset: 0;
@@ -1258,19 +1262,17 @@ body.external-links-panel-open {
 .visitas-content {
     background: #fff;
     border-radius: 8px;
-    padding: 50px;
+    padding: 45px 50px 60px;
     box-shadow: 0 25px 60px rgba(5, 5, 10, 0.08);
 }
 
-.visitas-intro header h2 {
-    margin: 0 0 10px;
-    font-size: clamp(1.8rem, 4vw, 2.6rem);
-    text-transform: uppercase;
-    color: #111;
+.visitas-intro {
+    margin-bottom: 32px;
 }
 
-.visitas-intro header p {
+.visitas-intro p {
     margin: 0 0 14px;
+    line-height: 1.6;
 }
 
 .visitas-modes {
@@ -1298,6 +1300,61 @@ body.external-links-panel-open {
 .visitas-card p {
     margin: 0;
     font-size: 0.95rem;
+}
+
+.visitas-topics {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.visitas-topic__title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 0 0 12px;
+}
+
+.visitas-topic__title span {
+    background: #111;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.85rem;
+    padding: 10px 16px;
+    font-weight: 700;
+}
+
+.visitas-topic__title::after {
+    content: '';
+    flex: 1;
+    height: 5px;
+    background: var(--color-red);
+}
+
+.visitas-topic__content {
+    background: #f4f4f6;
+    border-radius: 6px;
+    padding: 22px 24px;
+    border: 1px solid #e1e1e4;
+}
+
+.visitas-topic__content p {
+    margin: 0 0 12px;
+}
+
+.visitas-topic__content p:last-child {
+    margin-bottom: 0;
+}
+
+.visitas-topic__content a {
+    color: var(--color-red);
+    text-decoration: underline;
+}
+
+.visitas-topic__list {
+    margin: 0 0 12px;
+    padding-left: 20px;
 }
 
 .visitas-section {
@@ -1532,7 +1589,7 @@ body.external-links-panel-open {
 
 @media (max-width: 960px) {
     .visitas-content {
-        padding: 30px 0px;
+        padding: 30px 24px;
     }
 
     .visitas-contact {

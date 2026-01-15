@@ -11,7 +11,7 @@ if ( ! isset( $guia_feedback_status ) ) {
 <section class="visitas-topics guia-topics" aria-labelledby="guia-topics-title">
     <h2 id="guia-topics-title" class="sr-only"><?php esc_html_e( 'Guia do Visitante', 'camara-hotsite' ); ?></h2>
 
-    <article class="visitas-topic">
+    <article class="visitas-topic" id="guia-galeria-plenario">
         <header class="visitas-topic__title">
             <span><?php esc_html_e( 'Galeria do Plenário 1º de Maio', 'camara-hotsite' ); ?></span>
         </header>
@@ -21,7 +21,7 @@ if ( ! isset( $guia_feedback_status ) ) {
         </div>
     </article>
 
-    <article class="visitas-topic">
+    <article class="visitas-topic" id="guia-audiencias-publicas">
         <header class="visitas-topic__title">
             <span><?php esc_html_e( 'Audiências públicas', 'camara-hotsite' ); ?></span>
         </header>
@@ -40,7 +40,7 @@ if ( ! isset( $guia_feedback_status ) ) {
         </div>
     </article>
 
-    <article class="visitas-topic">
+    <article class="visitas-topic" id="guia-horario">
         <header class="visitas-topic__title">
             <span><?php esc_html_e( 'Horário', 'camara-hotsite' ); ?></span>
         </header>
@@ -61,7 +61,7 @@ if ( ! isset( $guia_feedback_status ) ) {
         </div>
     </article>
 
-    <article class="visitas-topic">
+    <article class="visitas-topic" id="guia-ouvidoria">
         <header class="visitas-topic__title">
             <span><?php esc_html_e( 'Ouvidoria', 'camara-hotsite' ); ?></span>
         </header>
@@ -86,7 +86,7 @@ if ( ! isset( $guia_feedback_status ) ) {
         </div>
     </article>
 
-    <article class="visitas-topic">
+    <article class="visitas-topic" id="guia-biblioteca">
         <header class="visitas-topic__title">
             <span><?php esc_html_e( 'Acesso à biblioteca', 'camara-hotsite' ); ?></span>
         </header>
@@ -104,7 +104,7 @@ if ( ! isset( $guia_feedback_status ) ) {
         </div>
     </article>
 
-    <article class="visitas-topic">
+    <article class="visitas-topic" id="guia-procedimentos">
         <header class="visitas-topic__title">
             <span><?php esc_html_e( 'Procedimentos de segurança e identificação', 'camara-hotsite' ); ?></span>
         </header>
@@ -126,7 +126,7 @@ if ( ! isset( $guia_feedback_status ) ) {
         </div>
     </article>
 
-    <article class="visitas-topic">
+    <article class="visitas-topic" id="guia-procuradoria-mulher">
         <header class="visitas-topic__title">
             <span><?php esc_html_e( 'Procuradoria Especial da Mulher', 'camara-hotsite' ); ?></span>
         </header>
@@ -153,7 +153,7 @@ if ( ! isset( $guia_feedback_status ) ) {
         </div>
     </article>
 
-    <article class="visitas-topic">
+    <article class="visitas-topic" id="guia-procuradoria-crianca">
         <header class="visitas-topic__title">
             <span><?php esc_html_e( 'Procuradoria da Criança e do Adolescente', 'camara-hotsite' ); ?></span>
         </header>
@@ -172,7 +172,7 @@ if ( ! isset( $guia_feedback_status ) ) {
         </div>
     </article>
 
-    <article class="visitas-topic">
+    <article class="visitas-topic" id="guia-galeria-lilas">
         <header class="visitas-topic__title">
             <span><?php esc_html_e( 'Galeria Lilás', 'camara-hotsite' ); ?></span>
         </header>
@@ -181,7 +181,7 @@ if ( ! isset( $guia_feedback_status ) ) {
         </div>
     </article>
 
-    <article class="visitas-topic">
+    <article class="visitas-topic" id="guia-exposicoes">
         <header class="visitas-topic__title">
             <span><?php esc_html_e( 'Exposições no Saguão de Entrada José Mentor', 'camara-hotsite' ); ?></span>
         </header>
@@ -190,7 +190,7 @@ if ( ! isset( $guia_feedback_status ) ) {
         </div>
     </article>
 
-    <article class="visitas-topic">
+    <article class="visitas-topic" id="guia-fotografias">
         <header class="visitas-topic__title">
             <span><?php esc_html_e( 'Fotografias e vídeos', 'camara-hotsite' ); ?></span>
         </header>
@@ -203,7 +203,7 @@ if ( ! isset( $guia_feedback_status ) ) {
         </div>
     </article>
 
-    <article class="visitas-topic">
+    <article class="visitas-topic" id="guia-acessibilidade">
         <header class="visitas-topic__title">
             <span><?php esc_html_e( 'Acessibilidade', 'camara-hotsite' ); ?></span>
         </header>
@@ -213,7 +213,7 @@ if ( ! isset( $guia_feedback_status ) ) {
         </div>
     </article>
 
-    <article class="visitas-topic">
+    <article class="visitas-topic" id="guia-gt-acessibilidade">
         <header class="visitas-topic__title">
             <span><?php esc_html_e( 'Grupo de Trabalho Permanente de Acessibilidade e Inclusão da Pessoa com Deficiência', 'camara-hotsite' ); ?></span>
         </header>
@@ -268,7 +268,7 @@ if ( ! isset( $guia_feedback_status ) ) {
         </div>
     </article>
 
-    <article class="visitas-topic">
+    <article class="visitas-topic" id="guia-sala-azul">
         <header class="visitas-topic__title">
             <span><?php esc_html_e( 'Sala Azul', 'camara-hotsite' ); ?></span>
         </header>
@@ -279,7 +279,7 @@ if ( ! isset( $guia_feedback_status ) ) {
         </div>
     </article>
 
-    <article class="visitas-topic">
+    <article class="visitas-topic" id="guia-manifestacao">
         <header class="visitas-topic__title">
             <span><?php esc_html_e( 'Deixe a sua manifestação', 'camara-hotsite' ); ?></span>
         </header>
@@ -337,7 +337,7 @@ if ( ! isset( $guia_feedback_status ) ) {
         </div>
     </article>
 
-    <article class="visitas-topic">
+    <article class="visitas-topic" id="guia-central">
         <header class="visitas-topic__title">
             <span><?php esc_html_e( 'Central telefônica', 'camara-hotsite' ); ?></span>
         </header>
@@ -346,7 +346,7 @@ if ( ! isset( $guia_feedback_status ) ) {
         </div>
     </article>
 
-    <article class="visitas-topic">
+    <article class="visitas-topic" id="guia-visita-virtual">
         <header class="visitas-topic__title">
             <span><?php esc_html_e( 'Visita virtual', 'camara-hotsite' ); ?></span>
         </header>
@@ -423,7 +423,7 @@ if ( ! isset( $guia_feedback_status ) ) {
         </div>
     </article>
 
-    <article class="visitas-topic">
+    <article class="visitas-topic" id="guia-publicacoes">
         <header class="visitas-topic__title">
             <span><?php esc_html_e( 'Publicações institucionais', 'camara-hotsite' ); ?></span>
         </header>

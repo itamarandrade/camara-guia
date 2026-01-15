@@ -50,16 +50,16 @@ if ( empty( $hero_slides ) ) {
 }
 
 $visitas_intro = [
-    __( 'Boas-vindas ao Palácio Anchieta, sede da Câmara Municipal de São Paulo!', 'camara-hotsite' ),
     __( 'O prédio que abriga a Câmara Municipal de São Paulo é um marco arquitetônico do centro da capital paulista e está de portas abertas para receber visitantes interessados em conhecer um pouco mais sobre o Poder Legislativo municipal.', 'camara-hotsite' ),
     __( 'Aqui, vereadoras e vereadores, representantes do povo, dedicam-se a discutir e elaborar leis, a fiscalizar e controlar os atos do Poder Executivo, a aprovar o Orçamento da Cidade, entre outras atribuições de fundamental importância para a cidade de São Paulo.', 'camara-hotsite' ),
     __( 'Esperamos que a visita à Câmara Municipal de São Paulo amplie a compreensão sobre a história e o papel da Instituição.', 'camara-hotsite' ),
     __( 'Nosso endereço é: Viaduto Jacareí, 100 - CEP: 01319-900 - Bela Vista, no centro de São Paulo. Estamos próximos ao Metrô Anhangabaú (Linha Vermelha do Metrô) e Terminal Bandeira de Ônibus.', 'camara-hotsite' ),
-    __( 'Para que você aproveite ao máximo a visita à Câmara Municipal, observe estas orientações:', 'camara-hotsite' ),
 ];
+
+$visitas_status = isset( $_GET['visitas-status'] ) ? sanitize_text_field( wp_unslash( $_GET['visitas-status'] ) ) : '';
 ?>
 
-<main id="primary" class="visitas-page" tabindex="-1">
+<main id="primary" class="visitas-page visitas-page--guide" tabindex="-1">
     <section class="hero hero--visitas" data-hero>
         <div class="hero__slider" data-hero-slider>
             <?php foreach ( $hero_slides as $index => $slide ) : ?>
@@ -71,6 +71,13 @@ $visitas_intro = [
                     <span class="sr-only"><?php echo esc_html( $slide['label'] ); ?></span>
                 </div>
             <?php endforeach; ?>
+        </div>
+        <div class="hero__wave" aria-hidden="true"></div>
+        <div class="container visitas-hero">
+            <h1 class="visitas-hero__heading">
+                <span class="visitas-hero__title"><?php esc_html_e( 'Guia do Visitante', 'camara-hotsite' ); ?></span>
+                <span class="visitas-hero__subtitle"><?php esc_html_e( 'Palácio Anchieta', 'camara-hotsite' ); ?></span>
+            </h1>
         </div>
         <div class="hero__dots" role="tablist" data-hero-dots aria-label="<?php esc_attr_e('Controle do destaque principal', 'camara-hotsite'); ?>">
             <?php foreach ( $hero_slides as $index => $slide ) : ?>
@@ -149,6 +156,47 @@ $visitas_intro = [
                                 esc_url( 'mailto:cerimonial@saopaulo.sp.leg.br' )
                             );
                             ?>
+                        </p>
+                        <?php if ( 'success' === $visitas_status ) : ?>
+                            <div class="form-alert form-alert--success" role="status" aria-live="polite">
+                                <?php esc_html_e( 'Recebemos seus dados! Em breve retornaremos o contato.', 'camara-hotsite' ); ?>
+                            </div>
+                        <?php elseif ( 'error' === $visitas_status ) : ?>
+                            <div class="form-alert form-alert--error" role="alert" aria-live="assertive">
+                                <?php esc_html_e( 'Não foi possível enviar seus dados. Tente novamente em instantes.', 'camara-hotsite' ); ?>
+                            </div>
+                        <?php endif; ?>
+                        <form class="visitas-form visitas-form--light" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
+                            <?php wp_nonce_field( 'camara_contact_form', 'camara_contact_form_nonce' ); ?>
+                            <input type="hidden" name="action" value="camara_contact_form">
+                            <input type="hidden" name="camara_form_id" value="visitas-tecnicas">
+                            <input type="hidden" name="camara_form_context" value="<?php esc_attr_e( 'Visitas técnicas', 'camara-hotsite' ); ?>">
+                            <input type="hidden" name="camara_status_param" value="visitas-status">
+                            <input type="hidden" name="camara_redirect_to" value="<?php echo esc_url( get_permalink() ); ?>">
+                            <input type="hidden" name="lgpd_consent" value="1">
+                            <div class="visitas-form__row">
+                                <label for="visitas-nome"><?php esc_html_e( 'Nome:', 'camara-hotsite' ); ?></label>
+                                <input type="text" id="visitas-nome" name="nome" required>
+                            </div>
+                            <div class="visitas-form__row">
+                                <label for="visitas-telefone"><?php esc_html_e( 'Telefone:', 'camara-hotsite' ); ?></label>
+                                <input type="tel" id="visitas-telefone" name="telefone">
+                            </div>
+                            <div class="visitas-form__row">
+                                <label for="visitas-email"><?php esc_html_e( 'E-mail:', 'camara-hotsite' ); ?></label>
+                                <input type="email" id="visitas-email" name="email" required>
+                            </div>
+                            <div class="visitas-form__actions">
+                                <button type="submit" class="btn visitas-form__submit">
+                                    <?php esc_html_e( 'Enviar', 'camara-hotsite' ); ?>
+                                </button>
+                            </div>
+                        </form>
+                        <p class="visitas-form__note">
+                            <?php esc_html_e( 'O seu contato é muito importante para nós! Ao preencher os dados, você autoriza receber os conteúdos da Câmara Municipal de São Paulo.', 'camara-hotsite' ); ?>
+                        </p>
+                        <p class="visitas-form__note">
+                            <?php esc_html_e( 'A Câmara Municipal de São Paulo respeita sua privacidade. Seus dados são tratados com segurança e conforme a LGPD.', 'camara-hotsite' ); ?>
                         </p>
                     </div>
                 </article>

@@ -528,7 +528,9 @@ body.external-links-panel-open {
 }
 
 .hero--visitas {
-    height: 520px;
+    min-height: 280px;
+    height: clamp(280px, 42vw, 420px);
+    align-items: center;
 }
 
 .hero__slider {
@@ -1254,6 +1256,71 @@ body.external-links-panel-open {
     background: #f1f1f3;
 }
 
+.visitas-page--guide {
+    background: #f5f5f7;
+}
+
+.visitas-page--guide .visitas-layout {
+    padding: 40px 0 70px;
+}
+
+.visitas-page--guide .visitas-content {
+    max-width: 980px;
+    margin: 0 auto;
+    border-radius: 4px;
+    padding: 36px 40px 50px;
+    box-shadow: 0 16px 40px rgba(5, 5, 10, 0.08);
+}
+
+.visitas-hero {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 70px 0 60px;
+}
+
+.visitas-hero__heading {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.visitas-hero__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    width: min(100%, 760px);
+    margin: 0 auto;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 800;
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
+.visitas-hero__title::before,
+.visitas-hero__title::after {
+    content: '';
+    flex: 1;
+    height: 12px;
+    background: var(--color-red);
+}
+
+.visitas-hero__subtitle {
+    margin: 0;
+    font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
 .visitas-layout {
     padding: 50px 0 80px;
     position: relative;
@@ -1311,24 +1378,24 @@ body.external-links-panel-open {
 .visitas-topic__title {
     display: flex;
     align-items: center;
-    gap: 16px;
-    margin: 0 0 12px;
+    gap: 12px;
+    margin: 0 0 10px;
 }
 
 .visitas-topic__title span {
     background: #111;
     color: #fff;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
-    font-size: 0.85rem;
-    padding: 10px 16px;
+    letter-spacing: 0.15em;
+    font-size: 0.8rem;
+    padding: 8px 14px;
     font-weight: 700;
 }
 
 .visitas-topic__title::after {
     content: '';
     flex: 1;
-    height: 5px;
+    height: 4px;
     background: var(--color-red);
 }
 
@@ -1355,6 +1422,56 @@ body.external-links-panel-open {
 .visitas-topic__list {
     margin: 0 0 12px;
     padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.visitas-form--light {
+    padding: 0;
+    background: transparent;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.visitas-form--light label {
+    color: #111;
+}
+
+.visitas-form--light input,
+.visitas-form--light textarea {
+    border: 1px solid #d6d6de;
+    background: #fff;
+    height: 34px;
+    border-radius: 3px;
+}
+
+.visitas-form--light textarea {
+    min-height: 110px;
+    height: auto;
+}
+
+.visitas-form__row {
+    display: grid;
+    gap: 6px;
+}
+
+.visitas-form__actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+}
+
+.visitas-form__submit {
+    background: #111;
+    border: none;
+}
+
+.visitas-form__note {
+    margin: 12px 0 0;
+    font-size: 0.78rem;
+    color: #444;
+    line-height: 1.5;
 }
 
 .visitas-section {
@@ -1592,6 +1709,14 @@ body.external-links-panel-open {
         padding: 30px 24px;
     }
 
+    .visitas-page--guide .visitas-content {
+        padding: 28px 22px;
+    }
+
+    .visitas-hero {
+        padding: 50px 0 45px;
+    }
+
     .visitas-contact {
         grid-template-columns: 1fr;
     }
@@ -1609,6 +1734,16 @@ body.external-links-panel-open {
 @media (max-width: 640px) {
     .visitas-modes {
         grid-template-columns: 1fr;
+    }
+
+    .visitas-hero__title {
+        gap: 10px;
+        letter-spacing: 0.1em;
+    }
+
+    .visitas-hero__title::before,
+    .visitas-hero__title::after {
+        height: 8px;
     }
 
     .visitas-section__content {

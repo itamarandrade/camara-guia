@@ -612,11 +612,13 @@ function camara_handle_contact_form() {
     $phone_field  = isset( $_POST['telefone'] ) ? $_POST['telefone'] : ( isset( $_POST['visitas-telefone'] ) ? $_POST['visitas-telefone'] : '' );
     $email_field  = isset( $_POST['email'] ) ? $_POST['email'] : ( isset( $_POST['visitas-email'] ) ? $_POST['visitas-email'] : '' );
     $message_field = isset( $_POST['mensagem'] ) ? $_POST['mensagem'] : '';
+    $reason_field = isset( $_POST['motivo'] ) ? $_POST['motivo'] : '';
 
     $name    = $name_field ? sanitize_text_field( wp_unslash( $name_field ) ) : '';
     $phone   = $phone_field ? sanitize_text_field( wp_unslash( $phone_field ) ) : '';
     $email   = $email_field ? sanitize_email( wp_unslash( $email_field ) ) : '';
     $message = $message_field ? sanitize_textarea_field( wp_unslash( $message_field ) ) : '';
+    $reason  = $reason_field ? sanitize_textarea_field( wp_unslash( $reason_field ) ) : '';
 
     $consent  = isset( $_POST['lgpd_consent'] ) ? __( 'Sim', 'camara-hotsite' ) : __( 'Não informado', 'camara-hotsite' );
     $recipient = apply_filters( 'camara_contact_form_recipient', 'comunicacaoexterna@saopaulo.sp.leg.br', $form_id );
@@ -635,6 +637,10 @@ function camara_handle_contact_form() {
 
     if ( $email ) {
         $email_lines[] = sprintf( __( 'E-mail: %s', 'camara-hotsite' ), $email );
+    }
+
+    if ( $reason ) {
+        $email_lines[] = sprintf( __( 'Motivo da visita: %s', 'camara-hotsite' ), $reason );
     }
 
     if ( $message ) {

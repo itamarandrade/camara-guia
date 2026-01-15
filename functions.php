@@ -666,4 +666,35 @@ function camara_handle_contact_form() {
 add_action( 'admin_post_camara_contact_form', 'camara_handle_contact_form' );
 add_action( 'admin_post_nopriv_camara_contact_form', 'camara_handle_contact_form' );
 
+function camara_maybe_create_guia_page() {
+    $existing_page = get_page_by_path( 'guia' );
+
+    if ( $existing_page ) {
+        if ( 'page' !== $existing_page->post_type ) {
+            return;
+        }
+
+        $template = get_post_meta( $existing_page->ID, '_wp_page_template', true );
+        if ( 'page-guia.php' !== $template ) {
+            update_post_meta( $existing_page->ID, '_wp_page_template', 'page-guia.php' );
+        }
+
+        return;
+    }
+
+    $page_id = wp_insert_post(
+        [
+            'post_title'  => __( 'Guia do Visitante', 'camara-hotsite' ),
+            'post_name'   => 'guia',
+            'post_status' => 'publish',
+            'post_type'   => 'page',
+        ]
+    );
+
+    if ( $page_id && ! is_wp_error( $page_id ) ) {
+        update_post_meta( $page_id, '_wp_page_template', 'page-guia.php' );
+    }
+}
+add_action( 'admin_init', 'camara_maybe_create_guia_page' );
+
 ?>

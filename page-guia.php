@@ -68,12 +68,6 @@ $guia_feedback_status      = isset( $_GET['guia-feedback-status'] ) ? sanitize_t
             <?php endforeach; ?>
         </div>
         <div class="hero__wave" aria-hidden="true"></div>
-        <div class="container visitas-hero">
-            <h1 class="visitas-hero__heading">
-                <span class="visitas-hero__title"><?php esc_html_e( 'Guia do Visitante', 'camara-hotsite' ); ?></span>
-                <span class="visitas-hero__subtitle"><?php esc_html_e( 'Palácio Anchieta', 'camara-hotsite' ); ?></span>
-            </h1>
-        </div>
         <div class="hero__dots" role="tablist" data-hero-dots aria-label="<?php esc_attr_e('Controle do destaque principal', 'camara-hotsite'); ?>">
             <?php foreach ( $hero_slides as $index => $slide ) : ?>
                 <button

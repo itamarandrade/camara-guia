@@ -697,4 +697,21 @@ function camara_maybe_create_guia_page() {
 }
 add_action( 'admin_init', 'camara_maybe_create_guia_page' );
 
+function camara_force_guia_template( $template ) {
+    $request_uri = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+    $request_path = trim( (string) wp_parse_url( $request_uri, PHP_URL_PATH ), '/' );
+
+    if ( 'guia' === get_query_var( 'pagename' ) || 'guia' === $request_path ) {
+        $guia_template = locate_template( 'page-guia.php' );
+        if ( $guia_template ) {
+            status_header( 200 );
+            nocache_headers();
+            return $guia_template;
+        }
+    }
+
+    return $template;
+}
+add_filter( 'template_include', 'camara_force_guia_template' );
+
 ?>

@@ -193,6 +193,24 @@ if ( ! isset( $guia_feedback_status ) ) {
         </div>
     </article>
 
+    <article class="visitas-topic" id="guia-espacos-culturais">
+        <header class="visitas-topic__title">
+            <span><?php esc_html_e( 'Espaços culturais e exposições temporárias', 'camara-hotsite' ); ?></span>
+        </header>
+        <div class="visitas-topic__content">
+            <p><?php esc_html_e( 'A Câmara Municipal de São Paulo realiza, durante o ano, várias exposições institucionais, históricas, artísticas e fotográficas de caráter temporário.', 'camara-hotsite' ); ?></p>
+            <p>
+                <?php
+                printf(
+                    wp_kses_post( __( 'Fique atento à programação divulgada na <a href="%s" target="_blank" rel="noopener">Agenda Oficial</a>, no Portal da Câmara e em nossas <a href="%s" target="_blank" rel="noopener">notícias</a>.', 'camara-hotsite' ) ),
+                    esc_url( 'https://www.saopaulo.sp.leg.br/atividade-legislativa/agenda-da-camara/' ),
+                    esc_url( 'https://www.saopaulo.sp.leg.br/comunicacao/noticias/' )
+                );
+                ?>
+            </p>
+        </div>
+    </article>
+
     <article class="visitas-topic" id="guia-galeria-lilas">
         <header class="visitas-topic__title">
             <span><?php esc_html_e( 'Galeria Lilás', 'camara-hotsite' ); ?></span>

@@ -101,7 +101,7 @@ $visitas_status = isset( $_GET['visitas-status'] ) ? sanitize_text_field( wp_uns
             <section class="visitas-topics" aria-labelledby="visitas-topics-title">
                 <h2 id="visitas-topics-title" class="sr-only"><?php esc_html_e( 'Visitas', 'camara-hotsite' ); ?></h2>
 
-                <article class="visitas-topic">
+                <article class="visitas-topic" id="visitas-guiadas">
                     <header class="visitas-topic__title">
                         <span><?php esc_html_e( 'Visitas guiadas', 'camara-hotsite' ); ?></span>
                     </header>
@@ -118,7 +118,7 @@ $visitas_status = isset( $_GET['visitas-status'] ) ? sanitize_text_field( wp_uns
                     </div>
                 </article>
 
-                <article class="visitas-topic">
+                <article class="visitas-topic" id="visitas-institucionais">
                     <header class="visitas-topic__title">
                         <span><?php esc_html_e( 'Visitas institucionais', 'camara-hotsite' ); ?></span>
                     </header>
@@ -143,7 +143,7 @@ $visitas_status = isset( $_GET['visitas-status'] ) ? sanitize_text_field( wp_uns
                     </div>
                 </article>
 
-                <article class="visitas-topic">
+                <article class="visitas-topic" id="visitas-tecnicas">
                     <header class="visitas-topic__title">
                         <span><?php esc_html_e( 'Visitas técnicas', 'camara-hotsite' ); ?></span>
                     </header>

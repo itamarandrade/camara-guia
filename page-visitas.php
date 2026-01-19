@@ -90,6 +90,9 @@ $visitas_status = isset( $_GET['visitas-status'] ) ? sanitize_text_field( wp_uns
     <div class="container visitas-layout">
         <article class="visitas-content">
             <section class="visitas-intro">
+                <h2 class="visitas-intro__title">
+                    <?php esc_html_e( 'Boas-vindas ao Palácio Anchieta, sede da Câmara Municipal de São Paulo!', 'camara-hotsite' ); ?>
+                </h2>
                 <?php foreach ( $visitas_intro as $paragraph ) : ?>
                     <p><?php echo esc_html( $paragraph ); ?></p>
                 <?php endforeach; ?>
@@ -103,13 +106,15 @@ $visitas_status = isset( $_GET['visitas-status'] ) ? sanitize_text_field( wp_uns
                         <span><?php esc_html_e( 'Visitas guiadas', 'camara-hotsite' ); ?></span>
                     </header>
                     <div class="visitas-topic__content">
-                        <p><?php esc_html_e( 'A Câmara Municipal de São Paulo possui o projeto “Câmara Aberta”. A proposta é abrir o legislativo paulistano, suas obras de arte, arquitetura e história para quem visita o Palácio Anchieta. As visitas podem acontecer às sextas, sábados e domingos. São gratuitas e livres para qualquer faixa etária. O projeto é em parceria com o time do “Vai de Roteiro” e os ingressos podem ser reservados pelo Sympla. Acesse o site dedicado, confira as próximas datas, o roteiro completo e reserve a sua vaga.', 'camara-hotsite' ); ?></p>
-                        <p><?php esc_html_e( 'O projeto “Câmara Aberta” conta, ainda, com um espaço infantil dedicado ao lazer e à convivência das crianças. No térreo do Palácio Anchieta, o Pátio Papa Francisco recebe um playground especialmente preparado para o público infantil, disponível durante o evento. Para garantir a segurança, as crianças devem estar sempre acompanhadas por um responsável.', 'camara-hotsite' ); ?></p>
                         <p>
-                            <a href="<?php echo esc_url( 'https://www.saopaulo.sp.leg.br/camaraaberta/' ); ?>" target="_blank" rel="noopener">
-                                <?php esc_html_e( 'www.saopaulo.sp.leg.br/camaraaberta/', 'camara-hotsite' ); ?>
-                            </a>
+                            <?php
+                            printf(
+                                wp_kses_post( __( 'A Câmara Municipal de São Paulo possui o projeto “Câmara Aberta”. A proposta é abrir o legislativo paulistano, suas obras de arte, arquitetura e história para quem visita o Palácio Anchieta. As visitas podem acontecer às sextas, sábados e domingos. São gratuitas e livres para qualquer faixa etária. O projeto é em parceria com o time do <a href="%s" target="_blank" rel="noopener">Vai de Roteiro</a>. Confira as próximas datas, o roteiro completo e reserve a sua vaga.', 'camara-hotsite' ) ),
+                                esc_url( 'https://prefeitura.sp.gov.br/web/turismo/w/menu/vai-de-roteiro-melhor-forma-de-conhecer-sp' )
+                            );
+                            ?>
                         </p>
+                        <p><?php esc_html_e( 'O projeto “Câmara Aberta” conta, ainda, com um espaço infantil dedicado ao lazer e à convivência das crianças. No térreo do Palácio Anchieta, o Pátio Papa Francisco recebe um playground especialmente preparado para o público infantil, disponível durante o evento. Para garantir a segurança, as crianças devem estar sempre acompanhadas por um responsável.', 'camara-hotsite' ); ?></p>
                     </div>
                 </article>
 

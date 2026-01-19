@@ -1337,6 +1337,17 @@ body.external-links-panel-open {
     margin-bottom: 32px;
 }
 
+.visitas-intro__title {
+    margin: 0 0 18px;
+    padding: 14px 18px;
+    background: #f4f4f6;
+    border-left: 6px solid var(--color-red);
+    font-size: 1.1rem;
+    line-height: 1.4;
+    font-weight: 700;
+    color: #111;
+}
+
 .visitas-intro p {
     margin: 0 0 14px;
     line-height: 1.6;

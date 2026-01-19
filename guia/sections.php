@@ -35,7 +35,14 @@ if ( ! isset( $guia_feedback_status ) ) {
                 );
                 ?>
             </p>
-            <p><?php esc_html_e( 'Você também pode se inscrever para participar presencialmente nos auditórios em que as audiências são realizadas, basta comparecer ao auditório no dia agendado e se inscrever junto à Secretaria da Comissão. Atente-se para o calendário na Agenda Oficial da Câmara e participe!', 'camara-hotsite' ); ?></p>
+            <p>
+                <?php
+                printf(
+                    wp_kses_post( __( 'Você também pode se inscrever para participar presencialmente nos auditórios em que as audiências são realizadas, basta comparecer ao auditório no dia agendado e se inscrever junto à Secretaria da Comissão. Atente-se para o calendário na <a href="%s" target="_blank" rel="noopener">Agenda Oficial da Câmara</a> e participe!', 'camara-hotsite' ) ),
+                    esc_url( 'https://www.saopaulo.sp.leg.br/atividade-legislativa/agenda-da-camara/' )
+                );
+                ?>
+            </p>
             <p><?php esc_html_e( 'Em caso de dúvidas, entre em contato com a Secretaria das Comissões: (11) 3396-4449.', 'camara-hotsite' ); ?></p>
         </div>
     </article>
@@ -56,7 +63,14 @@ if ( ! isset( $guia_feedback_status ) ) {
                     );
                     ?>
                 </li>
-                <li><?php esc_html_e( 'Eventos - As salas e auditórios do Palácio Anchieta poderão ser utilizados para eventos: nos dias úteis entre 9h e 22h, nos sábados entre 9h e 17h e nos domingos e feriados, com prévia e expressa autorização da Mesa, no período entre 9h e 17h. Você pode acompanhar a agenda de eventos da Câmara Municipal de São Paulo na Agenda Oficial.', 'camara-hotsite' ); ?></li>
+                <li>
+                    <?php
+                    printf(
+                        wp_kses_post( __( 'Eventos - As salas e auditórios do Palácio Anchieta poderão ser utilizados para eventos: nos dias úteis entre 9h e 22h, nos sábados entre 9h e 17h e nos domingos e feriados, com prévia e expressa autorização da Mesa, no período entre 9h e 17h. Você pode acompanhar a agenda de eventos da Câmara Municipal de São Paulo na <a href="%s" target="_blank" rel="noopener">Agenda Oficial</a>.', 'camara-hotsite' ) ),
+                        esc_url( 'https://www.saopaulo.sp.leg.br/atividade-legislativa/agenda-da-camara/' )
+                    );
+                    ?>
+                </li>
             </ul>
         </div>
     </article>
@@ -110,7 +124,14 @@ if ( ! isset( $guia_feedback_status ) ) {
         </header>
         <div class="visitas-topic__content">
             <p><?php esc_html_e( 'Todos os visitantes, bem como seus pertences, devem passar pelo detector de metais e equipamento de raio-X. Armas de qualquer tipo ou objetos como tesouras e alicates devem ser deixados sob a custódia temporária da ICAM - Inspetoria da Câmara Municipal de São Paulo (GCM).', 'camara-hotsite' ); ?></p>
-            <p><?php esc_html_e( 'O sistema de segurança da Câmara Municipal de São Paulo é integrado ao Smart Sampa, que usa o reconhecimento facial de câmeras inteligentes para identificação de casos de violência urbana e foragidos da justiça.', 'camara-hotsite' ); ?></p>
+            <p>
+                <?php
+                printf(
+                    wp_kses_post( __( 'O sistema de segurança da Câmara Municipal de São Paulo é integrado ao <a href="%s" target="_blank" rel="noopener">Smart Sampa</a>, que usa o reconhecimento facial de câmeras inteligentes para identificação de casos de violência urbana e foragidos da justiça.', 'camara-hotsite' ) ),
+                    esc_url( 'https://smartsampa.prefeitura.sp.gov.br/' )
+                );
+                ?>
+            </p>
             <p><?php esc_html_e( 'O acesso ao Palácio Anchieta é liberado após identificação, com apresentação de documento oficial com foto. Não serão aceitas cópias não autenticadas ou fotos dos documentos.', 'camara-hotsite' ); ?></p>
             <p><?php esc_html_e( 'Segue a relação de documentos públicos, aceitos na identificação:', 'camara-hotsite' ); ?></p>
             <ul class="visitas-topic__list">
@@ -186,7 +207,15 @@ if ( ! isset( $guia_feedback_status ) ) {
             <span><?php esc_html_e( 'Exposições no Saguão de Entrada José Mentor', 'camara-hotsite' ); ?></span>
         </header>
         <div class="visitas-topic__content">
-            <p><?php esc_html_e( 'Acompanhe as notícias e a agenda da Câmara para saber quais exposições estão sendo realizadas no Térreo do Palácio Anchieta.', 'camara-hotsite' ); ?></p>
+            <p>
+                <?php
+                printf(
+                    wp_kses_post( __( 'Acompanhe as <a href="%s" target="_blank" rel="noopener">notícias</a> e a <a href="%s" target="_blank" rel="noopener">agenda da Câmara</a> para saber quais exposições estão sendo realizadas no Térreo do Palácio Anchieta.', 'camara-hotsite' ) ),
+                    esc_url( 'https://www.saopaulo.sp.leg.br/comunicacao/noticias/' ),
+                    esc_url( 'https://www.saopaulo.sp.leg.br/atividade-legislativa/agenda-da-camara/' )
+                );
+                ?>
+            </p>
         </div>
     </article>
 
@@ -197,7 +226,14 @@ if ( ! isset( $guia_feedback_status ) ) {
         <div class="visitas-topic__content">
             <p><?php esc_html_e( 'O registro dos espaços e obras da Câmara Municipal de São Paulo é livre, porém, não realize, sem observar os cuidados e caso seja necessário, com prévia e expressa autorização:', 'camara-hotsite' ); ?></p>
             <ol class="visitas-topic__list">
-                <li><?php esc_html_e( 'Registros com finalidade comercial (para uso comercial de materiais consulte o Ato nº 1182/2012 e entre em contato com a Secretaria Geral Administrativa - sga@saopaulo.sp.leg.br).', 'camara-hotsite' ); ?></li>
+                <li>
+                    <?php
+                    printf(
+                        wp_kses_post( __( 'Registros com finalidade comercial (para uso comercial de materiais consulte o <a href="%s" target="_blank" rel="noopener">Ato nº 1182/2012</a> e entre em contato com a Secretaria Geral Administrativa - sga@saopaulo.sp.leg.br).', 'camara-hotsite' ) ),
+                        esc_url( 'https://app-plpconsulta-prd.azurewebsites.net/Forms/MostrarArquivo?TIPO=Ato&NUMERO=1182&ANO=2012&DOCUMENTO=Atualizado' )
+                    );
+                    ?>
+                </li>
                 <li><?php esc_html_e( 'Registros com uso de flash.', 'camara-hotsite' ); ?></li>
             </ol>
         </div>
@@ -369,15 +405,7 @@ if ( ! isset( $guia_feedback_status ) ) {
                     );
                     ?>
                 </li>
-                <li><?php esc_html_e( 'Redes Sociais: siga @camarasaopaulo (IG, Fb, X).', 'camara-hotsite' ); ?></li>
-                <li>
-                    <?php
-                    printf(
-                        wp_kses_post( __( 'Visita 360º: <a href="%s" target="_blank" rel="noopener">www.saopaulo.sp.leg.br/institucional/visita-virtual</a>.', 'camara-hotsite' ) ),
-                        esc_url( 'https://www.saopaulo.sp.leg.br/institucional/visita-virtual/' )
-                    );
-                    ?>
-                </li>
+                <li><?php esc_html_e( 'Redes Sociais: siga a Câmara nas redes e acompanhe tudo que acontece na política da cidade, siga: @camarasaopaulo (IG, Fb, X).', 'camara-hotsite' ); ?></li>
                 <li>
                     <?php
                     printf(
@@ -389,7 +417,15 @@ if ( ! isset( $guia_feedback_status ) ) {
                 <li>
                     <?php
                     printf(
-                        wp_kses_post( __( 'Centro de Memória: <a href="%s" target="_blank" rel="noopener">www.saopaulo.sp.leg.br/memoria</a>.', 'camara-hotsite' ) ),
+                        wp_kses_post( __( 'Visita 360º: <a href="%s" target="_blank" rel="noopener">www.saopaulo.sp.leg.br/institucional/visita-virtual</a>.', 'camara-hotsite' ) ),
+                        esc_url( 'https://www.saopaulo.sp.leg.br/institucional/visita-virtual/' )
+                    );
+                    ?>
+                </li>
+                <li>
+                    <?php
+                    printf(
+                        wp_kses_post( __( 'Centro de Memória: Grupo de Trabalho permanente responsável pela organização, preservação e difusão dos materiais históricos produzidos pela instituição, acesse: <a href="%s" target="_blank" rel="noopener">www.saopaulo.sp.leg.br/memoria</a>.', 'camara-hotsite' ) ),
                         esc_url( 'https://www.saopaulo.sp.leg.br/memoria/' )
                     );
                     ?>
@@ -406,7 +442,7 @@ if ( ! isset( $guia_feedback_status ) ) {
                 <li>
                     <?php
                     printf(
-                        wp_kses_post( __( 'Portal da Legislação Paulistana: <a href="%s" target="_blank" rel="noopener">app-plpconsulta-prd.azurewebsites.net</a>.', 'camara-hotsite' ) ),
+                        wp_kses_post( __( 'Portal da Legislação Paulistana: Legislação Paulistana atualizada, se virou Lei/ Norma está no PLP, acesse: <a href="%s" target="_blank" rel="noopener">app-plpconsulta-prd.azurewebsites.net</a>.', 'camara-hotsite' ) ),
                         esc_url( 'https://app-plpconsulta-prd.azurewebsites.net' )
                     );
                     ?>
@@ -414,7 +450,7 @@ if ( ! isset( $guia_feedback_status ) ) {
                 <li>
                     <?php
                     printf(
-                        wp_kses_post( __( 'SPLegis: <a href="%s" target="_blank" rel="noopener">splegisconsulta.saopaulo.sp.leg.br</a>.', 'camara-hotsite' ) ),
+                        wp_kses_post( __( 'SPLegis: Sistema do Processo Legislativo Digital, se está tramitando na CMSP, está no SPLegis: <a href="%s" target="_blank" rel="noopener">splegisconsulta.saopaulo.sp.leg.br</a>.', 'camara-hotsite' ) ),
                         esc_url( 'https://splegisconsulta.saopaulo.sp.leg.br/' )
                     );
                     ?>

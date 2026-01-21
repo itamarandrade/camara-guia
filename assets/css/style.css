@@ -152,16 +152,10 @@ textarea:focus-visible {
     text-transform: uppercase;
 }
 
-.social-link span {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    clip: rect(1px, 1px, 1px, 1px);
-}
-
-.social-link::before {
-    content: attr(data-icon);
-    font-size: 0.7rem;
+.social-link__icon {
+    width: 18px;
+    height: 18px;
+    display: block;
 }
 
 .top-bar__external {

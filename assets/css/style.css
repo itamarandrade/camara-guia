@@ -506,8 +506,14 @@ body.external-links-panel-open {
 }
 
 .primary-nav__list > li.current-menu-item > a::after,
+.primary-nav__list > li.is-active > a::after,
+.primary-nav__list > li > a.is-active::after,
 .primary-nav__list > li > a:hover::after {
     background: var(--color-red);
+}
+
+.primary-nav__list > li.current-menu-item:not(.is-active) > a[href*="#"]::after {
+    background: transparent;
 }
 
 /* Hero */

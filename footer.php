@@ -4,7 +4,7 @@
             <?php
                 $camara_side_links = camara_get_side_menu_links();
                 if ( ! empty( $camara_side_links ) ) :
-                    $link_columns = array_chunk( $camara_side_links, 5 );
+                    $link_columns = array_chunk( $camara_side_links, 6 );
             ?>
                 <nav class="footer-links footer-links--grid" aria-label="<?php esc_attr_e( 'Links úteis', 'camara-hotsite' ); ?>">
                     <?php foreach ( $link_columns as $column ) : ?>

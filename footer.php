@@ -4,20 +4,28 @@
             <?php
                 $camara_side_links = camara_get_side_menu_links();
                 if ( ! empty( $camara_side_links ) ) :
+                    $link_columns = array_chunk( $camara_side_links, 5 );
             ?>
-                <ul class="footer-links footer-links--grid" aria-label="<?php esc_attr_e( 'Links úteis', 'camara-hotsite' ); ?>">
-                    <?php foreach ( $camara_side_links as $link ) :
-                        $is_external = ! empty( $link['external'] );
-                        $target      = $is_external ? '_blank' : '_self';
-                        $rel         = $is_external ? 'noreferrer noopener' : '';
-                    ?>
-                        <li>
-                            <a href="<?php echo esc_url( $link['url'] ); ?>" target="<?php echo esc_attr( $target ); ?>" <?php echo $rel ? 'rel="' . esc_attr( $rel ) . '"' : ''; ?>>
-                                <?php echo esc_html( $link['label'] ); ?>
-                            </a>
-                        </li>
+                <nav class="footer-links footer-links--grid" aria-label="<?php esc_attr_e( 'Links úteis', 'camara-hotsite' ); ?>">
+                    <?php foreach ( $link_columns as $column ) : ?>
+                        <ul class="footer-links__column">
+                            <?php foreach ( $column as $link ) :
+                                $target = ! empty( $link['target'] ) ? $link['target'] : ( ! empty( $link['external'] ) ? '_blank' : '_self' );
+                                $rel    = ! empty( $link['rel'] ) ? $link['rel'] : '';
+                                if ( '_blank' === $target ) {
+                                    $rel = trim( $rel . ' noreferrer noopener' );
+                                    $rel = implode( ' ', array_unique( preg_split( '/\s+/', $rel ) ) );
+                                }
+                            ?>
+                                <li>
+                                    <a href="<?php echo esc_url( $link['url'] ); ?>" target="<?php echo esc_attr( $target ); ?>" <?php echo $rel ? 'rel="' . esc_attr( $rel ) . '"' : ''; ?>>
+                                        <?php echo esc_html( $link['label'] ); ?>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
                     <?php endforeach; ?>
-                </ul>
+                </nav>
             <?php endif; ?>
         </div>
     </div>

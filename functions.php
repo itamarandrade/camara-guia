@@ -114,15 +114,33 @@ function camara_get_theme_option( $key, $default = '' ) {
 }
 
 function camara_get_side_menu_links() {
-    $links = [
-        [
-            'label'    => __( 'Visitas', 'camara-hotsite' ),
-            'slug'     => 'visitas',
-            'url'      => home_url( '/visitas/' ),
-            'external' => false,
-            'target'   => '_self',
-        ],
-    ];
+    $links = [];
+
+    if ( has_nav_menu( 'external_links_menu' ) ) {
+        $locations = get_nav_menu_locations();
+        $menu_id   = isset( $locations['external_links_menu'] ) ? $locations['external_links_menu'] : 0;
+
+        if ( $menu_id ) {
+            $menu_items = wp_get_nav_menu_items( $menu_id );
+            if ( ! empty( $menu_items ) ) {
+                foreach ( $menu_items as $item ) {
+                    if ( empty( $item->url ) ) {
+                        continue;
+                    }
+
+                    $target = ! empty( $item->target ) ? $item->target : '_self';
+                    $links[] = [
+                        'label'    => $item->title,
+                        'slug'     => sanitize_title( $item->title ),
+                        'url'      => esc_url_raw( $item->url ),
+                        'external' => ( '_blank' === $target ),
+                        'target'   => $target,
+                        'rel'      => ! empty( $item->xfn ) ? $item->xfn : '',
+                    ];
+                }
+            }
+        }
+    }
 
     $external_base  = 'https://www.saopaulo.sp.leg.br/';
     $external_items = [
@@ -156,22 +174,36 @@ function camara_get_side_menu_links() {
         'Revista Parlamento e Sociedade'            => '',
     ];
 
-    foreach ( $external_items as $label => $slug ) {
-        $slug = $slug ?: sanitize_title( $label );
-
-        if ( preg_match( '#^https?://#i', $slug ) ) {
-            $url = esc_url_raw( $slug );
-        } else {
-            $url = trailingslashit( $external_base . ltrim( $slug, '/' ) );
-        }
-
-        $links[] = [
-            'label'    => $label,
-            'slug'     => sanitize_title( $label ),
-            'url'      => esc_url_raw( $url ),
-            'external' => true,
-            'target'   => '_blank',
+    if ( empty( $links ) ) {
+        $links = [
+            [
+                'label'    => __( 'Visitas', 'camara-hotsite' ),
+                'slug'     => 'visitas',
+                'url'      => home_url( '/visitas/' ),
+                'external' => false,
+                'target'   => '_self',
+                'rel'      => '',
+            ],
         ];
+
+        foreach ( $external_items as $label => $slug ) {
+            $slug = $slug ?: sanitize_title( $label );
+
+            if ( preg_match( '#^https?://#i', $slug ) ) {
+                $url = esc_url_raw( $slug );
+            } else {
+                $url = trailingslashit( $external_base . ltrim( $slug, '/' ) );
+            }
+
+            $links[] = [
+                'label'    => $label,
+                'slug'     => sanitize_title( $label ),
+                'url'      => esc_url_raw( $url ),
+                'external' => true,
+                'target'   => '_blank',
+                'rel'      => 'noreferrer noopener',
+            ];
+        }
     }
 
     return apply_filters( 'camara_side_menu_links', $links );

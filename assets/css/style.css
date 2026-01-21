@@ -1739,7 +1739,7 @@ body.external-links-panel-open {
         margin: 20px 0 0;
     }
     .footer-links--grid {
-        columns: 1;
+        grid-template-columns: 1fr;
     }
 }
 
@@ -1767,7 +1767,7 @@ body.external-links-panel-open {
     }
 
     .footer-links--grid {
-        columns: 1;
+        grid-template-columns: 1fr;
     }
 }
 
@@ -1800,11 +1800,11 @@ body.external-links-panel-open {
 }
 
 .footer-links {
-    columns: 3;
-    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px 70px;
     margin: 0;
     padding: 0;
-    column-gap: 40px;
 }
 
 .footer-links li {
@@ -1818,13 +1818,16 @@ body.external-links-panel-open {
 }
 
 .footer-links--grid {
-    columns: 3;
-    column-gap: 70px;
     margin-top: 0;
 }
 
+.footer-links__column {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
 .footer-links--grid li {
-    break-inside: avoid;
     margin-bottom: 16px;
     opacity: 1;
 }

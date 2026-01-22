@@ -85,6 +85,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const AUTOPLAY_DELAY = 7000;
         let activeIndex = slides.findIndex((slide) => slide.classList.contains('is-active'));
         let autoplayId = null;
+        const mobileBreakpoint = window.matchMedia ? window.matchMedia('(max-width: 767px)') : null;
+
+        const isMobileView = () => (mobileBreakpoint ? mobileBreakpoint.matches : window.innerWidth <= 767);
+        const updateResponsiveBackgrounds = () => {
+            const useMobile = isMobileView();
+            slides.forEach((slide) => {
+                const desktopImage = slide.dataset.desktopImage || slide.dataset.fallbackImage;
+                const mobileImage = slide.dataset.mobileImage || slide.dataset.fallbackImage;
+                const targetImage = useMobile ? (mobileImage || desktopImage) : (desktopImage || mobileImage);
+                if (targetImage) {
+                    slide.style.backgroundImage = `url("${targetImage}")`;
+                }
+            });
+        };
 
         if (activeIndex < 0) {
             activeIndex = 0;
@@ -163,8 +177,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        updateResponsiveBackgrounds();
         setActiveSlide(activeIndex);
         handleMotionPreference();
+
+        if (mobileBreakpoint) {
+            if (typeof mobileBreakpoint.addEventListener === 'function') {
+                mobileBreakpoint.addEventListener('change', updateResponsiveBackgrounds);
+            } else if (typeof mobileBreakpoint.addListener === 'function') {
+                mobileBreakpoint.addListener(updateResponsiveBackgrounds);
+            }
+        } else {
+            window.addEventListener('resize', updateResponsiveBackgrounds);
+        }
     }
 
     const tourSliders = document.querySelectorAll('[data-tour-slider]');

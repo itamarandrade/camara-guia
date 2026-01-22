@@ -113,6 +113,133 @@ function camara_get_theme_option( $key, $default = '' ) {
     return $default;
 }
 
+function camara_get_hero_banner_contexts() {
+    return [
+        'home' => [
+            'label'       => __( 'Página inicial', 'camara-hotsite' ),
+            'desktop_key' => 'hero_home_desktop_images',
+            'mobile_key'  => 'hero_home_mobile_images',
+        ],
+        'guia' => [
+            'label'       => __( 'Guia do visitante', 'camara-hotsite' ),
+            'desktop_key' => 'hero_guia_desktop_images',
+            'mobile_key'  => 'hero_guia_mobile_images',
+        ],
+        'visitas' => [
+            'label'       => __( 'Visitas guiadas', 'camara-hotsite' ),
+            'desktop_key' => 'hero_visitas_desktop_images',
+            'mobile_key'  => 'hero_visitas_mobile_images',
+        ],
+    ];
+}
+
+function camara_build_responsive_hero_slides( $desktop_ids, $mobile_ids, $context_label = '', $limit = 3 ) {
+    $desktop_ids = is_array( $desktop_ids ) ? $desktop_ids : [];
+    $mobile_ids  = is_array( $mobile_ids ) ? $mobile_ids : [];
+
+    $desktop_ids = array_values( array_filter( array_map( 'absint', $desktop_ids ) ) );
+    $mobile_ids  = array_values( array_filter( array_map( 'absint', $mobile_ids ) ) );
+
+    $max_slides = max( count( $desktop_ids ), count( $mobile_ids ) );
+    if ( 0 === $max_slides ) {
+        return [];
+    }
+
+    $context_label = wp_strip_all_tags( $context_label ?: __( 'Hero', 'camara-hotsite' ) );
+    $slide_count  = min( $limit, $max_slides );
+    $slides       = [];
+
+    for ( $index = 0; $index < $slide_count; $index++ ) {
+        $desktop_id = $desktop_ids[ $index ] ?? 0;
+        $mobile_id  = $mobile_ids[ $index ] ?? 0;
+
+        $desktop_url = $desktop_id ? wp_get_attachment_image_url( $desktop_id, 'full' ) : '';
+        $mobile_url  = $mobile_id ? wp_get_attachment_image_url( $mobile_id, 'full' ) : '';
+
+        if ( ! $desktop_url && ! $mobile_url ) {
+            continue;
+        }
+
+        $slide_label = sprintf( __( 'Banner %1$d - %2$s', 'camara-hotsite' ), $index + 1, $context_label );
+        $fallback    = $desktop_url ?: $mobile_url ?: camara_placeholder_image( $slide_label );
+
+        $slides[] = [
+            'desktop'  => $desktop_url,
+            'mobile'   => $mobile_url,
+            'label'    => $slide_label,
+            'fallback' => $fallback,
+        ];
+    }
+
+    return $slides;
+}
+
+function camara_get_generic_hero_slides() {
+    $slides = [];
+    $hero_slider_ids = camara_get_theme_option( 'hero_slider_images', [] );
+    $hero_slider_ids = array_values( array_filter( array_map( 'absint', (array) $hero_slider_ids ) ) );
+    $hero_slider_ids = array_slice( $hero_slider_ids, 0, 3 );
+
+    if ( $hero_slider_ids ) {
+        foreach ( $hero_slider_ids as $index => $attachment_id ) {
+            $image_url = wp_get_attachment_image_url( $attachment_id, 'full' );
+            if ( ! $image_url ) {
+                continue;
+            }
+
+            $slide_label = sprintf( __( 'Slide %d', 'camara-hotsite' ), $index + 1 );
+            $slides[] = [
+                'desktop'  => $image_url,
+                'mobile'   => $image_url,
+                'label'    => $slide_label,
+                'fallback' => $image_url,
+            ];
+        }
+    }
+
+    if ( empty( $slides ) ) {
+        $hero_sources = [
+            camara_get_theme_image( 'hero_image' ),
+            camara_get_theme_image( 'hero_image_two' ),
+            camara_get_theme_image( 'hero_image_three' ),
+        ];
+
+        foreach ( $hero_sources as $index => $source ) {
+            $slide_label = sprintf( __( 'Destaque %d', 'camara-hotsite' ), $index + 1 );
+            $image_url   = $source ?: camara_placeholder_image( $slide_label );
+
+            $slides[] = [
+                'desktop'  => $image_url,
+                'mobile'   => $image_url,
+                'label'    => $slide_label,
+                'fallback' => $image_url,
+            ];
+        }
+    }
+
+    return $slides;
+}
+
+function camara_get_page_hero_slides( $context = 'home' ) {
+    $contexts = camara_get_hero_banner_contexts();
+
+    if ( ! isset( $contexts[ $context ] ) ) {
+        return camara_get_generic_hero_slides();
+    }
+
+    $context_data = $contexts[ $context ];
+    $desktop_ids  = camara_get_theme_option( $context_data['desktop_key'], [] );
+    $mobile_ids   = camara_get_theme_option( $context_data['mobile_key'], [] );
+
+    $slides = camara_build_responsive_hero_slides( $desktop_ids, $mobile_ids, $context_data['label'] );
+
+    if ( empty( $slides ) ) {
+        $slides = camara_get_generic_hero_slides();
+    }
+
+    return $slides;
+}
+
 function camara_get_side_menu_links() {
     $links = [];
 
@@ -222,6 +349,11 @@ function camara_sanitize_theme_settings( $input ) {
         'tour_media_gallery'    => 'images',
         'tour_video_url'        => 'text',
     ];
+
+    foreach ( camara_get_hero_banner_contexts() as $context_data ) {
+        $fields[ $context_data['desktop_key'] ] = 'images';
+        $fields[ $context_data['mobile_key'] ]  = 'images';
+    }
 
     $choice_options = [
         'tour_media_type' => [ 'gallery', 'video' ],
@@ -353,6 +485,45 @@ function camara_register_theme_settings() {
         ]
     );
 
+    add_settings_section(
+        'camara_theme_settings_hero_banners',
+        __( 'Banners responsivos do hero', 'camara-hotsite' ),
+        function() {
+            echo '<p>' . esc_html__( 'Envie até três imagens para cada contexto e defina versões otimizadas para desktop e dispositivos móveis.', 'camara-hotsite' ) . '</p>';
+        },
+        'camara_theme_settings'
+    );
+
+    $hero_contexts = camara_get_hero_banner_contexts();
+
+    foreach ( $hero_contexts as $context_key => $context_data ) {
+        add_settings_field(
+            'camara_' . $context_data['desktop_key'],
+            sprintf( esc_html__( 'Banners desktop — %s', 'camara-hotsite' ), esc_html( $context_data['label'] ) ),
+            'camara_theme_settings_slider_field',
+            'camara_theme_settings',
+            'camara_theme_settings_hero_banners',
+            [
+                'id'          => $context_data['desktop_key'],
+                'description' => $context_key === 'home'
+                    ? __( 'Selecione imagens em alta resolução para a versão desktop do slider principal.', 'camara-hotsite' )
+                    : __( 'Ajuste o banner de topo para desktops nesta página.', 'camara-hotsite' ),
+            ]
+        );
+
+        add_settings_field(
+            'camara_' . $context_data['mobile_key'],
+            sprintf( esc_html__( 'Banners mobile — %s', 'camara-hotsite' ), esc_html( $context_data['label'] ) ),
+            'camara_theme_settings_slider_field',
+            'camara_theme_settings',
+            'camara_theme_settings_hero_banners',
+            [
+                'id'          => $context_data['mobile_key'],
+                'description' => __( 'Envie versões otimizadas para telas menores; elas substituem os banners desktop quando o layout ficar responsivo.', 'camara-hotsite' ),
+            ]
+        );
+    }
+
     add_settings_field(
         'camara_discover_hex_image',
         __( 'Imagem dos hexágonos', 'camara-hotsite' ),
@@ -483,6 +654,7 @@ function camara_theme_settings_slider_field( $args ) {
     $media_button = esc_attr__( 'Adicionar ao slider', 'camara-hotsite' );
     $remove_label = esc_attr__( 'Remover imagem', 'camara-hotsite' );
     $empty_label  = esc_html__( 'Nenhuma imagem selecionada ainda.', 'camara-hotsite' );
+    $description  = isset( $args['description'] ) ? $args['description'] : __( 'Escolha as imagens para o slider e arraste para definir a ordem.', 'camara-hotsite' );
     ?>
     <div
         class="camara-slider-field"
@@ -496,7 +668,7 @@ function camara_theme_settings_slider_field( $args ) {
             <button type="button" class="button button-secondary" data-slider-select><?php esc_html_e( 'Selecionar imagens', 'camara-hotsite' ); ?></button>
             <button type="button" class="button-link" data-slider-clear><?php esc_html_e( 'Limpar todas', 'camara-hotsite' ); ?></button>
         </div>
-        <p class="description"><?php esc_html_e( 'Escolha as imagens para o slider e arraste para definir a ordem.', 'camara-hotsite' ); ?></p>
+        <p class="description"><?php echo esc_html( $description ); ?></p>
         <ul class="camara-slider-list" data-slider-list>
             <?php if ( $value ) : ?>
                 <?php foreach ( $value as $attachment_id ) : ?>

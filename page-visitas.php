@@ -11,43 +11,7 @@ if ( have_posts() ) {
     the_post();
 }
 
-$hero_slides     = [];
-$hero_slider_ids = camara_get_theme_option( 'hero_slider_images', [] );
-
-if ( ! empty( $hero_slider_ids ) && is_array( $hero_slider_ids ) ) {
-    foreach ( $hero_slider_ids as $index => $attachment_id ) {
-        $attachment_id = absint( $attachment_id );
-        if ( ! $attachment_id ) {
-            continue;
-        }
-
-        $image_url = wp_get_attachment_image_url( $attachment_id, 'full' );
-        if ( ! $image_url ) {
-            continue;
-        }
-
-        $hero_slides[] = [
-            'image' => $image_url,
-            'label' => sprintf( esc_html__( 'Slide %d', 'camara-hotsite' ), $index + 1 ),
-        ];
-    }
-}
-
-if ( empty( $hero_slides ) ) {
-    $hero_sources = [
-        camara_get_theme_image('hero_image'),
-        camara_get_theme_image('hero_image_two'),
-        camara_get_theme_image('hero_image_three'),
-    ];
-
-    foreach ( $hero_sources as $index => $source ) {
-        $placeholder_label = sprintf( __( 'Destaque %d', 'camara-hotsite' ), $index + 1 );
-        $hero_slides[] = [
-            'image' => $source ?: camara_placeholder_image( $placeholder_label ),
-            'label' => sprintf( esc_html__( 'Slide %d', 'camara-hotsite' ), $index + 1 ),
-        ];
-    }
-}
+$hero_slides = camara_get_page_hero_slides( 'visitas' );
 
 $visitas_intro = [
     __( 'O prédio que abriga a Câmara Municipal de São Paulo é um marco arquitetônico do centro da capital paulista e está de portas abertas para receber visitantes interessados em conhecer um pouco mais sobre o Poder Legislativo municipal.', 'camara-hotsite' ),
@@ -63,10 +27,18 @@ $visitas_status = isset( $_GET['visitas-status'] ) ? sanitize_text_field( wp_uns
     <section class="hero hero--visitas" data-hero>
         <div class="hero__slider" data-hero-slider>
             <?php foreach ( $hero_slides as $index => $slide ) : ?>
+                <?php
+                    $desktop_image  = $slide['desktop'] ?: $slide['fallback'];
+                    $mobile_image   = $slide['mobile'] ?: $slide['fallback'];
+                    $fallback_image = $slide['fallback'];
+                ?>
                 <div
                     class="hero__slide <?php echo 0 === $index ? 'is-active' : ''; ?>"
                     data-hero-slide
-                    style="background-image: url('<?php echo esc_url( $slide['image'] ); ?>');"
+                    data-desktop-image="<?php echo esc_attr( $desktop_image ); ?>"
+                    data-mobile-image="<?php echo esc_attr( $mobile_image ); ?>"
+                    data-fallback-image="<?php echo esc_attr( $fallback_image ); ?>"
+                    style="background-image: url('<?php echo esc_url( $fallback_image ); ?>');"
                 >
                     <span class="sr-only"><?php echo esc_html( $slide['label'] ); ?></span>
                 </div>

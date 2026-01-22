@@ -1,9 +1,8 @@
 <?php
     get_header();
 
-    $hero_slides     = [];
-    $hero_slider_ids = camara_get_theme_option( 'hero_slider_images', [] );
-    $tour_image      = camara_get_theme_image('tour_image');
+    $hero_slides = camara_get_page_hero_slides( 'home' );
+    $tour_image      = camara_get_theme_image( 'tour_image' );
     $discover_hex_id = camara_get_theme_option( 'discover_hex_image' );
     $discover_hex_image = $discover_hex_id ? wp_get_attachment_image_url( absint( $discover_hex_id ), 'full' ) : '';
     $tour_media_type  = camara_get_theme_option( 'tour_media_type', 'gallery' );
@@ -38,46 +37,6 @@
         13 => 'is-green',
         14 => 'is-green',
     ];
-
-    if ( ! empty( $hero_slider_ids ) && is_array( $hero_slider_ids ) ) {
-        foreach ( $hero_slider_ids as $index => $attachment_id ) {
-            $attachment_id = absint( $attachment_id );
-            if ( ! $attachment_id ) {
-                continue;
-            }
-
-            $image_url = wp_get_attachment_image_url( $attachment_id, 'full' );
-            if ( ! $image_url ) {
-                continue;
-            }
-
-            $hero_slides[] = [
-                'image' => $image_url,
-                'label' => sprintf( esc_html__( 'Slide %d', 'camara-hotsite' ), $index + 1 ),
-            ];
-        }
-    }
-
-    if ( empty( $hero_slides ) ) {
-        $hero_sources = [
-            camara_get_theme_image('hero_image'),
-            camara_get_theme_image('hero_image_two'),
-            camara_get_theme_image('hero_image_three'),
-        ];
-
-        foreach ( $hero_sources as $index => $source ) {
-            $placeholder_label = sprintf( __( 'Destaque %d', 'camara-hotsite' ), $index + 1 );
-            $hero_slides[] = [
-                'image' => $source ?: camara_placeholder_image( $placeholder_label ),
-                'label' => sprintf( esc_html__( 'Slide %d', 'camara-hotsite' ), $index + 1 ),
-            ];
-        }
-    }
-
-    $hero_badge          = camara_get_theme_option( 'hero_badge_text', __( 'Guia do Visitante', 'camara-hotsite' ) );
-    $hero_title_primary  = camara_get_theme_option( 'hero_title_primary', __( 'Guia do Visitante', 'camara-hotsite' ) );
-    $hero_title_secondary= camara_get_theme_option( 'hero_title_secondary', __( 'Palácio Anchieta', 'camara-hotsite' ) );
-    $hero_description    = camara_get_theme_option( 'hero_description', __( 'Conheça cada detalhe do Legislativo paulistano com roteiros guiados e experiências completas.', 'camara-hotsite' ) );
 
     $tour_gallery_ids = is_array( $tour_gallery_ids ) ? array_filter( array_map( 'absint', $tour_gallery_ids ) ) : [];
     $tour_slides      = [];
@@ -179,15 +138,23 @@
 
     <section class="hero" data-hero>
         <div class="hero__slider" data-hero-slider>
-            <?php foreach ( $hero_slides as $index => $slide ) : ?>
-                <div
-                    class="hero__slide <?php echo 0 === $index ? 'is-active' : ''; ?>"
-                    data-hero-slide
-                    style="background-image: url('<?php echo esc_url( $slide['image'] ); ?>');"
-                >
-                    <span class="sr-only"><?php echo esc_html( $slide['label'] ); ?></span>
-                </div>
-            <?php endforeach; ?>
+        <?php foreach ( $hero_slides as $index => $slide ) : ?>
+            <?php
+                $desktop_image  = $slide['desktop'] ?: $slide['fallback'];
+                $mobile_image   = $slide['mobile'] ?: $slide['fallback'];
+                $fallback_image = $slide['fallback'];
+            ?>
+            <div
+                class="hero__slide <?php echo 0 === $index ? 'is-active' : ''; ?>"
+                data-hero-slide
+                data-desktop-image="<?php echo esc_attr( $desktop_image ); ?>"
+                data-mobile-image="<?php echo esc_attr( $mobile_image ); ?>"
+                data-fallback-image="<?php echo esc_attr( $fallback_image ); ?>"
+                style="background-image: url('<?php echo esc_url( $fallback_image ); ?>');"
+            >
+                <span class="sr-only"><?php echo esc_html( $slide['label'] ); ?></span>
+            </div>
+        <?php endforeach; ?>
         </div>
         <div class="hero__dots" role="tablist" data-hero-dots aria-label="<?php esc_attr_e('Controle do destaque principal', 'camara-hotsite'); ?>">
             <?php foreach ( $hero_slides as $index => $slide ) : ?>

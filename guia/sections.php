@@ -281,7 +281,6 @@ if ( ! isset( $guia_feedback_status ) ) {
                 <input type="hidden" name="camara_form_context" value="<?php esc_attr_e( 'Acessibilidade', 'camara-hotsite' ); ?>">
                 <input type="hidden" name="camara_status_param" value="guia-accessibility-status">
                 <input type="hidden" name="camara_redirect_to" value="<?php echo esc_url( get_permalink() . '#guia-acessibilidade' ); ?>">
-                <input type="hidden" name="lgpd_consent" value="1">
                 <div class="visitas-form__row">
                     <label for="guia-acess-nome"><?php esc_html_e( 'Nome:', 'camara-hotsite' ); ?></label>
                     <input type="text" id="guia-acess-nome" name="nome" required>
@@ -297,6 +296,12 @@ if ( ! isset( $guia_feedback_status ) ) {
                 <div class="visitas-form__row">
                     <label for="guia-acess-mensagem"><?php esc_html_e( 'Mensagem:', 'camara-hotsite' ); ?></label>
                     <textarea id="guia-acess-mensagem" name="mensagem"></textarea>
+                </div>
+                <div class="visitas-form__consent">
+                    <input type="checkbox" id="guia-acess-lgpd" name="lgpd_consent" value="1" required>
+                    <label for="guia-acess-lgpd">
+                        <?php esc_html_e('Autorizo o uso dos meus dados para receber retorno da Câmara, conforme a LGPD.', 'camara-hotsite'); ?>
+                    </label>
                 </div>
                 <div class="visitas-form__actions">
                     <button type="submit" class="btn visitas-form__submit">
@@ -346,7 +351,6 @@ if ( ! isset( $guia_feedback_status ) ) {
                 <input type="hidden" name="camara_form_context" value="<?php esc_attr_e( 'Manifestação', 'camara-hotsite' ); ?>">
                 <input type="hidden" name="camara_status_param" value="guia-feedback-status">
                 <input type="hidden" name="camara_redirect_to" value="<?php echo esc_url( get_permalink() . '#guia-manifestacao' ); ?>">
-                <input type="hidden" name="lgpd_consent" value="1">
                 <div class="visitas-form__row">
                     <label for="guia-feedback-nome"><?php esc_html_e( 'Nome:', 'camara-hotsite' ); ?></label>
                     <input type="text" id="guia-feedback-nome" name="nome" required>
@@ -366,6 +370,12 @@ if ( ! isset( $guia_feedback_status ) ) {
                 <div class="visitas-form__row">
                     <label for="guia-feedback-mensagem"><?php esc_html_e( 'Mensagem:', 'camara-hotsite' ); ?></label>
                     <textarea id="guia-feedback-mensagem" name="mensagem"></textarea>
+                </div>
+                <div class="visitas-form__consent">
+                    <input type="checkbox" id="guia-feedback-lgpd" name="lgpd_consent" value="1" required>
+                    <label for="guia-feedback-lgpd">
+                        <?php esc_html_e('Autorizo o uso dos meus dados para receber retorno da Câmara, conforme a LGPD.', 'camara-hotsite'); ?>
+                    </label>
                 </div>
                 <div class="visitas-form__actions">
                     <button type="submit" class="btn visitas-form__submit">

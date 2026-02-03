@@ -146,7 +146,6 @@ $visitas_status = isset( $_GET['visitas-status'] ) ? sanitize_text_field( wp_uns
                             <input type="hidden" name="camara_form_context" value="<?php esc_attr_e( 'Visitas técnicas', 'camara-hotsite' ); ?>">
                             <input type="hidden" name="camara_status_param" value="visitas-status">
                             <input type="hidden" name="camara_redirect_to" value="<?php echo esc_url( get_permalink() . '#visitas-tecnicas' ); ?>">
-                            <input type="hidden" name="lgpd_consent" value="1">
                             <div class="visitas-form__row">
                                 <label for="visitas-nome"><?php esc_html_e( 'Nome:', 'camara-hotsite' ); ?></label>
                                 <input type="text" id="visitas-nome" name="nome" required>
@@ -158,6 +157,12 @@ $visitas_status = isset( $_GET['visitas-status'] ) ? sanitize_text_field( wp_uns
                             <div class="visitas-form__row">
                                 <label for="visitas-email"><?php esc_html_e( 'E-mail:', 'camara-hotsite' ); ?></label>
                                 <input type="email" id="visitas-email" name="email" required>
+                            </div>
+                            <div class="visitas-form__consent">
+                                <input type="checkbox" id="visitas-lgpd" name="lgpd_consent" value="1" required>
+                                <label for="visitas-lgpd">
+                                    <?php esc_html_e('Autorizo o uso dos meus dados para receber retorno da Câmara, conforme a LGPD.', 'camara-hotsite'); ?>
+                                </label>
                             </div>
                             <div class="visitas-form__actions">
                                 <button type="submit" class="btn visitas-form__submit">

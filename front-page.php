@@ -175,9 +175,9 @@
             <section class="section discover">
                 <div class="container discover__layout">
                     <div class="discover__intro">
-                        <p class="discover__headline"><?php esc_html_e('Venha conhecer a Câmara Municipal de São Paulo', 'camara-hotsite'); ?></p>
                         <div class="discover__message">
                             <div class="discover__message-text">
+                                <p class="discover__headline"><?php esc_html_e('Venha conhecer a Câmara Municipal de São Paulo', 'camara-hotsite'); ?></p>
                                 <p><?php esc_html_e('O prédio que abriga a Câmara Municipal de São Paulo é um marco arquitetônico do centro da capital paulista e está de portas abertas para receber visitantes interessados em conhecer um pouco mais sobre o Poder Legislativo municipal.', 'camara-hotsite'); ?></p>
                                 <p><?php esc_html_e('Aqui, vereadoras e vereadores, representantes do povo, dedicam-se a discutir e elaborar leis, a fiscalizar e controlar os atos do Poder Executivo, a aprovar o Orçamento da Cidade, entre outras atribuições de fundamental importância para a cidade de São Paulo.', 'camara-hotsite'); ?></p>
                                 <p><strong><?php esc_html_e('Nosso endereço:', 'camara-hotsite'); ?></strong> <?php esc_html_e('Viaduto Jacareí, 100', 'camara-hotsite'); ?><br><?php esc_html_e('CEP: 01319-900 - Bela Vista, São Paulo.', 'camara-hotsite'); ?></p>
@@ -204,33 +204,33 @@
                         </div>
 
                         <div class="contact-panel__card">
-                        <form class="contact-form contact-form--compact" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
+                        <form class="visitas-form visitas-form--light" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
                             <?php wp_nonce_field( 'camara_contact_form', 'camara_contact_form_nonce' ); ?>
                             <input type="hidden" name="action" value="camara_contact_form">
                             <input type="hidden" name="camara_form_id" value="contato-home">
                             <input type="hidden" name="camara_form_context" value="<?php esc_attr_e( 'Contato geral', 'camara-hotsite' ); ?>">
                             <input type="hidden" name="camara_status_param" value="contact-status">
                                 <input type="hidden" name="camara_redirect_to" value="<?php echo esc_url( home_url( '/#contato' ) ); ?>">
-                            <div class="form-row">
+                            <div class="visitas-form__row">
                                 <label for="contact-name"><?php esc_html_e('Nome', 'camara-hotsite'); ?></label>
                                 <input type="text" id="contact-name" name="nome" required>
                             </div>
-                            <div class="form-row">
+                            <div class="visitas-form__row">
                                 <label for="contact-phone"><?php esc_html_e('Telefone', 'camara-hotsite'); ?></label>
                                 <input type="tel" id="contact-phone" name="telefone">
                             </div>
-                            <div class="form-row">
+                            <div class="visitas-form__row">
                                 <label for="contact-email"><?php esc_html_e('E-mail', 'camara-hotsite'); ?></label>
                                 <input type="email" id="contact-email" name="email" required>
                             </div>
-                            <div class="form-row form-row--checkbox">
+                            <div class="visitas-form__consent">
                                 <input type="checkbox" id="contact-lgpd" name="lgpd_consent" value="1" required>
                                 <label for="contact-lgpd">
                                     <?php esc_html_e('Autorizo o uso dos meus dados para receber retorno da Câmara, conforme a LGPD.', 'camara-hotsite'); ?>
                                 </label>
                             </div>
-                            <div class="form-row form-row--button">
-                                <button type="submit" class="btn contact-form__submit">
+                            <div class="visitas-form__actions">
+                                <button type="submit" class="btn visitas-form__submit">
                                     <?php esc_html_e( 'Enviar mensagem', 'camara-hotsite' ); ?>
                                 </button>
                             </div>

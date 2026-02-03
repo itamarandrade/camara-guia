@@ -1,2 +1,12 @@
 # Ignore captured image assets
 library/images/
+assets/images/
+
+# Ignore images and PDFs
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.svg

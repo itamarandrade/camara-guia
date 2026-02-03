@@ -630,14 +630,16 @@ body.external-links-panel-open {
 
 /* Discover section */
 .discover__layout {
-    display: flex;
-    flex-direction: column;
-    gap: clamp(20px, 3vw, 40px);
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: clamp(20px, 4vw, 50px);
     position: relative;
+    align-items: start;
 }
 
 .discover__intro {
     position: relative;
+    z-index: 1;
 }
 
 .discover__headline {
@@ -798,13 +800,14 @@ body.external-links-panel-open {
 }
 
 .discover__hex--floating {
-    position: absolute;
-    top: 0px;
-    right: clamp(-20px, 5vw, 50px);
-    width: 50%;
-    z-index: 3;
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    z-index: 1;
     max-width: 420px;
-    transform: translateY(-5%);
+    transform: none;
+    justify-self: end;
 }
 
 .discover__button {

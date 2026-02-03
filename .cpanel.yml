@@ -1,0 +1,4 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home1/agmaq431/camara.imsite.com.br/wp-content/themes/camara-guia
+    - /bin/rsync -a --delete --exclude='.git' --exclude='.cpanel.yml' --exclude='node_modules' --exclude='vendor' ./ "$DEPLOYPATH/"

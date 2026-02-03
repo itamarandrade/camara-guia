@@ -630,7 +630,6 @@ body.external-links-panel-open {
 
 /* Discover section */
 .discover__layout {
-    display: grid;
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
     gap: clamp(20px, 4vw, 50px);
     position: relative;

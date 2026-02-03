@@ -1040,7 +1040,7 @@ body.external-links-panel-open {
 .contact-panel__grid {
     background: #d9dddf;
     display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    grid-template-columns: 1fr;
     gap: 40px;
     padding: 50px;
 }

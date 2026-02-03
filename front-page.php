@@ -177,16 +177,17 @@
                     <div class="discover__intro">
                         <p class="discover__headline"><?php esc_html_e('Venha conhecer a Câmara Municipal de São Paulo', 'camara-hotsite'); ?></p>
                         <div class="discover__message">
-                            <p><?php esc_html_e('O prédio que abriga a Câmara Municipal de São Paulo é um marco arquitetônico do centro da capital paulista e está de portas abertas para receber visitantes interessados em conhecer um pouco mais sobre o Poder Legislativo municipal.', 'camara-hotsite'); ?></p>
-                            <p><?php esc_html_e('Aqui, vereadoras e vereadores, representantes do povo, dedicam-se a discutir e elaborar leis, a fiscalizar e controlar os atos do Poder Executivo, a aprovar o Orçamento da Cidade, entre outras atribuições de fundamental importância para a cidade de São Paulo.', 'camara-hotsite'); ?></p>
-                            <p><strong><?php esc_html_e('Nosso endereço:', 'camara-hotsite'); ?></strong> <?php esc_html_e('Viaduto Jacareí, 100', 'camara-hotsite'); ?><br><?php esc_html_e('CEP: 01319-900 - Bela Vista, São Paulo.', 'camara-hotsite'); ?></p>
-                            <p><?php esc_html_e('Estamos próximos ao Metrô Anhangabaú e Terminal Bandeira de Ônibus.', 'camara-hotsite'); ?></p>
+                            <div class="discover__message-text">
+                                <p><?php esc_html_e('O prédio que abriga a Câmara Municipal de São Paulo é um marco arquitetônico do centro da capital paulista e está de portas abertas para receber visitantes interessados em conhecer um pouco mais sobre o Poder Legislativo municipal.', 'camara-hotsite'); ?></p>
+                                <p><?php esc_html_e('Aqui, vereadoras e vereadores, representantes do povo, dedicam-se a discutir e elaborar leis, a fiscalizar e controlar os atos do Poder Executivo, a aprovar o Orçamento da Cidade, entre outras atribuições de fundamental importância para a cidade de São Paulo.', 'camara-hotsite'); ?></p>
+                                <p><strong><?php esc_html_e('Nosso endereço:', 'camara-hotsite'); ?></strong> <?php esc_html_e('Viaduto Jacareí, 100', 'camara-hotsite'); ?><br><?php esc_html_e('CEP: 01319-900 - Bela Vista, São Paulo.', 'camara-hotsite'); ?></p>
+                                <p><?php esc_html_e('Estamos próximos ao Metrô Anhangabaú e Terminal Bandeira de Ônibus.', 'camara-hotsite'); ?></p>
+                            </div>
+                            <figure class="discover__hex discover__hex--inline">
+                                <img src="<?php echo esc_url( $discover_hex_image ?: camara_placeholder_image( __( 'Hexágonos', 'camara-hotsite' ) ) ); ?>" alt="<?php esc_attr_e('Composição de imagens em formato de hexágono da Câmara Municipal', 'camara-hotsite'); ?>">
+                            </figure>
                         </div>
                     </div>
-
-                    <figure class="discover__hex discover__hex--floating">
-                        <img src="<?php echo esc_url( $discover_hex_image ?: camara_placeholder_image( __( 'Hexágonos', 'camara-hotsite' ) ) ); ?>" alt="<?php esc_attr_e('Composição de imagens em formato de hexágono da Câmara Municipal', 'camara-hotsite'); ?>">
-                    </figure>
                 </div>
             </section>
 

@@ -10,3 +10,6 @@ assets/images/
 *.gif
 *.webp
 *.svg
+
+# Ignore tooling notes
+CLAUDE.md

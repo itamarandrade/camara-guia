@@ -199,7 +199,7 @@
                     <div class="contact-panel__grid">
                         <div class="contact-panel__text">
                             <p><?php esc_html_e('Esse é o canal de comunicação “Fale Conosco” da Câmara Municipal de São Paulo. Esse canal o ajudará a dar seu feedback e a resolver suas dúvidas.', 'camara-hotsite'); ?></p>
-                            <p><strong><?php esc_html_e('Central Telefônica:', 'camara-hotsite'); ?></strong></p>
+                            <p><?php esc_html_e('Central Telefônica:', 'camara-hotsite'); ?></p>
                             <p><?php esc_html_e('Para um atendimento imediato e personalizado, nossa equipe da central telefônica está disponível das 10h às 19h pelo número (11) 3396-4000.', 'camara-hotsite'); ?></p>
                         </div>
 

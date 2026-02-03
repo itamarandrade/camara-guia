@@ -528,9 +528,8 @@ body.external-links-panel-open {
 }
 
 .hero--visitas {
-    min-height: 280px;
-    height: clamp(280px, 42vw, 420px);
-    align-items: center;
+    min-height: 520px;
+    align-items: flex-end;
 }
 
 .hero__slider {
@@ -633,7 +632,7 @@ body.external-links-panel-open {
 .discover__layout {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: clamp(20px, 3vw, 40px);
     position: relative;
 }
 
@@ -648,18 +647,20 @@ body.external-links-panel-open {
     font-size: clamp(1.8rem, 4vw, 2.6rem);
     font-weight: 800;
     letter-spacing: 0.08em;
-    width: 800px;
+    max-width: 760px;
+    width: min(800px, 100%);
     line-height: 1;
 }
 
 .discover__message {
     background: #eff2f6;
     border-radius: 28px;
-    padding: 4px 30px;
+    padding: clamp(16px, 2vw, 28px);
     position: relative;
     font-size: 1.05rem;
     line-height: 1.8;
-    padding-right: 430px;
+    max-width: 760px;
+    margin-right: clamp(20px, 6vw, 90px);
 }
 
 
@@ -788,8 +789,12 @@ body.external-links-panel-open {
 
 .discover__hex img {
     width: 100%;
+    max-width: 360px;
     height: auto;
     display: block;
+    margin-top: 32px;
+    margin-inline-start: auto;
+    margin-inline-end: 0;
 }
 
 .discover__hex--floating {
@@ -798,6 +803,8 @@ body.external-links-panel-open {
     right: clamp(-20px, 5vw, 50px);
     width: 50%;
     z-index: 3;
+    max-width: 420px;
+    transform: translateY(-5%);
 }
 
 .discover__button {
@@ -1718,7 +1725,7 @@ body.external-links-panel-open {
 
 @media (max-width: 960px) {
     .visitas-content {
-        padding: 30px 24px;
+        padding: 30px 0px;
     }
 
     .visitas-page--guide .visitas-content {
@@ -1763,7 +1770,7 @@ body.external-links-panel-open {
     }
 
     .visitas-form {
-        padding: 24px;
+        padding: 24px 10px;
     }
 
     .footer-links--grid {
@@ -1874,7 +1881,12 @@ body.external-links-panel-open {
     }
 
     .discover__message {
+        max-width: 100%;
         padding-right: 30px;
+        padding-left: 28px;
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-right: 0;
     }
 
     .discover__cta {
@@ -1902,16 +1914,28 @@ body.external-links-panel-open {
 
 @media (max-width: 860px) {
     .nav-wrapper {
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
     }
 
     .menu-toggle {
         display: inline-flex;
+        align-self: center;
+        order: 2;
+        margin-bottom: 15px;
+    }
+
+    .logo-group {
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 
     .primary-nav {
         width: 100%;
         display: none;
+        order: 3;
     }
 
     .primary-nav.is-open {
@@ -1920,11 +1944,21 @@ body.external-links-panel-open {
 
     .primary-nav__list {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        gap: 0;
+        padding: 8px 0;
     }
 
-    
+    .primary-nav__list > li {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid rgba(5, 5, 10, 0.08);
+        padding: 8px 0;
+    }
 
+    .primary-nav__list > li:last-child {
+        border-bottom: none;
+    }
     .contact-panel__grid {
         grid-template-columns: 1fr;
         gap: 24px;
@@ -1941,7 +1975,8 @@ body.external-links-panel-open {
 
     .top-bar__inner {
         flex-direction: column;
-        gap: 8px;
+        gap: 15px;
+        padding: 20px;
     }
 
     .top-bar__external {
@@ -1962,7 +1997,13 @@ body.external-links-panel-open {
     .virtual-tour__grid {
         padding: 24px;
     }
-
+    .virtual-tour__content p {
+        max-width: 100%;
+        font-size: 0.92rem;
+    }
+    .virtual-tour__title {
+        font-size: 1rem;
+    }
     .tour-slider__thumb {
         width: 44px;
         height: 30px;
@@ -1973,15 +2014,25 @@ body.external-links-panel-open {
     }
 
     .discover__headline,
-    .discover__cta {
+    .discover__cta,
+    .discover__cta-eyebrow̌,
+    .discover__cta-main {
         text-align: center;
         width: 100%;
         font-size: 1em;
     }
+    
 
     .discover__visual {
         gap: 20px;
         flex-direction: column;
+    }
+
+    .discover__message {
+        padding: 16px 18px;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        text-align: center;
     }
 
     .discover__action {
@@ -2020,6 +2071,13 @@ body.external-links-panel-open {
         font-size: 0.95rem;
     }
 
+    .contact-panel__banner span {
+        padding: 8px 24px;
+        font-size: 0.9rem;
+    }
+    .contact-panel__text p{
+        font-size: 0.9rem;
+    }
     .contact-panel__grid {
         padding: 20px;
     }
@@ -2035,6 +2093,7 @@ body.external-links-panel-open {
 
     .contact-form--compact label {
         text-align: left;
+        font-size: 0.8rem;
     }
     #contact-lgpd{
         font-size: 0.5em;
@@ -2051,5 +2110,25 @@ body.external-links-panel-open {
 
     .contact-form--compact .form-row--button .btn {
         width: 100%;
+    }
+
+    .hero {
+        min-height: clamp(120px, 48vw, 120px);
+    }
+
+    .hero__slide {
+        transform: none;
+        background-position: center top;
+        background-size: contain;
+
+    }
+    .visitas-intro p{
+        font-size: 0.9rem;
+    }
+    .visitas-topic__content p{
+        font-size: 0.9rem;
+    }
+    .visitas-topic__list {
+        font-size: 0.9rem;
     }
 }

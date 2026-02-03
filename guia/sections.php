@@ -274,22 +274,13 @@ if ( ! isset( $guia_feedback_status ) ) {
         <div class="visitas-topic__content">
             <p><?php esc_html_e( 'A Câmara Municipal de São Paulo possui um Grupo de Trabalho Permanente de Acessibilidade e Inclusão da Pessoa com Deficiência.', 'camara-hotsite' ); ?></p>
             <p><?php esc_html_e( 'Se você é uma pessoa com deficiência, ou acompanhante, e tem alguma dúvida ou receio em relação a visitas na Câmara Municipal de São Paulo, entre em contato por meio do formulário abaixo, queremos te receber com a dignidade que você merece.', 'camara-hotsite' ); ?></p>
-            <?php if ( 'success' === $guia_accessibility_status ) : ?>
-                <div class="form-alert form-alert--success" role="status" aria-live="polite">
-                    <?php esc_html_e( 'Recebemos sua mensagem! Em breve retornaremos o contato.', 'camara-hotsite' ); ?>
-                </div>
-            <?php elseif ( 'error' === $guia_accessibility_status ) : ?>
-                <div class="form-alert form-alert--error" role="alert" aria-live="assertive">
-                    <?php esc_html_e( 'Não foi possível enviar sua mensagem. Tente novamente em instantes.', 'camara-hotsite' ); ?>
-                </div>
-            <?php endif; ?>
             <form class="visitas-form visitas-form--light" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
                 <?php wp_nonce_field( 'camara_contact_form', 'camara_contact_form_nonce' ); ?>
                 <input type="hidden" name="action" value="camara_contact_form">
                 <input type="hidden" name="camara_form_id" value="guia-acessibilidade">
                 <input type="hidden" name="camara_form_context" value="<?php esc_attr_e( 'Acessibilidade', 'camara-hotsite' ); ?>">
                 <input type="hidden" name="camara_status_param" value="guia-accessibility-status">
-                <input type="hidden" name="camara_redirect_to" value="<?php echo esc_url( get_permalink() ); ?>">
+                <input type="hidden" name="camara_redirect_to" value="<?php echo esc_url( get_permalink() . '#guia-acessibilidade' ); ?>">
                 <input type="hidden" name="lgpd_consent" value="1">
                 <div class="visitas-form__row">
                     <label for="guia-acess-nome"><?php esc_html_e( 'Nome:', 'camara-hotsite' ); ?></label>
@@ -313,6 +304,15 @@ if ( ! isset( $guia_feedback_status ) ) {
                     </button>
                 </div>
             </form>
+            <?php if ( 'success' === $guia_accessibility_status ) : ?>
+                <div class="form-alert form-alert--success" role="status" aria-live="polite">
+                    <?php esc_html_e( 'Recebemos sua mensagem! Em breve retornaremos o contato.', 'camara-hotsite' ); ?>
+                </div>
+            <?php elseif ( 'error' === $guia_accessibility_status ) : ?>
+                <div class="form-alert form-alert--error" role="alert" aria-live="assertive">
+                    <?php esc_html_e( 'Não foi possível enviar sua mensagem. Tente novamente em instantes.', 'camara-hotsite' ); ?>
+                </div>
+            <?php endif; ?>
             <p class="visitas-form__note">
                 <?php esc_html_e( 'O seu contato é muito importante para nós! Ao preencher os dados, você autoriza receber os conteúdos da Câmara Municipal de São Paulo.', 'camara-hotsite' ); ?>
             </p>
@@ -339,22 +339,13 @@ if ( ! isset( $guia_feedback_status ) ) {
         </header>
         <div class="visitas-topic__content">
             <p><?php esc_html_e( 'Esteve no Palácio Anchieta? Preencha o formulário e nos ajude a melhorar ainda mais o nosso atendimento ao cidadão.', 'camara-hotsite' ); ?></p>
-            <?php if ( 'success' === $guia_feedback_status ) : ?>
-                <div class="form-alert form-alert--success" role="status" aria-live="polite">
-                    <?php esc_html_e( 'Recebemos sua manifestação! Obrigado pelo retorno.', 'camara-hotsite' ); ?>
-                </div>
-            <?php elseif ( 'error' === $guia_feedback_status ) : ?>
-                <div class="form-alert form-alert--error" role="alert" aria-live="assertive">
-                    <?php esc_html_e( 'Não foi possível enviar sua manifestação. Tente novamente em instantes.', 'camara-hotsite' ); ?>
-                </div>
-            <?php endif; ?>
             <form class="visitas-form visitas-form--light" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
                 <?php wp_nonce_field( 'camara_contact_form', 'camara_contact_form_nonce' ); ?>
                 <input type="hidden" name="action" value="camara_contact_form">
                 <input type="hidden" name="camara_form_id" value="guia-manifestacao">
                 <input type="hidden" name="camara_form_context" value="<?php esc_attr_e( 'Manifestação', 'camara-hotsite' ); ?>">
                 <input type="hidden" name="camara_status_param" value="guia-feedback-status">
-                <input type="hidden" name="camara_redirect_to" value="<?php echo esc_url( get_permalink() ); ?>">
+                <input type="hidden" name="camara_redirect_to" value="<?php echo esc_url( get_permalink() . '#guia-manifestacao' ); ?>">
                 <input type="hidden" name="lgpd_consent" value="1">
                 <div class="visitas-form__row">
                     <label for="guia-feedback-nome"><?php esc_html_e( 'Nome:', 'camara-hotsite' ); ?></label>
@@ -382,6 +373,15 @@ if ( ! isset( $guia_feedback_status ) ) {
                     </button>
                 </div>
             </form>
+            <?php if ( 'success' === $guia_feedback_status ) : ?>
+                <div class="form-alert form-alert--success" role="status" aria-live="polite">
+                    <?php esc_html_e( 'Recebemos sua manifestação! Obrigado pelo retorno.', 'camara-hotsite' ); ?>
+                </div>
+            <?php elseif ( 'error' === $guia_feedback_status ) : ?>
+                <div class="form-alert form-alert--error" role="alert" aria-live="assertive">
+                    <?php esc_html_e( 'Não foi possível enviar sua manifestação. Tente novamente em instantes.', 'camara-hotsite' ); ?>
+                </div>
+            <?php endif; ?>
             <p class="visitas-form__note">
                 <?php esc_html_e( 'O seu contato é muito importante para nós! Ao preencher os dados, você autoriza receber os conteúdos da Câmara Municipal de São Paulo.', 'camara-hotsite' ); ?>
             </p>

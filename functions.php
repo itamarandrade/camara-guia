@@ -23,8 +23,8 @@ add_action('after_setup_theme', 'camara_setup');
 function camara_scripts() {
     $version = wp_get_theme()->get('Version');
     wp_enqueue_style('adobe-fonts', 'https://use.typekit.net/qlv7cqp.css', [], null);
-    wp_enqueue_style('camara-style', get_template_directory_uri() . '/assets/css/style.css', ['adobe-fonts'], $version);
-    wp_enqueue_script('camara-theme', get_template_directory_uri() . '/assets/js/theme.js', [], $version, true);
+    wp_enqueue_style('camara-style', get_template_directory_uri() . '/library/css/style.css', ['adobe-fonts'], $version);
+    wp_enqueue_script('camara-theme', get_template_directory_uri() . '/library/js/theme.js', [], $version, true);
 }
 add_action('wp_enqueue_scripts', 'camara_scripts');
 
@@ -769,13 +769,13 @@ function camara_admin_settings_assets( $hook ) {
     wp_enqueue_media();
     wp_enqueue_style(
         'camara-admin-settings',
-        get_template_directory_uri() . '/assets/css/admin-settings.css',
+        get_template_directory_uri() . '/library/css/admin-settings.css',
         [],
         $version
     );
     wp_enqueue_script(
         'camara-admin-settings',
-        get_template_directory_uri() . '/assets/js/admin-settings.js',
+        get_template_directory_uri() . '/library/js/admin-settings.js',
         [],
         $version,
         true
@@ -824,8 +824,17 @@ function camara_handle_contact_form() {
     $message = $message_field ? sanitize_textarea_field( wp_unslash( $message_field ) ) : '';
     $reason  = $reason_field ? sanitize_textarea_field( wp_unslash( $reason_field ) ) : '';
 
-    $consent  = isset( $_POST['lgpd_consent'] ) ? __( 'Sim', 'camara-hotsite' ) : __( 'Não informado', 'camara-hotsite' );
-    $recipient = apply_filters( 'camara_contact_form_recipient', 'comunicacaoexterna@saopaulo.sp.leg.br', $form_id );
+    $consent = isset( $_POST['lgpd_consent'] ) ? __( 'Sim', 'camara-hotsite' ) : __( 'Não informado', 'camara-hotsite' );
+
+    $form_recipient_map = [
+        'visitas-tecnicas'    => 'cerimonial@saopaulo.sp.leg.br',
+        'guia-acessibilidade' => 'gt-acessibilidade@saopaulo.sp.leg.br',
+        'guia-manifestacao'   => 'comunicacaoexterna@saopaulo.sp.leg.br',
+    ];
+
+    $default_recipient = isset( $form_recipient_map[ $form_id ] ) ? $form_recipient_map[ $form_id ] : 'comunicacaoexterna@saopaulo.sp.leg.br';
+
+    $recipient = apply_filters( 'camara_contact_form_recipient', $default_recipient, $form_id, $form_context );
 
     $email_lines = [
         sprintf( __( 'Formulário: %s', 'camara-hotsite' ), $form_context ),

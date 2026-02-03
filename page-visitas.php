@@ -139,22 +139,13 @@ $visitas_status = isset( $_GET['visitas-status'] ) ? sanitize_text_field( wp_uns
                             );
                             ?>
                         </p>
-                        <?php if ( 'success' === $visitas_status ) : ?>
-                            <div class="form-alert form-alert--success" role="status" aria-live="polite">
-                                <?php esc_html_e( 'Recebemos seus dados! Em breve retornaremos o contato.', 'camara-hotsite' ); ?>
-                            </div>
-                        <?php elseif ( 'error' === $visitas_status ) : ?>
-                            <div class="form-alert form-alert--error" role="alert" aria-live="assertive">
-                                <?php esc_html_e( 'Não foi possível enviar seus dados. Tente novamente em instantes.', 'camara-hotsite' ); ?>
-                            </div>
-                        <?php endif; ?>
                         <form class="visitas-form visitas-form--light" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
                             <?php wp_nonce_field( 'camara_contact_form', 'camara_contact_form_nonce' ); ?>
                             <input type="hidden" name="action" value="camara_contact_form">
                             <input type="hidden" name="camara_form_id" value="visitas-tecnicas">
                             <input type="hidden" name="camara_form_context" value="<?php esc_attr_e( 'Visitas técnicas', 'camara-hotsite' ); ?>">
                             <input type="hidden" name="camara_status_param" value="visitas-status">
-                            <input type="hidden" name="camara_redirect_to" value="<?php echo esc_url( get_permalink() ); ?>">
+                            <input type="hidden" name="camara_redirect_to" value="<?php echo esc_url( get_permalink() . '#visitas-tecnicas' ); ?>">
                             <input type="hidden" name="lgpd_consent" value="1">
                             <div class="visitas-form__row">
                                 <label for="visitas-nome"><?php esc_html_e( 'Nome:', 'camara-hotsite' ); ?></label>
@@ -174,6 +165,15 @@ $visitas_status = isset( $_GET['visitas-status'] ) ? sanitize_text_field( wp_uns
                                 </button>
                             </div>
                         </form>
+                        <?php if ( 'success' === $visitas_status ) : ?>
+                            <div class="form-alert form-alert--success" role="status" aria-live="polite">
+                                <?php esc_html_e( 'Recebemos seus dados! Em breve retornaremos o contato.', 'camara-hotsite' ); ?>
+                            </div>
+                        <?php elseif ( 'error' === $visitas_status ) : ?>
+                            <div class="form-alert form-alert--error" role="alert" aria-live="assertive">
+                                <?php esc_html_e( 'Não foi possível enviar seus dados. Tente novamente em instantes.', 'camara-hotsite' ); ?>
+                            </div>
+                        <?php endif; ?>
                         <p class="visitas-form__note">
                             <?php esc_html_e( 'O seu contato é muito importante para nós! Ao preencher os dados, você autoriza receber os conteúdos da Câmara Municipal de São Paulo.', 'camara-hotsite' ); ?>
                         </p>

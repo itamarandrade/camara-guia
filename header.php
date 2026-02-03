@@ -74,7 +74,7 @@
                     $logo_src = wp_get_attachment_image_url( $logo_id, 'full' );
                 }
             ?>
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="logo-link">
+            <a href="https://www.saopaulo.sp.leg.br/" class="logo-link" target="_blank" rel="noreferrer">
                 <?php if ( $logo_src ) : ?>
                     <img src="<?php echo esc_url( $logo_src ); ?>" class="logo" alt="<?php echo esc_attr( get_bloginfo('name') ); ?>">
                 <?php else : ?>

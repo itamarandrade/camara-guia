@@ -661,8 +661,9 @@ body.external-links-panel-open {
     position: relative;
     font-size: 1.05rem;
     line-height: 1.8;
-    max-width: 760px;
-    margin-right: clamp(20px, 6vw, 90px);
+    max-width: 100%;
+    width: 100%;
+    margin-right: 0;
     display: grid;
     grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
     gap: clamp(16px, 2.5vw, 32px);

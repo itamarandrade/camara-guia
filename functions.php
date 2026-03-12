@@ -22,8 +22,8 @@ add_action('after_setup_theme', 'camara_setup');
 
 function camara_scripts() {
     $version = wp_get_theme()->get('Version');
-    wp_enqueue_style('adobe-fonts', 'https://use.typekit.net/qlv7cqp.css', [], null);
-    wp_enqueue_style('camara-style', get_template_directory_uri() . '/library/css/style.css', ['adobe-fonts'], $version);
+    wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap', [], null);
+    wp_enqueue_style('camara-style', get_template_directory_uri() . '/library/css/style.css', ['google-fonts'], $version);
     wp_enqueue_script('camara-theme', get_template_directory_uri() . '/library/js/theme.js', [], $version, true);
 }
 add_action('wp_enqueue_scripts', 'camara_scripts');

@@ -212,16 +212,20 @@
                             <input type="hidden" name="camara_status_param" value="contact-status">
                                 <input type="hidden" name="camara_redirect_to" value="<?php echo esc_url( home_url( '/#contato' ) ); ?>">
                             <div class="visitas-form__row">
-                                <label for="contact-name"><?php esc_html_e('Nome', 'camara-hotsite'); ?></label>
+                                <label for="contact-name"><?php esc_html_e('Nome:', 'camara-hotsite'); ?></label>
                                 <input type="text" id="contact-name" name="nome" required>
                             </div>
                             <div class="visitas-form__row">
-                                <label for="contact-phone"><?php esc_html_e('Telefone', 'camara-hotsite'); ?></label>
+                                <label for="contact-phone"><?php esc_html_e('Telefone:', 'camara-hotsite'); ?></label>
                                 <input type="tel" id="contact-phone" name="telefone">
                             </div>
                             <div class="visitas-form__row">
-                                <label for="contact-email"><?php esc_html_e('E-mail', 'camara-hotsite'); ?></label>
+                                <label for="contact-email"><?php esc_html_e('E-mail:', 'camara-hotsite'); ?></label>
                                 <input type="email" id="contact-email" name="email" required>
+                            </div>
+                            <div class="visitas-form__row">
+                                <label for="contact-mensagem"><?php esc_html_e('Mensagem:', 'camara-hotsite'); ?></label>
+                                <textarea id="contact-mensagem" name="mensagem"></textarea>
                             </div>
                             <div class="visitas-form__consent">
                                 <input type="checkbox" id="contact-lgpd" name="lgpd_consent" value="1" required>

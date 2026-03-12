@@ -158,6 +158,10 @@ $visitas_status = isset( $_GET['visitas-status'] ) ? sanitize_text_field( wp_uns
                                 <label for="visitas-email"><?php esc_html_e( 'E-mail:', 'camara-hotsite' ); ?></label>
                                 <input type="email" id="visitas-email" name="email" required>
                             </div>
+                            <div class="visitas-form__row">
+                                <label for="visitas-mensagem"><?php esc_html_e( 'Mensagem:', 'camara-hotsite' ); ?></label>
+                                <textarea id="visitas-mensagem" name="mensagem"></textarea>
+                            </div>
                             <div class="visitas-form__consent">
                                 <input type="checkbox" id="visitas-lgpd" name="lgpd_consent" value="1" required>
                                 <label for="visitas-lgpd">
